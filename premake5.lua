@@ -1,57 +1,18 @@
-project "Makeshift"
-	kind "StaticLib"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "off"
+workspace "Project"
+	architecture "x86_64"
 
-	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
-
-	files
+	configurations
 	{
-		"src/**.h",
-		"src/**.cpp",
-		"src/**.hpp",
-		"dependencies/**.c",
-		"dependencies/**.h",
-		"dependencies/**.cpp"
+		"Debug",
+		"PreRelease",
+		"Release"
 	}
 
-	defines
+	flags
 	{
-		"_CRT_SECURE_NO_WARNINGS"
+		"MultiProcessorCompile"
 	}
 
-	libdirs
-	{
-		"%{wks.location}/dependencies/lib"
-	}
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-	includedirs
-	{
-		"src",
-		"%{wks.location}/dependencies/include",
-		"%{wks.location}/dependencies/include/imgui"
-	}
-
-	links
-	{
-		"glfw3.lib",
-		"opengl32.lib"
-	}
-
-	
-	filter "configurations:Debug"
-		defines "CFG_DEBUG"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:PreRelease"
-		defines "CFG_PRE_RELEASE"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Release"
-		defines "CFG_RELEASE"
-		runtime "Release"
-		optimize "on"
+include "Makeshift"
