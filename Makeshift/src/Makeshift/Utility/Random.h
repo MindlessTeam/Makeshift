@@ -5,27 +5,18 @@
 
 #pragma once
 
-#include <vector>
-
 namespace Makeshift
 {
-
-	struct Entity;
-
-	class Level
+	namespace Util
 	{
 
-	public:
-		Level() {}
-		~Level() = default;
+		struct Random
+		{
 
-		void update();
+			static int generateRandomInt();
+			static int generateRandomIntRange(int min, int max);
 
-	private:
-		std::vector<Entity*> m_Entities;
+		};
 
-		int generateID();
-
-	};
-
+	}
 }

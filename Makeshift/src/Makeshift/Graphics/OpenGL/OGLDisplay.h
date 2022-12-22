@@ -5,27 +5,19 @@
 
 #pragma once
 
-#include <vector>
+#include "Makeshift/Graphics/Display.h"
 
 namespace Makeshift
 {
-
-	struct Entity;
-
-	class Level
+	namespace OGL
 	{
 
-	public:
-		Level() {}
-		~Level() = default;
+		class OpenGLDisplay : public Display
+		{
 
-		void update();
 
-	private:
-		std::vector<Entity*> m_Entities;
 
-		int generateID();
+		};
 
-	};
-
+	}
 }

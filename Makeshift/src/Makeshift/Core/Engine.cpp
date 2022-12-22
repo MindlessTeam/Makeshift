@@ -3,29 +3,26 @@
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
-#pragma once
-
-#include <vector>
+#include "Engine.h"
 
 namespace Makeshift
 {
 
-	struct Entity;
+	Engine* Engine::s_Instance = nullptr;
 
-	class Level
+	void Engine::run()
 	{
 
-	public:
-		Level() {}
-		~Level() = default;
+		if (s_Instance != nullptr)
+			return;
 
-		void update();
+		s_Instance;
 
-	private:
-		std::vector<Entity*> m_Entities;
+		while (true)
+		{
 
-		int generateID();
+		}
 
-	};
+	}
 
 }

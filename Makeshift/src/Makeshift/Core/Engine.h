@@ -5,26 +5,23 @@
 
 #pragma once
 
-#include <vector>
-
 namespace Makeshift
 {
 
-	struct Entity;
-
-	class Level
+	class Engine
 	{
 
 	public:
-		Level() {}
-		~Level() = default;
+		Engine() {}
+		virtual ~Engine() = default;
 
-		void update();
+		void run();
+
+	public:
+		static Engine& getInstance() { return *s_Instance; }
 
 	private:
-		std::vector<Entity*> m_Entities;
-
-		int generateID();
+		static Engine* s_Instance;
 
 	};
 

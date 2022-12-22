@@ -3,29 +3,16 @@
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
-#pragma once
-
-#include <vector>
+#include "Display.h"
 
 namespace Makeshift
 {
 
-	struct Entity;
-
-	class Level
+	Display* Display::create()
 	{
 
-	public:
-		Level() {}
-		~Level() = default;
+		
 
-		void update();
-
-	private:
-		std::vector<Entity*> m_Entities;
-
-		int generateID();
-
-	};
+	}
 
 }
