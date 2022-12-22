@@ -5,13 +5,19 @@
 
 #include "Display.h"
 
+#include <GLFW/glfw3.h>
+
 namespace Makeshift
 {
 
-	Display* Display::create()
+	void Display::createDisplay()
 	{
 
-		
+		glfwInit();
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	}
 
