@@ -21,7 +21,7 @@ namespace Makeshift
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-		glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); // TODO: handle window settings
+		glfwWindowHint(GLFW_DECORATED, GLFW_TRUE); // TODO: handle window settings
 
 		m_Window = glfwCreateWindow(1280, 720, "MAKESHIFT", nullptr, nullptr);
 
@@ -42,6 +42,9 @@ namespace Makeshift
 	void Display::clear()
 	{
 
+		// TEMP -------------------
+		glfwPollEvents();
+		// ------------------------
 		glClear(GL_COLOR_BUFFER_BIT);
 
 	}
