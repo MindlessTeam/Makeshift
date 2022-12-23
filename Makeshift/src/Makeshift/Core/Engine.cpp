@@ -16,12 +16,24 @@ namespace Makeshift
 		if (s_Instance != nullptr)
 			return;
 
-		s_Instance;
+		s_Instance = this;
 
-		while (true)
+		// Initialize the pointers
+		m_Display = new Display();
+
+		// Begin Initialization
+		m_Display->createDisplay();
+
+		// Game Loop
+		while (m_Display->isActive())
 		{
+			m_Display->clear();
 
+			m_Display->swapBuffers();
 		}
+
+		// Shut-Down
+		m_Display->closeDisplay();
 
 	}
 

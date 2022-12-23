@@ -12,6 +12,11 @@ namespace Makeshift
 
 	struct Entity;
 
+	// Level
+	// --------------------------------------------
+	// Class representing a game level, contains a
+	// vector of entities, as well as a variety of 
+	// functions to manage entities.
 	class Level
 	{
 
@@ -20,6 +25,9 @@ namespace Makeshift
 		~Level() = default;
 
 		void update();
+
+	public:
+		//TODO: Entity functions!
 
 	private:
 		std::vector<Entity*> m_Entities;
