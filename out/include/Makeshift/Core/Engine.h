@@ -10,6 +10,10 @@
 namespace Makeshift
 {
 
+	// Makeshift Engine
+	// --------------------------------------------
+	// Application base class, all Makeshift applications
+	// are built on-top of this.
 	class Engine
 	{
 

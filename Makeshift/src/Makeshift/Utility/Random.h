@@ -10,6 +10,9 @@ namespace Makeshift
 	namespace Util
 	{
 
+		// Random
+		// --------------------------------------------
+		// Utility for generating random numbers.
 		struct Random
 		{
 
