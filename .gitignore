@@ -1,6 +1,5 @@
 /.vs
-/out/bin
-/out/obj
+/out
 
 *.sln
 *.vcxproj
