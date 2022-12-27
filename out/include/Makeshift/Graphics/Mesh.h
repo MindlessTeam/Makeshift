@@ -10,6 +10,10 @@
 #include <vector>
 #include <glm/vec3.hpp>
 
+//MAYHAPS:
+// Move this to the Resource folder since it is 
+// essentially a resource...
+
 namespace Makeshift
 {
 

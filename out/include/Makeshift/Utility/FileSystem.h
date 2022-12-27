@@ -5,10 +5,13 @@
 
 #pragma once
 
+#include "Makeshift/Graphics/Mesh.h"
+
 #include <string>
 
 namespace Makeshift
 {
+
 	namespace Util
 	{
 
@@ -32,8 +35,14 @@ namespace Makeshift
 		{
 
 			static bool dirExist(const std::string& path);
-
 			static std::string loadRawText(const std::string& path);
+
+		public: // Loading
+			static Mesh loadRawMesh(const std::string& path);
+			static Mesh loadMesh(const std::string& path);
+
+		public: // Saving
+			static void exportMesh(Mesh mesh, std::string path);
 
 		};
 

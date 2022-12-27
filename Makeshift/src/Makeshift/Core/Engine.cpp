@@ -5,6 +5,8 @@
 
 #include "Engine.h"
 
+#include "Makeshift/Debug/Log.h"
+
 namespace Makeshift
 {
 
@@ -17,12 +19,17 @@ namespace Makeshift
 			return;
 
 		s_Instance = this;
+		Log::init();
 
 		// Initialize the pointers
 		m_Display = new Display();
 
 		// Begin Initialization
 		m_Display->createDisplay();
+
+		Log::log("It's beginning!");
+		Log::log(LEVEL_WARN, "I'm serious, it's starting now!");
+		Log::log(LEVEL_ERROR, "Makeshift::Engine::run()", "You're not believing me, are you? Well HERE IT COMES!");
 
 		// Game Loop
 		while (m_Display->isActive())

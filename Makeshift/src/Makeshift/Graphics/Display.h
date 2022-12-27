@@ -15,7 +15,15 @@ namespace Makeshift
 	// Display Configuration
 	struct DisplaySettings
 	{
-		//TODO
+		enum WindowMode
+		{
+			WINDOWED,
+			FULLSCREEN
+		}; // Since glfw automatically creates a borderless fulscreen window
+		// when possible, this could (should perhaps) be represented by a bool...
+
+		int width, height; // Vec2 maybe?
+		WindowMode mode;
 	};
 
 	// Display

@@ -33,6 +33,9 @@ namespace Makeshift
 
 		virtual void execute() = 0;
 
+	private: // These functions are private because they are not
+		// meant to be accessed externally, that is the job of the
+		// enable() and disable() functions. 
 		virtual void onEnable() = 0;
 		virtual void onDisable() = 0;
 

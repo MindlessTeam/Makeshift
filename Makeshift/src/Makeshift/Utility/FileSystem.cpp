@@ -7,8 +7,14 @@
 
 #include <fstream>
 #include <sstream>
+#include <strstream>
+
 #include <unordered_map>
+
+#define TINYOBJLOADER_IMPLEMENTATION
 #include <tiny_obj_loader.h>
+
+#include <glm/gtx/hash.hpp>
 
 namespace Makeshift
 {
@@ -134,6 +140,8 @@ namespace Makeshift
 				input.read(reinterpret_cast<char*>(&vertices[0]), sizeof(glm::vec3) * vertexCount);
 				input.read(reinterpret_cast<char*>(&indices[0]), sizeof(uint32_t) * indexCount);
 			}
+
+			return Mesh{ vertices, indices };
 
 		}
 

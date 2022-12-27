@@ -59,6 +59,9 @@ namespace Makeshift
 	bool Display::isActive()
 	{
 
+		if (glfwGetWindowAttrib(m_Window, GLFW_ICONIFIED))
+			return false;
+
 		return !glfwWindowShouldClose(m_Window);
 
 	}
