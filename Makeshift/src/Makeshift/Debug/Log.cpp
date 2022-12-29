@@ -29,73 +29,11 @@ namespace Makeshift
 
 		s_Logger = std::make_shared<spdlog::logger>("MAKESHIFT", sinkList.begin(), sinkList.end());
 
-		s_Logger->set_pattern("%^[%L]%$: %v");
-#ifdef CFG_DEBUG
+		s_Logger->set_pattern("%^[%L]%$: %v"); // e.g. [I]: Lorem ipsum
+
 		s_Logger->set_level(spdlog::level::trace);
-#else
-		s_Logger->set_level(spdlog::level::warn);
-#endif
 
 		s_Logger->log(spdlog::level::info, "SPDLOG initialized!");
-
-	}
-
-	void Log::log(const std::string& msg)
-	{
-
-		s_Logger->log(spdlog::level::info, msg);
-
-	}
-
-	void Log::log(LogLevel level, const std::string& msg)
-	{
-
-		switch (level)
-		{
-		case LogLevel::LEVEL_TRACE:
-			s_Logger->log(spdlog::level::trace, msg);
-			break;
-		case LogLevel::LEVEL_INFO:
-			s_Logger->log(spdlog::level::info, msg);
-			break;
-		case LogLevel::LEVEL_WARN:
-			s_Logger->log(spdlog::level::warn, msg);
-			break;
-		case LogLevel::LEVEL_ERROR:
-			s_Logger->log(spdlog::level::err, msg);
-			break;
-		case LogLevel::LEVEL_FATAL:
-			s_Logger->log(spdlog::level::critical, msg);
-			s_Logger->flush();
-			throw(std::runtime_error("FATAL ERROR!"));
-			break;
-		}
-
-	}
-
-	void Log::log(LogLevel level, const std::string& source, const std::string& msg)
-	{
-
-		switch (level)
-		{
-		case LogLevel::LEVEL_TRACE:
-			s_Logger->log(spdlog::level::trace, source + ": " + msg);
-			break;
-		case LogLevel::LEVEL_INFO:
-			s_Logger->log(spdlog::level::info, source + ": " + msg);
-			break;
-		case LogLevel::LEVEL_WARN:
-			s_Logger->log(spdlog::level::warn, source + ": " + msg);
-			break;
-		case LogLevel::LEVEL_ERROR:
-			s_Logger->log(spdlog::level::err, source + ": " + msg);
-			break;
-		case LogLevel::LEVEL_FATAL:
-			s_Logger->log(spdlog::level::critical, source + ": " + msg);
-			s_Logger->flush();
-			throw(std::runtime_error("FATAL ERROR!"));
-			break;
-		}
 
 	}
 

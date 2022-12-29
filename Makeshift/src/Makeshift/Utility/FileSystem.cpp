@@ -5,6 +5,8 @@
 
 #include "FileSystem.h"
 
+#include "Makeshift/Debug/Log.h"
+
 #include <fstream>
 #include <sstream>
 #include <strstream>
@@ -39,11 +41,14 @@ namespace Makeshift
 			return lLoc;
 		}
 
+
 		// See StackOverflow:
 		// https://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exists-using-standard-c-c11-14-17-c
 		bool FileSystem::dirExist(const std::string& path)
 		{
+			DEBUG_TRACE("Makeshift::Util::FileSystem::dirExist()");
 
+			DEBUG_INFO("Checking if directory {} exists...", path);
 			struct stat buffer;
 			return(stat(path.c_str(), &buffer) == 0);
 
@@ -51,7 +56,9 @@ namespace Makeshift
 
 		std::string FileSystem::loadRawText(const std::string& path)
 		{
+			DEBUG_TRACE("Makeshift::Util::FileSystem::loadRawText()");
 
+			DEBUG_INFO("Loading file {}...", path);
 			std::ifstream input(path, std::ios::in | std::ios::binary);
 			if (input)
 			{
@@ -66,11 +73,15 @@ namespace Makeshift
 				return(content);
 			}
 
+			DEBUG_ERROR("Failed to load {}!", path);
+
 		}
 
 		Mesh FileSystem::loadRawMesh(const std::string& path)
 		{
+			DEBUG_TRACE("Makeshift::Util::FileSystem::loadRawMesh()");
 
+			DEBUG_INFO("Loading obj file {}.obj...", path);
 			std::istringstream sourceStream(loadRawText(path + ".obj"));
 
 			tinyobj::attrib_t attributes;
@@ -88,7 +99,7 @@ namespace Makeshift
 				&sourceStream
 			))
 			{
-				
+				DEBUG_ERROR("Failed to load {}.obj! - {}", path, errors);
 			}
 
 			std::vector<Vertex> vertices;
@@ -122,7 +133,9 @@ namespace Makeshift
 
 		Mesh FileSystem::loadMesh(const std::string& path)
 		{
-
+			DEBUG_TRACE("Makeshift::Util::FileSystem::loadMesh()");
+			
+			DEBUG_INFO("Loading model definition file {}.mdef...", path);
 			std::vector<Vertex> vertices;
 			std::vector<uint32_t> indices; // Does this cause a memory leak?
 
@@ -140,6 +153,10 @@ namespace Makeshift
 				input.read(reinterpret_cast<char*>(&vertices[0]), sizeof(glm::vec3) * vertexCount);
 				input.read(reinterpret_cast<char*>(&indices[0]), sizeof(uint32_t) * indexCount);
 			}
+			else
+			{
+				DEBUG_ERROR("Failed to load {}.mdef!", path);
+			}
 
 			return Mesh{ vertices, indices };
 
@@ -147,7 +164,9 @@ namespace Makeshift
 
 		void FileSystem::exportMesh(Mesh mesh, std::string path)
 		{
+			DEBUG_TRACE("Makeshift::Util::FileSystem::exportMesh()");
 
+			DEBUG_INFO("Exporting model definition file {}.mdef", path);
 			std::ofstream output(path + ".mdef", std::ios::out | std::ios::binary);
 			if (output)
 			{
@@ -169,6 +188,10 @@ namespace Makeshift
 				output.write(reinterpret_cast<const char*>(&meshData.indices[0]), sizeof(uint32_t) * indexCount);
 
 				output.close();
+			}
+			else
+			{
+				DEBUG_ERROR("Failed to open {}.mdef for writing!", path);
 			}
 
 		}

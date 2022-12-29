@@ -5,14 +5,10 @@
 
 #pragma once
 
-#include "Makeshift/Resource/Resource.h"
+#include "Resource.h"
 
 #include <vector>
 #include <glm/vec3.hpp>
-
-//MAYHAPS:
-// Move this to the Resource folder since it is 
-// essentially a resource...
 
 namespace Makeshift
 {
@@ -23,7 +19,7 @@ namespace Makeshift
 	// vertex.
 	struct Vertex
 	{
-		glm::vec3 position;
+		glm::vec3 position; // Will expand...!
 	};
 
 	// Mesh

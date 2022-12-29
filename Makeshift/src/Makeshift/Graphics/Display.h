@@ -49,6 +49,9 @@ namespace Makeshift
 		GLFWwindow* getNativeWindow() { return m_Window; }
 
 	private:
+		static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
+
+	private:
 		GLFWwindow* m_Window;
 
 	};

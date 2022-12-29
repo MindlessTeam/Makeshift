@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Makeshift/Graphics/Mesh.h"
+#include "Makeshift/Resource/Mesh.h"
 
 #include <string>
 

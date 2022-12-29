@@ -10,7 +10,7 @@
 namespace Makeshift
 {
 
-	Engine* Engine::s_Instance = nullptr;
+	Engine* Engine::s_Instance = nullptr; // "Singleton"
 
 	void Engine::run()
 	{
@@ -24,14 +24,10 @@ namespace Makeshift
 		// Initialize the pointers
 		m_Display = new Display();
 
-		// Begin Initialization
+		// Initialization ----------------------------
 		m_Display->createDisplay();
 
-		Log::log("It's beginning!");
-		Log::log(LEVEL_WARN, "I'm serious, it's starting now!");
-		Log::log(LEVEL_ERROR, "Makeshift::Engine::run()", "You're not believing me, are you? Well HERE IT COMES!");
-
-		// Game Loop
+		// Game Loop ---------------------------------
 		while (m_Display->isActive())
 		{
 			m_Display->clear();
@@ -39,7 +35,7 @@ namespace Makeshift
 			m_Display->swapBuffers();
 		}
 
-		// Shut-Down
+		// Shut-Down ---------------------------------
 		m_Display->closeDisplay();
 
 	}
