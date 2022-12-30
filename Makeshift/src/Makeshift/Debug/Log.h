@@ -78,7 +78,7 @@ namespace Makeshift
 // (and probably will) affect the experience.
 // 
 // DEBUG_FATAL:
-// Careful: A fatal error will crash the program!!
+// Careful: A fatal error will crash the program!
 // Fatal errors are only outputted whenever the error is so severe that a
 // crash or a completely ruined experience would be given anyway.
 //
