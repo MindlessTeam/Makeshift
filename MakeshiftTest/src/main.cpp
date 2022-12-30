@@ -2,15 +2,13 @@
 // All code here is temporary
 
 #include <Makeshift/Makeshift.hpp>
-#include <Makeshift/Level/Level.h>
+#include <Makeshift/Debug/Log.h>
 
 class TestEnv : public Makeshift::Engine
 {
 
 	void init() override
 	{
-
-
 
 	}
 
@@ -23,9 +21,6 @@ class TestEnv : public Makeshift::Engine
 	{
 
 	}
-
-private:
-	Makeshift::Level m_Level;
 
 };
 
