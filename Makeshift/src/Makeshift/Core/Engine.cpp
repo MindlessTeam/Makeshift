@@ -27,13 +27,19 @@ namespace Makeshift
 		// Initialization ----------------------------
 		m_Display->createDisplay();
 
+		init();
+
 		// Game Loop ---------------------------------
 		while (m_Display->isActive())
 		{
 			m_Display->clear();
 
+			update();
+
 			m_Display->swapBuffers();
 		}
+
+		cleanUp();
 
 		// Shut-Down ---------------------------------
 		m_Display->closeDisplay();
