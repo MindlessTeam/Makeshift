@@ -27,8 +27,8 @@ class TestEnv : public Makeshift::Engine
 int main()
 {
 
-	TestEnv tenv;
+	TestEnv testenv;
 
-	tenv.run();
+	testenv.run();
 
 }

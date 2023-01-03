@@ -1,11 +1,9 @@
 // ----------------------------------------------
-// Copyright (c) 2022 Aaron Kerker
+// Copyright (c) 2022-2023 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
 #pragma once
-
-#include "Makeshift/Resource/Mesh.h"
 
 #include <string>
 
@@ -38,11 +36,8 @@ namespace Makeshift
 			static std::string loadRawText(const std::string& path);
 
 		public: // Loading
-			static Mesh loadRawMesh(const std::string& path);
-			static Mesh loadMesh(const std::string& path);
 
 		public: // Saving
-			static void exportMesh(Mesh mesh, std::string path);
 
 		};
 
