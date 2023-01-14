@@ -11,19 +11,10 @@ namespace Makeshift
 {
 	// Resource
 	// -----------------------------------------
-	// Base class for all resources.
-	// Contains Data, as well as a way to load
-	// said data. 
+	// Empty base class for all resources. 
+	// A resource contains data.
 	class Resource
 	{
-
-	protected:
-		struct Data;
-
-	public:
-		virtual bool loadData(const std::string& source) = 0;
-
-		virtual Data* getData() = 0;
 
 	};
 
