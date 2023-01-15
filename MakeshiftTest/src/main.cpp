@@ -14,18 +14,18 @@ class TestEnv : public Makeshift::Engine
 	{
 
 		int ID1 = rmap.loadResource<Makeshift::Mesh>("content/mdl/test");
-		DEBUG_INFO("First ID: {}", ID);
+		DEBUG_INFO("First ID: {}", ID1);
 
-		int ID2 = rmap.loadResource<Makeshift::Mesh>("content / mdl / test");
-		DEBUG_INFO("Second ID: {}", ID);
+		int ID2 = rmap.loadResource<Makeshift::Mesh>("content/mdl/test");
+		DEBUG_INFO("Second ID: {}", ID2);
 
 		DEBUG_INFO("Mesh 1: {}, {}",
-			((Makeshift::Mesh*)rmap.getResource(ID1).get())->getData().vertices,
-			((Makeshift::Mesh*)rmap.getResource(ID1).get())->getData().indices);
+			((Makeshift::Mesh*)rmap.getResource(ID1).get())->getData().vertices.size(),
+			((Makeshift::Mesh*)rmap.getResource(ID1).get())->getData().indices.size());
 
 		DEBUG_INFO("Mesh 2: {}, {}",
-			((Makeshift::Mesh*)rmap.getResource(ID2).get())->getData().vertices,
-			((Makeshift::Mesh*)rmap.getResource(ID2).get())->getData().indices);
+			((Makeshift::Mesh*)rmap.getResource(ID2).get())->getData().vertices.size(),
+			((Makeshift::Mesh*)rmap.getResource(ID2).get())->getData().indices.size());
 
 		// I mean...
 		// this system works, but it's horrible to use.
