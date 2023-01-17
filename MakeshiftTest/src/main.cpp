@@ -19,29 +19,11 @@ class TestEnv : public Makeshift::Engine
 		int ID2 = rmap.loadResource<Makeshift::Mesh>("content/mdl/test");
 		DEBUG_INFO("Second ID: {}", ID2);
 
-		DEBUG_INFO("Mesh 1: {}, {}",
-			((Makeshift::Mesh*)rmap.getResource(ID1).get())->getData().vertices.size(),
-			((Makeshift::Mesh*)rmap.getResource(ID1).get())->getData().indices.size());
-
-		DEBUG_INFO("Mesh 2: {}, {}",
-			((Makeshift::Mesh*)rmap.getResource(ID2).get())->getData().vertices.size(),
-			((Makeshift::Mesh*)rmap.getResource(ID2).get())->getData().indices.size());
-
-		// I mean...
-		// this system works, but it's horrible to use.
-		// This will have to change!
-		// 
-		// The problem I am currently facing is that I
-		// want to have a virtual base class for resources
-		// but that WILL NOT work with the current rework idea
-		// I have in mind.
-		// 
-		// That idea being: 
-		// A template ResourceMap class!
-		// I would only have to take care of <T> pointers
-		// which would save me the trouble of the mess
-		// above, but it doesn't allow for a Resource
-		// base class. hrmpf!
+		Makeshift::Mesh* m1 = rmap.getResource<Makeshift::Mesh>(ID1);
+		DEBUG_INFO("Mesh 1: {}, {}", m1->getData().vertices.size(), m1->getData().indices.size());
+		
+		Makeshift::Mesh* m2 = rmap.getResource<Makeshift::Mesh>(ID2);
+		DEBUG_INFO("Mesh 2: {}, {}", m2->getData().vertices.size(), m2->getData().indices.size());
 
 	}
 

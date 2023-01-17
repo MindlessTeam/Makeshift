@@ -8,6 +8,7 @@
 #include "Entity.h"
 
 #include <map>
+#include <memory>
 
 namespace Makeshift
 {
@@ -20,10 +21,10 @@ namespace Makeshift
 	{
 
 	public:
-
+		
 
 	private:
-		std::map<int, Entity*> m_Entities;
+		std::map<int, std::shared_ptr<Entity>> m_Entities;
 
 	};
 

@@ -8,7 +8,6 @@
 #include "Resource.h"
 
 #include <map>
-#include <memory>
 #include <string>
 
 //MAYHAPS:
@@ -58,15 +57,33 @@ namespace Makeshift
 
 		int getID(const std::string& source);
 
-		std::shared_ptr<Resource> getResource(int ID);
-		std::shared_ptr<Resource> getResource(const std::string& source);
-
+		template<typename T>
+		T* getResource(int ID)
+		{
+			for (auto resource = m_Resources.begin(); resource != m_Resources.end(); resource++)
+			{
+				if (resource->second.first == ID)
+				{
+					return dynamic_cast<T*>(resource->second.second);
+				}
+			}
+			return nullptr;
+		}
+		template<typename T>
+		T* getResource(const std::string& source)
+		{
+			auto resource = m_Resources.find(source);
+			if (resource != m_Resources.end())
+			{
+				dynamic_cast<T*>(resource->second.second);
+			}
+			return nullptr;
+		}
 		void unloadResource(int ID);
 		void unloadResource(const std::string& source);
 
 	private:
-		// ID 0 is reserved, allowing the use of "getID() != NULL"
-		std::map<std::string, std::pair<int, std::shared_ptr<Resource>>> m_Resources;
+		std::map<std::string, std::pair<int, Resource*>> m_Resources;
 
 		int generateID();
 

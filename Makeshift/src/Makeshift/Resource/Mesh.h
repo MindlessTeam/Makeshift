@@ -25,7 +25,7 @@ namespace Makeshift
 	// Mesh - Resource
 	// -----------------------------------------
 	// Represents a 3d model
-	struct Mesh : Resource
+	struct Mesh : public Resource
 	{
 
 	public:
@@ -40,6 +40,12 @@ namespace Makeshift
 			m_Data.vertices = vertices;
 			m_Data.indices = indices;
 		}
+		Mesh(Data& data) 
+		{
+			m_Data = data;
+		}
+		~Mesh() = default;
+
 		Data& getData() { return m_Data; }
 
 	private:

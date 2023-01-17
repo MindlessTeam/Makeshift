@@ -77,7 +77,7 @@ namespace Makeshift
 
 		}
 
-		Mesh FileSystem::loadRawMesh(const std::string& path)
+		Mesh::Data FileSystem::loadRawMesh(const std::string& path)
 		{
 			DEBUG_TRACE("Makeshift::Util::FileSystem::loadRawMesh()");
 		
@@ -127,11 +127,15 @@ namespace Makeshift
 				}
 			}
 		
-			return Mesh{ vertices, indices };
+			Mesh::Data data;
+			data.vertices = vertices;
+			data.indices = indices;
+
+			return data;
 			
 		}
 		
-		Mesh FileSystem::loadMesh(const std::string& path)
+		Mesh::Data FileSystem::loadMesh(const std::string& path)
 		{
 			DEBUG_TRACE("Makeshift::Util::FileSystem::loadMesh()");
 			
@@ -158,7 +162,11 @@ namespace Makeshift
 				DEBUG_ERROR("Failed to load {}.mdef!", path);
 			}
 		
-			return Mesh{ vertices, indices };
+			Mesh::Data data;
+			data.vertices = vertices;
+			data.indices = indices;
+
+			return data;
 		
 		}
 		

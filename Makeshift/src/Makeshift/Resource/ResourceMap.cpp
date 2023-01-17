@@ -61,34 +61,6 @@ namespace Makeshift
 
 	}
 
-	std::shared_ptr<Resource> ResourceMap::getResource(int ID)
-	{
-		
-		for (auto resource = m_Resources.begin(); resource != m_Resources.end(); resource++)
-		{
-			if (resource->second.first == ID)
-			{
-				return resource->second.second;
-			}
-		}
-
-		return nullptr;
-
-	}
-
-	std::shared_ptr<Resource> ResourceMap::getResource(const std::string& source)
-	{
-
-		auto resource = m_Resources.find(source);
-		if (resource != m_Resources.end())
-		{
-			return resource->second.second;
-		}
-
-		return nullptr;
-
-	}
-
 	void ResourceMap::unloadResource(int ID)
 	{
 
@@ -123,21 +95,21 @@ template<typename T>
 	int ResourceMap::loadResource<Mesh>(const std::string& source)
 	{
 		DEBUG_TRACE("Makeshift::ResourceMap::loadResource()");
-
+	
 		auto resource = m_Resources.find(source);
 		if (resource != m_Resources.end())
 		{
 			DEBUG_WARN("Resource '{}' is already loaded!", source);
 			return resource->second.first;
 		}
-
+	
 		DEBUG_INFO("Loading Resource '{}'...", source);
 		int ID = generateID();
-
-		m_Resources.insert(std::make_pair(source, std::make_pair(ID, std::make_shared<Resource>(Util::FileSystem::loadMesh(source)))));
-
+	
+		m_Resources.emplace(source, std::make_pair(ID, new Mesh{ Util::FileSystem::loadMesh(source) }));
+	
 		return ID;
-
+	
 	}
 
 }

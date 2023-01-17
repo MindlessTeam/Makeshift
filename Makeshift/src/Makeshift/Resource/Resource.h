@@ -5,8 +5,6 @@
 
 #pragma once
 
-#include <string>
-
 namespace Makeshift
 {
 	// Resource
@@ -15,6 +13,10 @@ namespace Makeshift
 	// A resource contains data.
 	class Resource
 	{
+
+	public:
+		Resource() {};
+		virtual ~Resource() = default;
 
 	};
 
