@@ -15,6 +15,10 @@ namespace Makeshift
 	{
 
 	public:
+		Entity() {}
+		virtual ~Entity() = default;
+
+	public:
 		void init() { onInit(); } // onInit() is a theoretically redundant function,
 								  // but for the sake of consistency the pass-through
 								  // function init() exists. The compiler is gonna 
@@ -25,7 +29,7 @@ namespace Makeshift
 		void enable() { m_IsEnabled = true; onEnable(); }
 		void disable() { m_IsEnabled = false; onDisable(); }
 
-	protected: // could be private, I guess...
+	protected:
 		virtual void onInit() = 0;
 		virtual void onUpdate() = 0;
 

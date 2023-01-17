@@ -68,9 +68,11 @@ namespace Makeshift
 		{
 			if (resource->second.first == ID)
 			{
-				m_Resources.erase(resource->first);
+				m_Resources.erase(resource);
 			}
 		}
+
+		DEBUG_WARN("Attempted to unload non-existant resource {}!", ID);
 
 	}
 
@@ -80,8 +82,10 @@ namespace Makeshift
 		auto resource = m_Resources.find(source);
 		if (resource != m_Resources.end())
 		{
-			m_Resources.erase(resource->first);
+			m_Resources.erase(resource);
 		}
+
+		DEBUG_WARN("Attempted to unload non-existant resource '{}'!", source);
 
 	}
 

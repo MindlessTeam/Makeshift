@@ -48,7 +48,7 @@ namespace Makeshift
 		{
 			DEBUG_TRACE("Makeshift::Util::FileSystem::dirExist()");
 
-			DEBUG_INFO("Checking if directory {} exists...", path);
+			DEBUG_INFO("Checking if directory '{}' exists...", path);
 			struct stat buffer;
 			return(stat(path.c_str(), &buffer) == 0);
 
@@ -58,7 +58,7 @@ namespace Makeshift
 		{
 			DEBUG_TRACE("Makeshift::Util::FileSystem::loadRawText()");
 
-			DEBUG_INFO("Loading file {}...", path);
+			DEBUG_INFO("Loading file '{}'...", path);
 			std::ifstream input(path, std::ios::in | std::ios::binary);
 			if (input)
 			{
@@ -73,7 +73,7 @@ namespace Makeshift
 				return(content);
 			}
 
-			DEBUG_ERROR("Failed to load {}!", path);
+			DEBUG_ERROR("Failed to load '{}'!", path);
 
 		}
 
@@ -81,7 +81,7 @@ namespace Makeshift
 		{
 			DEBUG_TRACE("Makeshift::Util::FileSystem::loadRawMesh()");
 		
-			DEBUG_INFO("Loading obj file {}.obj...", path);
+			DEBUG_INFO("Loading obj file '{}.obj'...", path);
 			std::istringstream sourceStream(loadRawText(path + ".obj"));
 		
 			tinyobj::attrib_t attributes;
@@ -99,7 +99,7 @@ namespace Makeshift
 				&sourceStream
 			))
 			{
-				DEBUG_ERROR("Failed to load {}.obj! - {}", path, errors);
+				DEBUG_ERROR("Failed to load '{}.obj'! - {}", path, errors);
 			}
 		
 			std::vector<Vertex> vertices;
@@ -139,7 +139,7 @@ namespace Makeshift
 		{
 			DEBUG_TRACE("Makeshift::Util::FileSystem::loadMesh()");
 			
-			DEBUG_INFO("Loading model definition file {}.mdef...", path);
+			DEBUG_INFO("Loading model definition file '{}.mdef'...", path);
 			std::vector<Vertex> vertices;
 			std::vector<uint32_t> indices; // Does this cause a memory leak?
 		
@@ -159,7 +159,7 @@ namespace Makeshift
 			}
 			else
 			{
-				DEBUG_ERROR("Failed to load {}.mdef!", path);
+				DEBUG_ERROR("Failed to load '{}.mdef'!", path);
 			}
 		
 			Mesh::Data data;
@@ -174,7 +174,7 @@ namespace Makeshift
 		{
 			DEBUG_TRACE("Makeshift::Util::FileSystem::exportMesh()");
 		
-			DEBUG_INFO("Exporting model definition file {}.mdef", path);
+			DEBUG_INFO("Exporting model definition file '{}.mdef'", path);
 			std::ofstream output(path + ".mdef", std::ios::out | std::ios::binary);
 			if (output)
 			{
@@ -201,7 +201,7 @@ namespace Makeshift
 			}
 			else
 			{
-				DEBUG_ERROR("Failed to open {}.mdef for writing!", path);
+				DEBUG_ERROR("Failed to open '{}.mdef' for writing!", path);
 			}
 		
 		}

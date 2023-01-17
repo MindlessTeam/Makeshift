@@ -8,7 +8,6 @@
 #include "Entity.h"
 
 #include <map>
-#include <memory>
 
 namespace Makeshift
 {
@@ -21,10 +20,31 @@ namespace Makeshift
 	{
 
 	public:
-		
+		void update();
+
+	public:
+		template<typename T>
+		int addEntity();
+
+		template<typename T>
+		T* getEntity(int ID)
+		{
+			for (auto entity = m_Entities.begin(); entity != m_Entities.end(); entity++)
+			{
+				if (entity->first == ID)
+				{
+					return dynamic_cast<T*>(entity->second);
+				}
+			}
+			return nullptr;
+		}
+
+		void removeEntity(int ID);
 
 	private:
-		std::map<int, std::shared_ptr<Entity>> m_Entities;
+		std::map<int, Entity*> m_Entities;
+
+		int generateID();
 
 	};
 
