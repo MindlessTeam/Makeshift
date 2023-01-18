@@ -66,4 +66,11 @@ namespace Makeshift
 
 	}
 
+	void Shader::bind()
+	{
+
+		
+
+	}
+
 }

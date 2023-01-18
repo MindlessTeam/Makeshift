@@ -13,11 +13,15 @@ namespace Makeshift
 	struct StaticProp : public Entity
 	{
 
-		//void onInit() override;
-		//void onUpdate() override;
+		void onInit() override;
+		void onUpdate() override;
 		
-		//void onEnable() override;
-		//void onDisable() override;
+		void onEnable() override;
+		void onDisable() override;
+
+	private:
+		resourceID m_Mesh;
+		resourceID m_Material;
 
 	};
 

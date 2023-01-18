@@ -5,6 +5,8 @@
 
 #pragma once
 
+typedef int resourceID;
+
 namespace Makeshift
 {
 
