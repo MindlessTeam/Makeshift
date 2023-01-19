@@ -50,6 +50,7 @@ namespace Makeshift
 
 	int ResourceMap::getID(const std::string& source)
 	{
+		DEBUG_TRACE("Makeshift::ResourceMap::getID()");
 
 		auto resource = m_Resources.find(source);
 		if (resource != m_Resources.end())
@@ -57,12 +58,14 @@ namespace Makeshift
 			return resource->second.first;
 		}
 
+		DEBUG_WARN("Resource '{}' is not loaded!");
 		return NULL;
 
 	}
 
 	void ResourceMap::unloadResource(int ID)
 	{
+		DEBUG_TRACE("Makeshift::ResourceMap::unloadResource()");
 
 		for (auto resource = m_Resources.begin(); resource != m_Resources.end(); resource++)
 		{
@@ -78,6 +81,7 @@ namespace Makeshift
 
 	void ResourceMap::unloadResource(const std::string& source)
 	{
+		DEBUG_TRACE("Makeshift::ResourceMap::unloadResource()");
 
 		auto resource = m_Resources.find(source);
 		if (resource != m_Resources.end())
@@ -107,7 +111,7 @@ template<typename T>
 			return resource->second.first;
 		}
 	
-		DEBUG_INFO("Loading Resource '{}'...", source);
+		DEBUG_INFO("Lgoading Resource '{}'...", source);
 		int ID = generateID();
 	
 		m_Resources.emplace(source, std::make_pair(ID, std::make_shared<Mesh>(Util::FileSystem::loadMesh(source))));

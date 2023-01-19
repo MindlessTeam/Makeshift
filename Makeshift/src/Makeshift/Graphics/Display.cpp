@@ -60,6 +60,7 @@ namespace Makeshift
 
 	void Display::clear()
 	{
+		//DEBUG_TRACE("Makeshift::Display::clear()");
 
 		// TEMP -------------------
 		glfwPollEvents();
@@ -70,6 +71,7 @@ namespace Makeshift
 
 	void Display::swapBuffers()
 	{
+		//DEBUG_TRACE("Makeshift::Display::swapBuffers()");
 
 		glfwSwapBuffers(m_Window);
 
@@ -77,6 +79,7 @@ namespace Makeshift
 
 	bool Display::isActive()
 	{
+		//DEBUG_TRACE("Makeshift::Display::isActive()");
 
 		if (glfwGetWindowAttrib(m_Window, GLFW_ICONIFIED))
 			return false;

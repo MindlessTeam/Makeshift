@@ -42,6 +42,7 @@ namespace Makeshift
 
 	void Level::update()
 	{
+		DEBUG_TRACE("Makeshift::Level::update()");
 
 		for (auto entity = m_Entities.begin(); entity != m_Entities.end(); entity++)
 		{
@@ -52,6 +53,7 @@ namespace Makeshift
 
 	void Level::removeEntity(int ID)
 	{
+		DEBUG_TRACE("Makeshift::Level::removeEntity()");
 
 		for (auto entity = m_Entities.begin(); entity != m_Entities.end(); entity++)
 		{
