@@ -7,6 +7,7 @@
 
 #include "Entity.h"
 
+#include <memory>
 #include <map>
 
 namespace Makeshift
@@ -27,13 +28,13 @@ namespace Makeshift
 		int addEntity();
 
 		template<typename T>
-		T* getEntity(int ID)
+		std::shared_ptr<T> getEntity(int ID)
 		{
 			for (auto entity = m_Entities.begin(); entity != m_Entities.end(); entity++)
 			{
 				if (entity->first == ID)
 				{
-					return dynamic_cast<T*>(entity->second);
+					return std::dynamic_pointer_cast<T>(entity->second);
 				}
 			}
 			return nullptr;
@@ -42,7 +43,7 @@ namespace Makeshift
 		void removeEntity(int ID);
 
 	private:
-		std::map<int, Entity*> m_Entities;
+		std::map<int, std::shared_ptr<Entity>> m_Entities;
 
 		int generateID();
 
