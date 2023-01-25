@@ -111,7 +111,7 @@ template<typename T>
 			return resource->second.first;
 		}
 	
-		DEBUG_INFO("Lgoading Resource '{}'...", source);
+		DEBUG_INFO("Loading Resource '{}'...", source);
 		int ID = generateID();
 	
 		m_Resources.emplace(source, std::make_pair(ID, std::make_shared<Mesh>(Util::FileSystem::loadMesh(source))));

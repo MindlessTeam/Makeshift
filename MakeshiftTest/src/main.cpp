@@ -19,11 +19,17 @@ class TestEnv : public Makeshift::Engine
 		int ID2 = rmap.loadResource<Makeshift::Mesh>("content/mdl/test");
 		DEBUG_INFO("Second ID: {}", ID2);
 
+		int ID3 = rmap.loadResource<Makeshift::Mesh>("content/mdl/test2");
+		DEBUG_INFO("Third ID: {}", ID3);
+
 		std::shared_ptr<Makeshift::Mesh> m1 = rmap.getResource<Makeshift::Mesh>(ID1);
 		DEBUG_INFO("Mesh 1: {}, {}", m1->getData().vertices.size(), m1->getData().indices.size());
 		
 		std::shared_ptr<Makeshift::Mesh> m2 = rmap.getResource<Makeshift::Mesh>(ID2);
 		DEBUG_INFO("Mesh 2: {}, {}", m2->getData().vertices.size(), m2->getData().indices.size());
+
+		std::shared_ptr<Makeshift::Mesh> m3 = rmap.getResource<Makeshift::Mesh>(ID3);
+		DEBUG_INFO("Mesh 3: {}, {}", m3->getData().vertices.size(), m3->getData().indices.size());
 
 	}
 

@@ -6,6 +6,9 @@
 #pragma once
 
 #include "Makeshift/Graphics/Display.h"
+#include "Makeshift/Core/Input.h"
+
+#include <memory>
 
 namespace Makeshift
 {
@@ -32,7 +35,7 @@ namespace Makeshift
 		static Engine& getInstance() { return *s_Instance; }
 
 	private:
-		Display* m_Display;
+		std::unique_ptr<Display> m_Display;
 
 	private:
 		static Engine* s_Instance;

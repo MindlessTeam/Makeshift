@@ -22,7 +22,7 @@ namespace Makeshift
 		Log::init();
 
 		// Initialize the pointers
-		m_Display = new Display();
+		m_Display = std::make_unique<Display>();
 
 		// Initialization ----------------------------
 		m_Display->createDisplay();
@@ -34,6 +34,7 @@ namespace Makeshift
 		{
 			m_Display->clear();
 
+			Input::pollInput();
 			update();
 
 			m_Display->swapBuffers();

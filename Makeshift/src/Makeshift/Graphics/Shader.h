@@ -21,8 +21,7 @@ namespace Makeshift
 		//TODO: In the future, create constructors with Geometry Shaders, Tesselation, etc.
 		Shader(const std::string& vertexShader, const std::string& fragmentShader);
 
-		void bind();
-		void unbind();
+		void use();
 
 		//TODO: Helper functions for setting uniforms
 

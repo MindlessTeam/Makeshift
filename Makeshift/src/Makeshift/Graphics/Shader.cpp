@@ -64,12 +64,16 @@ namespace Makeshift
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
 
+		// Does this need to happen?
+		delete vertexCode;
+		delete fragmentCode;
+
 	}
 
-	void Shader::bind()
+	void Shader::use()
 	{
 
-		
+		glUseProgram(m_ID);
 
 	}
 
