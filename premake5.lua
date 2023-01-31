@@ -13,9 +13,10 @@ workspace "Project"
 		"MultiProcessorCompile"
 	}
 
-	startproject "MakeshiftTest"
+	startproject "MakeshiftEditor"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 include "Makeshift"
 include "MakeshiftTest"
+include "MakeshiftEditor"
