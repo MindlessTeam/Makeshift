@@ -1,6 +1,4 @@
-@echo off
-
-set src=%~dp0\..\Makeshift\src
+set src=%~dp0\..\MakeshiftEngine\src
 set dst=%~dp0\..\out\include
 
 del /s /q %~dp0\..\out\include\
@@ -18,6 +16,3 @@ del /s %~dp0\..\out\include\*.c
 del /s %~dp0\..\out\include\*.txt
 
 echo All non-.h and non-.hpp files deleted successfully!
-
-PAUSE
-@echo on

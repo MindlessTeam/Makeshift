@@ -26,18 +26,18 @@ project "MakeshiftEngine"
 
 	files 
 	{
-		"src/**.cpp",
-		"src/**.hpp",
-		"src/**.h",
-		"dependencies/**.c",
-		"dependencies/**.h",
-		"dependencies/**.cpp",
-		"dependencies/**.hpp"
+		"MakeshiftEngine/src/**.cpp",
+		"MakeshiftEngine/src/**.hpp",
+		"MakeshiftEngine/src/**.h",
+		"MakeshiftEngine/dependencies/**.c",
+		"MakeshiftEngine/dependencies/**.h",
+		"MakeshiftEngine/dependencies/**.cpp",
+		"MakeshiftEngine/dependencies/**.hpp"
 	}
 
 	includedirs
 	{
-		"src",
+		"MakeshiftEngine/src",
 		"{%wks.location}/dependencies/include"
 	}
 
@@ -84,15 +84,15 @@ project "MakeshiftClient"
 
 	includedirs
 	{
-		"src",
+		"MakeshiftClient/src",
 		"{%wks.location}/out/include"
 	}
 
 	files 
 	{
-		"src/**.cpp",
-		"src/**.hpp",
-		"src/**.h"
+		"MakeshiftClient/src/**.cpp",
+		"MakeshiftClient/src/**.hpp",
+		"MakeshiftClient/src/**.h"
 	}
 
 	filter "configurations:Debug"
@@ -120,16 +120,16 @@ project "MakeshiftApplication"
 
 	includedirs
 	{
-		"src",
+		"MakeshiftApplication/src",
 		"{%wks.location}/dependencies/include",
 		"{%wks.location}/MakeshiftEngine/src"
 	}
 
 	files 
 	{
-		"src/**.cpp",
-		"src/**.hpp",
-		"src/**.h"
+		"MakeshiftApplication/src/**.cpp",
+		"MakeshiftApplication/src/**.hpp",
+		"MakeshiftApplication/src/**.h"
 	}
 
 	links
@@ -161,16 +161,16 @@ project "MakeshiftEditor"
 
 	includedirs
 	{
-		"src",
+		"MakeshiftEditor/src",
 		"{%wks.location}/dependencies/include",
 		"{%wks.location}/MakeshiftEngine/src"
 	}
 
 	files 
 	{
-		"src/**.cpp",
-		"src/**.hpp",
-		"src/**.h"
+		"MakeshiftEditor/src/**.cpp",
+		"MakeshiftEditor/src/**.hpp",
+		"MakeshiftEditor/src/**.h"
 	}
 
 	links
