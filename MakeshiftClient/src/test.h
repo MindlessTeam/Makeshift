@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "pch.h"
+#include "clientAPI.h"
 
 namespace Client
 {

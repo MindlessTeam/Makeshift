@@ -4,3 +4,10 @@
 // ----------------------------------------------
 
 #include <test.h>
+
+int main()
+{
+
+	Client::DLLTest::printSomething();
+
+}

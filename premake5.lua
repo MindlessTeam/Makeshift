@@ -13,6 +13,8 @@ workspace "MakeshiftSDK"
 
 	startproject "MakeshiftApplication"
 
+	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
 ---------------------------------------------------
 
 project "MakeshiftEngine"
@@ -21,6 +23,9 @@ project "MakeshiftEngine"
 
 	kind "StaticLib"
 	language "C++"
+
+	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
 
 	defines { "_CRT_SECURE_NO_WARNINGS" }
 
@@ -38,12 +43,13 @@ project "MakeshiftEngine"
 	includedirs
 	{
 		"MakeshiftEngine/src",
-		"{%wks.location}/dependencies/include"
+		"%{wks.location}/dependencies/include",
+		"%{wks.location}/dependencies/include/imgui"
 	}
 
 	libdirs
 	{
-		"{%wks.location}/dependencies/lib"
+		"%{wks.location}/dependencies/lib"
 	}
 
 	links
@@ -73,8 +79,8 @@ project "MakeshiftClient"
 	kind "SharedLib"
 	language "C++"
 
-	pchheader "pch.h"
-	pchsource "pch.cpp"
+	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
 
 	defines 
 	{ 
@@ -85,7 +91,7 @@ project "MakeshiftClient"
 	includedirs
 	{
 		"MakeshiftClient/src",
-		"{%wks.location}/out/include"
+		"%{wks.location}/MakeshiftEngine/src"
 	}
 
 	files 
@@ -93,6 +99,13 @@ project "MakeshiftClient"
 		"MakeshiftClient/src/**.cpp",
 		"MakeshiftClient/src/**.hpp",
 		"MakeshiftClient/src/**.h"
+	}
+
+	
+	postbuildcommands
+	{
+		"{COPYDIR} ../out/bin/" .. outputdir .. "/MakeshiftClient/  ../out/bin/" .. outputdir .. "/MakeshiftApplication/",
+		"{COPYDIR} ../out/bin/" .. outputdir .. "/MakeshiftClient/  ../out/bin/" .. outputdir .. "/MakeshiftEditor/"
 	}
 
 	filter "configurations:Debug"
@@ -116,13 +129,17 @@ project "MakeshiftApplication"
 	kind "ConsoleApp"
 	language "C++"
 
+	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
+
 	defines { "_CRT_SECURE_NO_WARNINGS" }
 
 	includedirs
 	{
 		"MakeshiftApplication/src",
-		"{%wks.location}/dependencies/include",
-		"{%wks.location}/MakeshiftEngine/src"
+		"%{wks.location}/dependencies/include",
+		"%{wks.location}/MakeshiftEngine/src",
+		"%{wks.location}/MakeshiftClient/src" -- this is temporary
 	}
 
 	files 
@@ -159,11 +176,17 @@ project "MakeshiftEditor"
 	kind "ConsoleApp"
 	language "C++"
 
+	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
+
+	defines { "_CRT_SECURE_NO_WARNINGS" }
+
 	includedirs
 	{
 		"MakeshiftEditor/src",
-		"{%wks.location}/dependencies/include",
-		"{%wks.location}/MakeshiftEngine/src"
+		"%{wks.location}/dependencies/include",
+		"%{wks.location}/MakeshiftEngine/src",
+		"%{wks.location}/MakeshiftClient/src" -- this is temporary as well
 	}
 
 	files 
