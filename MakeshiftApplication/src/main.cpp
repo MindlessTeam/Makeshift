@@ -3,11 +3,9 @@
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
-#include <test.h>
-
 int main()
 {
 
-	Client::DLLTest::printSomething();
+
 
 }

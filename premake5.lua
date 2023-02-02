@@ -58,6 +58,11 @@ project "MakeshiftEngine"
 		"glfw3.lib"
 	}
 
+	postbuildcommands
+	{
+		"../scripts/generateIncludes.bat"
+	}
+
 	filter "configurations:Debug"
 		defines { "CFG_DEBUG" }
 		symbols "On"
@@ -65,9 +70,12 @@ project "MakeshiftEngine"
 	
 	filter "configurations:PreRelease"
 		defines { "CFG_PRERELEASE" }
+		symbols "On"
+		optimize "On"
 		
 	filter "configurations:Release"
 		defines { "CFG_RELEASE" }
+		symbols "Off"
 		optimize "On"
 
 ---------------------------------------------------
@@ -115,9 +123,12 @@ project "MakeshiftClient"
 	
 	filter "configurations:PreRelease"
 		defines { "CFG_PRERELEASE" }
+		symbols "On"
+		optimize "On"
 		
 	filter "configurations:Release"
 		defines { "CFG_RELEASE" }
+		symbols "Off"
 		optimize "On"
 
 ---------------------------------------------------
@@ -138,8 +149,7 @@ project "MakeshiftApplication"
 	{
 		"MakeshiftApplication/src",
 		"%{wks.location}/dependencies/include",
-		"%{wks.location}/MakeshiftEngine/src",
-		"%{wks.location}/MakeshiftClient/src" -- this is temporary
+		"%{wks.location}/MakeshiftEngine/src"
 	}
 
 	files 
@@ -162,9 +172,12 @@ project "MakeshiftApplication"
 	
 	filter "configurations:PreRelease"
 		defines { "CFG_PRERELEASE" }
+		symbols "On"
+		optimize "On"
 		
 	filter "configurations:Release"
 		defines { "CFG_RELEASE" }
+		symbols "Off"
 		optimize "On"
 
 ---------------------------------------------------
@@ -185,8 +198,7 @@ project "MakeshiftEditor"
 	{
 		"MakeshiftEditor/src",
 		"%{wks.location}/dependencies/include",
-		"%{wks.location}/MakeshiftEngine/src",
-		"%{wks.location}/MakeshiftClient/src" -- this is temporary as well
+		"%{wks.location}/MakeshiftEngine/src"
 	}
 
 	files 
@@ -209,7 +221,10 @@ project "MakeshiftEditor"
 	
 	filter "configurations:PreRelease"
 		defines { "CFG_PRERELEASE" }
+		symbols "On"
+		optimize "On"
 		
 	filter "configurations:Release"
 		defines { "CFG_RELEASE" }
+		symbols "Off"
 		optimize "On"
