@@ -18,6 +18,9 @@ namespace Makeshift
 		Resource() {};
 		virtual ~Resource() = default;
 
+	public:
+		virtual static void load(std::string& location) = 0;
+
 	};
 
 }

@@ -24,7 +24,6 @@ namespace Makeshift
 		void update();
 
 	public:
-		template<typename T>
 		int addEntity();
 
 		template<typename T>
@@ -44,6 +43,7 @@ namespace Makeshift
 
 	private:
 		std::map<int, std::shared_ptr<Entity>> m_Entities;
+		// [ID | Entity Data]
 
 		int generateID();
 

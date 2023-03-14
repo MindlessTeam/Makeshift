@@ -37,13 +37,6 @@ namespace Makeshift
 			static bool dirExist(const std::string& path);
 			static std::string loadRawText(const std::string& path);
 
-		public: // Loading
-			static Mesh::Data loadRawMesh(const std::string& path);
-			static Mesh::Data loadMesh(const std::string& path);
-
-		public: // Saving
-			static void exportMesh(Mesh mesh, const std::string& path);
-
 		};
 
 	}

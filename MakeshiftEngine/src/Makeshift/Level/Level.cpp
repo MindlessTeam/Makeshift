@@ -67,10 +67,4 @@ namespace Makeshift
 
 	}
 
-template<typename T>
-	int Level::addEntity()
-	{
-		DEBUG_FATAL("Unimplemented function!");
-	}
-
 }
