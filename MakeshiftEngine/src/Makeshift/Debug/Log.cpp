@@ -14,6 +14,8 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+#include <glad/glad.h>
+
 namespace Makeshift
 {
 
@@ -23,7 +25,7 @@ namespace Makeshift
 	{
 
 		auto consoleSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-		auto fileSink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(Util::FileLocations::logLocation() + "/log.txt", true);
+		auto fileSink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(FileLocations::logLocation() + "/makeshift.log", true);
 
 		spdlog::sinks_init_list sinkList = { fileSink, consoleSink };
 

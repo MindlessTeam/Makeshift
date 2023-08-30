@@ -5,39 +5,41 @@
 
 #pragma once
 
-#include "Makeshift/Resource/Mesh.h"
+#include "Makeshift/Makeshift.hpp"
+#include "Makeshift/Debug/Log.h"
 
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <strstream>
 
 namespace Makeshift
 {
 
-	namespace Util
+	struct FileLocations
 	{
 
-		// File Locations
-		// --------------------------------------------
-		// Utility to quickly retrieve paths.
-		struct FileLocations
-		{
+		static std::string contentLocation();
+		static std::string saveGameLocation();
+		static std::string quickSaveLocation();
+		static std::string modelLocation(bool savegame);
+		static std::string materialLocation(bool savegame);
+		static std::string levelLocation(bool savegame);
+		static std::string fontLocation();
+		static std::string logLocation();
 
-			static std::string& contentLocation();
-			static std::string& modelLocation();
+	};
 
-			static std::string& logLocation();
+	struct FileSystem
+	{
 
-		};
+		static void initFileSystem();
+		static void initSaveGame();
 
-		// File System
-		// --------------------------------------------
-		// Utility for various file-system I/O interactions.
-		struct FileSystem
-		{
+		static bool dirExist(const std::string& path);
+		static bool makeDir(const std::string& path);
+		static bool makeDirComplete(const std::string& path);
 
-			static bool dirExist(const std::string& path);
-			static std::string loadRawText(const std::string& path);
+	};
 
-		};
-
-	}
 }

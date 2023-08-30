@@ -19,12 +19,14 @@ namespace Makeshift
 		{
 			WINDOWED,
 			FULLSCREEN
-		}; // Since glfw automatically creates a borderless fulscreen window
+		}; // Since glfw automatically creates a borderless fullscreen window
 		// when possible, this could (should perhaps) be represented by a bool...
 
 		int width, height; // Vec2 maybe?
 		WindowMode mode;
 	};
+
+	//TODO: Implement Display Settings into Display class
 
 	// Display
 	// --------------------------------------------
@@ -34,7 +36,7 @@ namespace Makeshift
 
 	public:
 		Display() {};
-		~Display() = default;
+		~Display();
 
 	public:
 		void createDisplay();
@@ -42,6 +44,9 @@ namespace Makeshift
 
 		void clear();
 		void swapBuffers();
+
+		void setDisplaySettings(DisplaySettings settings);
+		DisplaySettings& getDisplaySettings();
 
 		bool isActive();
 

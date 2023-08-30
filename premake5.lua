@@ -26,6 +26,7 @@ project "MakeshiftEngine"
 
 	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
+	debugdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 
 	defines { "_CRT_SECURE_NO_WARNINGS" }
 
@@ -37,7 +38,8 @@ project "MakeshiftEngine"
 		"MakeshiftEngine/dependencies/**.c",
 		"MakeshiftEngine/dependencies/**.h",
 		"MakeshiftEngine/dependencies/**.cpp",
-		"MakeshiftEngine/dependencies/**.hpp"
+		"MakeshiftEngine/dependencies/**.hpp",
+		"MakeshiftEngine/dependencies/**.inl"
 	}
 
 	includedirs
@@ -89,6 +91,7 @@ project "MakeshiftClient"
 
 	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
+	debugdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 
 	defines 
 	{ 
@@ -142,6 +145,7 @@ project "MakeshiftApplication"
 
 	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
+	debugdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 
 	defines { "_CRT_SECURE_NO_WARNINGS" }
 
@@ -191,6 +195,7 @@ project "MakeshiftEditor"
 
 	targetdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/out/obj/" .. outputdir .. "/%{prj.name}")
+	debugdir ("%{wks.location}/out/bin/" .. outputdir .. "/%{prj.name}")
 
 	defines { "_CRT_SECURE_NO_WARNINGS" }
 

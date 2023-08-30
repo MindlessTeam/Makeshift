@@ -23,7 +23,7 @@ namespace Makeshift
 
 		// I first have to think of a structure for this system,
 		// I'd quite like to support Mouse, Keyboard, and
-		// Controllers with one understandable system.
+		// Controllers with one understandable(!) system.
 
 	};
 

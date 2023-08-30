@@ -3,21 +3,18 @@
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
-#include "Input.h"
+#include "Mesh.h"
 
-#include "Makeshift/Debug/Log.h"
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <json/json.h>
 
 namespace Makeshift
 {
 
-	void Input::pollInput()
+	void Mesh::load(const std::string& location) 
 	{
-		//DEBUG_TRACE("Makeshift::Input::pollInput()");
 
-		glfwPollEvents();
+
+
 	}
 
 }

@@ -62,7 +62,7 @@ namespace Makeshift
 // sort of input or value outputted to the console. In Makeshift however,
 // that's usually the job of DEBUG_INFO.
 // DEBUG_TRACE is therefore used at the start of a function, which helps
-// to find out in what function an error occurs if no other indication is
+// to find out in what function an error occurs in if no other indication is
 // given.
 // In functions that continously repeat every frame, I'd recommend against
 // using a DEBUG_TRACE because it makes things rather un-nice to read.

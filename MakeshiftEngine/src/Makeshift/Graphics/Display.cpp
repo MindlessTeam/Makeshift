@@ -13,6 +13,14 @@
 namespace Makeshift
 {
 
+
+	Display::~Display()
+	{
+		DEBUG_TRACE("Makeshift::Display::~Display()");
+
+		glfwTerminate();
+	}
+
 	void Display::createDisplay()
 	{
 		DEBUG_TRACE("Makeshift::Display::createDisplay()");
@@ -26,7 +34,7 @@ namespace Makeshift
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // We will NEVER have a resizable window, you understand me?!
-		glfwWindowHint(GLFW_DECORATED, GLFW_TRUE); // TODO: handle window settings
+		glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
 
 		DEBUG_INFO("Creating Window...");
 		m_Window = glfwCreateWindow(1280, 720, "MAKESHIFT", nullptr, nullptr);
@@ -46,6 +54,30 @@ namespace Makeshift
 
 		glfwSetFramebufferSizeCallback(m_Window, framebufferResizeCallback);
 
+		
+
+	}
+
+	void Display::setDisplaySettings(DisplaySettings settings)
+	{
+		
+		if (settings.mode != getDisplaySettings().mode)
+		{
+			//TODO: Window Mode switching
+		}
+
+		glfwSetWindowSize(m_Window, settings.width, settings.height);
+
+	}
+
+	DisplaySettings& Display::getDisplaySettings()
+	{
+
+		DisplaySettings settings;
+		glfwGetWindowSize(m_Window, &settings.width, &settings.height);
+
+		return settings;
+
 	}
 
 	void Display::closeDisplay()
@@ -54,7 +86,6 @@ namespace Makeshift
 
 		DEBUG_INFO("Closing Window...");
 		glfwDestroyWindow(m_Window);
-		glfwTerminate();
 
 	}
 
@@ -62,9 +93,6 @@ namespace Makeshift
 	{
 		//DEBUG_TRACE("Makeshift::Display::clear()");
 
-		// TEMP -------------------
-		glfwPollEvents();
-		// ------------------------
 		glClear(GL_COLOR_BUFFER_BIT);
 
 	}

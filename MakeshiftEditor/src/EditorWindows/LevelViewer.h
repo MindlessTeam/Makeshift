@@ -5,15 +5,19 @@
 
 #pragma once
 
-#ifdef MAKESHIFT_IMGUI
-#pragma message("IMGUI_ENABLED")
-#define IMGUI
-#endif
+#include <filesystem>
 
-#ifdef MAKESHIFT_EDITOR
-#pragma message("EDITOR_ENABLED")
-#define EDITOR
-#endif
+#define MAKESHIFT_EDITOR
 
-#include "Core/Engine.h"
-#include "Core/Event.h"
+namespace MakeshiftEditor
+{
+
+	struct LevelViewer
+	{
+
+	public:
+		void renderIMGUI();
+
+	};
+
+}

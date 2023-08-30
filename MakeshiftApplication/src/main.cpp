@@ -3,9 +3,32 @@
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
+#include <Makeshift/Makeshift.hpp>
+
+class MakeshiftApp : public Makeshift::Engine
+{
+
+	void init() override
+	{
+
+	}
+
+	void update() override
+	{
+
+	}
+
+	void cleanUp() override
+	{
+
+	}
+
+};
+
 int main()
 {
 
-
+	MakeshiftApp app;
+	app.run();
 
 }
