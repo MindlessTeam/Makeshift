@@ -5,15 +5,20 @@
 
 #pragma once
 
-#include "clientAPI.h"
+#include <string>
 
-namespace Client
+namespace MakeshiftEditor
 {
 
-	struct DLLTest
+	struct LevelEditor
 	{
 
-		static CLIENT_API void printSomething();
+		bool enabled = false;
+
+		void renderIMGUI();
+
+	private: 
+		int m_CurrentlyInspecting = 0;
 
 	};
 

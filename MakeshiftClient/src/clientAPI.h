@@ -10,3 +10,13 @@
 #else
 #define CLIENT_API __declspec(dllimport)
 #endif
+
+struct Client
+{
+
+	static CLIENT_API void registerEntities();
+
+	static CLIENT_API void renderIMGUI();
+	static CLIENT_API void clientMenuItems();
+
+};

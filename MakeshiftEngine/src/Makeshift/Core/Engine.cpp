@@ -10,16 +10,15 @@
 #include "Makeshift/Utility/FileSystem.h"
 
 #include "Makeshift/Level/Level.h"
-#include "Makeshift/Level/Test.h"
 
 #include "Makeshift/IO/Input.h"
 
 #include "Makeshift/Graphics/ImGuiRenderer.h"
 
-#include "Makeshift/Resource/Mesh.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include "Makeshift/Level/StaticProp.h"
 
 namespace Makeshift
 {
@@ -46,13 +45,12 @@ namespace Makeshift
 		ImGuiRenderer::initializeImGui();
 
 		// Registering Engine Entities
-		EntityRegistry::registerEntity<Test>();
+		EntityRegistry::registerEntity<StaticProp>();
+		// -------------------------------------------
 
 		m_ActiveLevel = std::make_shared<Level>();
 
 		init();
-
-		m_ResourceMap->addResource<Mesh>("content/mdl/test.json");
 
 		// Game Loop ---------------------------------
 		while (m_Display->isActive())

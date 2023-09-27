@@ -5,18 +5,26 @@
 
 #pragma once
 
-#include <filesystem>
+#include <string>
 
-#define MAKESHIFT_EDITOR
+#include <Makeshift/Resource/Mesh.h>
 
 namespace MakeshiftEditor
 {
 
-	struct ResourceViewer
+	struct MeshCreator
 	{
 
-	public:
+		bool enabled = false;
+
 		void renderIMGUI();
+
+	private:
+		std::string m_OBJSourceLocation;
+		std::string m_Location;
+
+		std::vector<Makeshift::Vertex> m_Vertices;
+		std::vector<uint32_t> m_Indices;
 
 	};
 

@@ -24,7 +24,7 @@ namespace Makeshift
 	void Display::createDisplay()
 	{
 		DEBUG_TRACE("Makeshift::Display::createDisplay()");
-		
+
 		DEBUG_INFO("Initializing GLFW...");
 		glfwInit();
 
@@ -45,7 +45,7 @@ namespace Makeshift
 		}
 
 		glfwMakeContextCurrent(m_Window);
-		
+
 		DEBUG_INFO("Initializing GLAD...");
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
@@ -54,13 +54,13 @@ namespace Makeshift
 
 		glfwSetFramebufferSizeCallback(m_Window, framebufferResizeCallback);
 
-		
+
 
 	}
 
 	void Display::setDisplaySettings(DisplaySettings settings)
 	{
-		
+
 		if (settings.mode != getDisplaySettings().mode)
 		{
 			//TODO: Window Mode switching
@@ -75,6 +75,15 @@ namespace Makeshift
 
 		DisplaySettings settings;
 		glfwGetWindowSize(m_Window, &settings.width, &settings.height);
+
+		if (glfwGetWindowMonitor(m_Window) == nullptr)
+		{
+			settings.mode = settings.WINDOWED;
+		} 
+		else
+		{
+			settings.mode = settings.FULLSCREEN;
+		}
 
 		return settings;
 

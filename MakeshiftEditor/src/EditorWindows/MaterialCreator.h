@@ -5,18 +5,26 @@
 
 #pragma once
 
-#include <filesystem>
-
-#define MAKESHIFT_EDITOR
+#include <string>
 
 namespace MakeshiftEditor
 {
 
-	struct LevelViewer
+	struct MaterialCreator
 	{
 
-	public:
+		bool enabled = false;
+
 		void renderIMGUI();
+
+	private:
+		std::string m_VertexText;
+		std::string m_FragmentText;
+		std::string m_ShaderLocation;
+
+		std::string m_Location;
+
+		bool m_CreateNewShader;
 
 	};
 

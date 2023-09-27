@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <filesystem>
+#include <string>
 
 namespace MakeshiftEditor
 {
@@ -13,15 +13,14 @@ namespace MakeshiftEditor
 	struct Explorer
 	{
 
-	public:
-		Explorer();
+		static std::string getFilePath();
+		static std::string getRelativeFilePath();
 
-	public:
-		void renderIMGUI();
+		static std::string getCreatedFilePath();
+		static std::string getRelativeCreatedFilePath();
 
-	private:
-		std::filesystem::path m_CurrentDirectory;
-		std::filesystem::path m_RootDirectory;
+		static std::string getFolderPath();
+		static std::string getRelativeFolderPath();
 
 	};
 

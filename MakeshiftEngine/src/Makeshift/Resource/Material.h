@@ -5,24 +5,37 @@
 
 #pragma once
 
-#include "Resource.h"
+#include <Makeshift/Resource/Resource.h>
+
+#include "Shader.h"
+
+#include <vector>
+#include <memory>
 
 namespace Makeshift
 {
 
-	// Mesh - Resource
-	// -----------------------------------------
-	// Represents a 3d model
-	struct TestRes : public Resource
+
+	//struct MaterialProperty
+	//{
+	//	std::string uniformName;
+	//};
+
+	// Material - Resource
+	// --------------------------------------
+	// <description>
+	struct Material : public Resource
 	{
 
 	public:
 		struct Data
 		{
-			int wow;
+			std::shared_ptr<Shader> shader;
+			//std::vector<MaterialProperty> materialProperties;
 		};
+
 	public:
-		~TestRes() = default;
+		~Material() = default;
 
 		Data& getData() { return m_Data; }
 #ifdef EDITOR
@@ -31,22 +44,17 @@ namespace Makeshift
 
 	public:
 		// Inherited via Resource
-		virtual void load(const std::string& location) override
-		{
-
-		}
+		virtual void load(const std::string& location) override;
 
 #ifdef EDITOR
 		virtual void renderIMGUI() override
 		{
-			ImGui::Text(std::to_string(m_Data.wow));
+
 		}
 #endif
 
 	private:
 		Data m_Data;
-
-
 
 	};
 

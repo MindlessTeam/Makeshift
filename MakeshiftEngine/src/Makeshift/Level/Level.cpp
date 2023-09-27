@@ -32,7 +32,7 @@ namespace Makeshift
 
 		DEBUG_INFO("Adding Entity '{}' to Level...", entity->getName());
 
-		m_EntityMap.emplace(m_Entities, entity);
+		m_EntityMap.emplace(m_Entities, std::make_pair(false, entity));
 		m_Entities++;
 
 		entity->init();
@@ -45,11 +45,9 @@ namespace Makeshift
 		auto entity = m_EntityMap.find(ID);
 		if (entity != m_EntityMap.end())
 		{
-			entity->second->disable();
+			entity->second.second->disable();
 			m_EntityMap.erase(entity);
 		}
-
-
 
 	}
 
@@ -58,7 +56,7 @@ namespace Makeshift
 
 		for each (auto entity in m_EntityMap)
 		{
-			entity.second->update();
+			entity.second.second->update();
 		}
 
 	}
@@ -66,7 +64,16 @@ namespace Makeshift
 	void Level::load(const std::string& location)
 	{
 
-		DEBUG_TRACE("Makeshift::Level::load()");
+	}
+
+	void Level::save(const std::string& location)
+	{
+
+	}
+
+	void Level::loadComplete(const std::string& location)
+	{
+		DEBUG_TRACE("Makeshift::Level::loadComplete()");
 
 		DEBUG_INFO("Loading Level-File '{}'", location);
 
@@ -113,15 +120,15 @@ namespace Makeshift
 			std::shared_ptr<Entity> entity = EntityRegistry::createEntity(entityNode["Type"].asString());
 			entity->deSerialize(entityNode);
 
-			m_EntityMap.emplace(entityID, entity);
+			m_EntityMap.emplace(entityID,std::make_pair(false, entity));
 
 		}
 
 	}
 
-	void Level::save(const std::string& location)
+	void Level::saveComplete(const std::string& location)
 	{
-		DEBUG_TRACE("Makeshift::Level::save()");
+		DEBUG_TRACE("Makeshift::Level::saveComplete()");
 
 		int entityCount = m_Entities;
 
@@ -138,9 +145,9 @@ namespace Makeshift
 
 			Json::Value entityNode;
 
-			entityNode["Type"] = entity.second->getName();
+			entityNode["Type"] = entity.second.second->getName();
 			entityNode["ID"] = entity.first;
-			entity.second->serialize(entityNode);
+			entity.second.second->serialize(entityNode);
 
 			entities.append(entityNode);
 

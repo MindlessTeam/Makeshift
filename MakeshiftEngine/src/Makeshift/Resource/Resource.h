@@ -7,7 +7,6 @@
 
 #include <string>
 #include <imgui/imgui.h>
-#include <fstream>
 
 namespace Makeshift
 {

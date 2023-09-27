@@ -22,6 +22,8 @@ namespace Makeshift
 		}; // Since glfw automatically creates a borderless fullscreen window
 		// when possible, this could (should perhaps) be represented by a bool...
 
+		int fullscreenDisplay = 0;
+
 		int width, height; // Vec2 maybe?
 		WindowMode mode;
 	};
@@ -45,6 +47,7 @@ namespace Makeshift
 		void clear();
 		void swapBuffers();
 
+
 		void setDisplaySettings(DisplaySettings settings);
 		DisplaySettings& getDisplaySettings();
 
@@ -55,6 +58,7 @@ namespace Makeshift
 
 	private:
 		static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
+		//TODO: static void monitorCallback();
 
 	private:
 		GLFWwindow* m_Window;

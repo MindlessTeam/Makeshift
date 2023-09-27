@@ -1,6 +1,7 @@
 workspace "MakeshiftSDK"
 -- Put that SDK in huge quotations 
 	architecture "x86_64"
+	cppdialect "C++17"
 
 	configurations 
 	{ 
@@ -153,6 +154,7 @@ project "MakeshiftApplication"
 	{
 		"MakeshiftApplication/src",
 		"%{wks.location}/dependencies/include",
+		"%{wks.location}/MakeshiftClient/src",
 		"%{wks.location}/MakeshiftEngine/src"
 	}
 
@@ -203,6 +205,7 @@ project "MakeshiftEditor"
 	{
 		"MakeshiftEditor/src",
 		"%{wks.location}/dependencies/include",
+		"%{wks.location}/MakeshiftClient/src",
 		"%{wks.location}/MakeshiftEngine/src"
 	}
 

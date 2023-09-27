@@ -8,9 +8,13 @@
 
 #include <Makeshift/Makeshift.hpp>
 
-#include "EditorWindows/Explorer.h"
-#include "EditorWindows/ResourceViewer.h"
-#include "EditorWindows/LevelViewer.h"
+#include <clientAPI.h>
+
+#include <imgui/imgui.h> 
+
+#include "EditorWindows/MaterialCreator.h"
+#include "EditorWindows/MeshCreator.h"
+#include "EditorWindows/LevelEditor.h"
 
 namespace MakeshiftEditor
 {
@@ -21,13 +25,47 @@ namespace MakeshiftEditor
 		void init() override
 		{
 
+			Client::registerEntities();
+
 		}
 
 		void update() override
 		{
-			m_Explorer.renderIMGUI();
-			m_ResourceViewer.renderIMGUI();
-			m_LevelViewer.renderIMGUI();
+
+			if (ImGui::BeginMainMenuBar())
+			{
+				if (ImGui::BeginMenu("File"))
+				{
+					if(ImGui::MenuItem("New[unimplemented]")) {}
+					if(ImGui::MenuItem("Open[unimplemented]")) {}
+					if(ImGui::MenuItem("Save[unimplemented]")) {}
+
+					ImGui::EndMenu();
+				}
+
+				if (ImGui::BeginMenu("Tools"))
+				{
+					if (ImGui::MenuItem("Material Creator", nullptr, &m_MaterialCreator.enabled)){}
+					if (ImGui::MenuItem("Mesh Creator", nullptr, &m_MeshCreator.enabled)){}
+					if (ImGui::MenuItem("Level Editor", nullptr, &m_LevelEditor.enabled)){}
+					ImGui::EndMenu();
+				}
+
+				if (ImGui::BeginMenu("Client"))
+				{
+					Client::clientMenuItems();
+					ImGui::EndMenu();
+				}
+
+				ImGui::EndMainMenuBar();
+			}
+
+			m_MaterialCreator.renderIMGUI();
+			m_MeshCreator.renderIMGUI();
+			m_LevelEditor.renderIMGUI();
+
+			Client::renderIMGUI();
+
 		}
 
 		void cleanUp() override
@@ -36,12 +74,9 @@ namespace MakeshiftEditor
 		}
 
 	private:
-		Explorer m_Explorer;
-		ResourceViewer m_ResourceViewer;
-		LevelViewer m_LevelViewer;
-
-		static bool s_Explorer;
-		static bool s_ResourceViewer;
+		MaterialCreator m_MaterialCreator;
+		MeshCreator m_MeshCreator;
+		LevelEditor m_LevelEditor;
 
 	};
 

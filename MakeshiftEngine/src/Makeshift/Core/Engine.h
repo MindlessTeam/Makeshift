@@ -37,9 +37,9 @@ namespace Makeshift
 	public:
 		std::shared_ptr<Display> getDisplay() const { return m_Display; }
 		std::shared_ptr<ResourceMap> getResourceMap() const { return m_ResourceMap; }
-		#ifdef EDITOR
+#ifdef EDITOR
 		std::shared_ptr<Level> getActiveLevel() const { return m_ActiveLevel; }
-		#endif // EDITOR
+#endif // EDITOR
 
 
 	public:

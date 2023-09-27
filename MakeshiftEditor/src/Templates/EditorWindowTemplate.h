@@ -3,16 +3,22 @@
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
-#include "test.h"
+#pragma once
 
-#include <iostream>
+#include <string>
 
-namespace Client
+namespace MakeshiftEditor
 {
 
-	void DLLTest::printSomething()
+	struct $itemname$
 	{
-		std::cout << "This is a message from the Client!" << std::endl;
-	}
+
+		bool enabled = false;
+
+		void renderIMGUI();
+
+	private: // Values
+
+	};
 
 }

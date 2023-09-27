@@ -43,20 +43,20 @@ namespace Makeshift
 		std::string& getLevelName() { return m_LevelName; }
 
 	public:
-		#ifdef EDITOR
-		std::unordered_map<uint64_t, std::shared_ptr<Entity>>* getEntityMap() { return &m_EntityMap; }
-		std::string* getLevelNamePointer() { return &m_LevelName; }
-		#endif
+#ifdef EDITOR
+		std::unordered_map<uint64_t, std::pair<bool, std::shared_ptr<Entity>>>* getEntityMap() { return &m_EntityMap; }
+#endif
 
 	private:
-		//void loadSaveData();
+		void loadComplete(const std::string& location);
+		void saveComplete(const std::string& location);
 		
 	private:
 		std::string m_LevelName = "unknown";
 
 	private:
-		std::unordered_map<uint64_t, std::shared_ptr<Entity>> m_EntityMap;
-		// [ ID | Entity ]
+		std::unordered_map<uint64_t, std::pair<bool, std::shared_ptr<Entity>>> m_EntityMap;
+		// [ ID | Save-State | Entity ]
 
 		uint64_t m_Entities;
 
@@ -70,10 +70,12 @@ namespace Makeshift
 		auto entity = m_EntityMap.find(ID);
 		if (entity != m_EntityMap.end)
 		{
-			return std::dynamic_pointer_cast<T>(entity->second());
+			return std::dynamic_pointer_cast<T>(entity->second.second());
 		}
 
-		DEBUG_WARN("Couldn't get Entity with ID: '{}'", ID);
+		T t;
+
+		DEBUG_WARN("Couldn't get Entity '{}' with ID: '{}'", t.getName(), ID);
 		return nullptr;
 		
 	}
