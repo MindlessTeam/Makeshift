@@ -63,8 +63,7 @@ project "MakeshiftEngine"
 
 	postbuildcommands
 	{
-		"../scripts/generateIncludes.bat",
-		"../scripts/copyContent.bat"
+		"../scripts/generateIncludes.bat"
 	}
 
 	filter "configurations:Debug"
