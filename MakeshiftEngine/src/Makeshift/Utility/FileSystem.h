@@ -21,7 +21,6 @@ namespace Makeshift
 
 		static std::string contentLocation();
 		static std::string saveGameLocation();
-		static std::string quickSaveLocation();
 		static std::string modelLocation(bool savegame);
 		static std::string materialLocation(bool savegame);
 		static std::string levelLocation(bool savegame);

@@ -36,29 +36,24 @@ namespace Makeshift
 	public:
 		void update();
 
-		virtual void load(const std::string& location) override;
-		virtual void save(const std::string& location) override;
+		virtual void load(const std::string& location) override; 
+		virtual void save(const std::string& location) override; // unused location parameter
+
+		void loadSaveData();
+		void saveSaveData();
 
 	public:
 		std::string& getLevelName() { return m_LevelName; }
-
-	public:
-#ifdef EDITOR
-		std::unordered_map<uint64_t, std::pair<bool, std::shared_ptr<Entity>>>* getEntityMap() { return &m_EntityMap; }
-#endif
-
-	private:
-		void loadComplete(const std::string& location);
-		void saveComplete(const std::string& location);
 		
+	private:
+		int generateID();
+
 	private:
 		std::string m_LevelName = "unknown";
 
 	private:
 		std::unordered_map<uint64_t, std::pair<bool, std::shared_ptr<Entity>>> m_EntityMap;
 		// [ ID | Save-State | Entity ]
-
-		uint64_t m_Entities;
 
 	};
 
@@ -89,10 +84,6 @@ namespace Makeshift
 
 	public:
 		static std::shared_ptr<Entity> createEntity(std::string name);
-
-		#ifdef EDITOR
-		static std::map<std::string, std::function<std::shared_ptr<Entity>()>>* getRegistry() { return &s_EntityRegistry; }
-		#endif
 
 	private:
 		static std::map<std::string, std::function<std::shared_ptr<Entity>()>> s_EntityRegistry;

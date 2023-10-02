@@ -37,16 +37,14 @@ namespace Makeshift
 	public:
 		std::shared_ptr<Display> getDisplay() const { return m_Display; }
 		std::shared_ptr<ResourceMap> getResourceMap() const { return m_ResourceMap; }
-#ifdef EDITOR
 		std::shared_ptr<Level> getActiveLevel() const { return m_ActiveLevel; }
-#endif // EDITOR
 
 
 	public:
 		int getCurrentSaveGame() { return m_CurrentSaveGame; }
 		void setSaveGame(int number);
 
-		void loadLevel(const std::string& location);
+		void loadLevel(const std::string& name, bool savegame);
 		void quickSave();
 
 		void quit();

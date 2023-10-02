@@ -7,42 +7,44 @@
 
 #include <Makeshift/Resource/Resource.h>
 
-#include "Makeshift/OpenGL/ShaderProgram.h"
+#include "Shader.h"
+
+#include <vector>
+#include <memory>
 
 namespace Makeshift
 {
 
-	// Shader - Resource
+
+	//struct MaterialProperty
+	//{
+	//	std::string uniformName;
+	//};
+
+	// Material - Resource
 	// --------------------------------------
 	// <description>
-	struct Shader : public Resource
+	struct Material : public Resource
 	{
 
 	public:
 		struct Data
 		{
-			std::string vertexShaderSource, fragmentShaderSource; //TODO: Geometry/Compute
-			ShaderProgram shaderProgram;
+			std::shared_ptr<Shader> shader;
+			//std::vector<MaterialProperty> materialProperties;
 		};
 
 	public:
-		~Shader() = default;
+		~Material() = default;
 
 		Data& getData() { return m_Data; }
-#ifdef EDITOR
 		void setData(Data data) { m_Data = data; }
-#endif
 
 	public:
 		// Inherited via Resource
 		virtual void load(const std::string& location) override;
 
-#ifdef EDITOR
-		virtual void renderIMGUI() override
-		{
-
-		}
-#endif
+		virtual void renderIMGUI() override;
 
 	private:
 		Data m_Data;

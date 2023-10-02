@@ -31,9 +31,7 @@ namespace Makeshift
 		// and not modified). However, this function exists for
 		// resources that need to/can be modified. (e.g. a terrain)
 
-		#ifdef EDITOR
-		virtual void renderIMGUI() = 0;
-		#endif
+		virtual void renderIMGUI() {};
 
 	};
 

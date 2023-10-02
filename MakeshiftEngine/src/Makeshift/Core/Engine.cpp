@@ -18,7 +18,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Makeshift/Level/StaticProp.h"
+#include "Makeshift/Level/Entities/StaticProp.h"
 
 namespace Makeshift
 {
@@ -49,6 +49,10 @@ namespace Makeshift
 		// -------------------------------------------
 
 		m_ActiveLevel = std::make_shared<Level>();
+		//m_LoadingScreen = std::make_shared<Level>();
+
+		//m_ActiveLevel = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "mainMenu" + ".json");
+		//m_LoadingScreen = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "loadingScreen" + ".json");
 
 		init();
 
@@ -85,18 +89,23 @@ namespace Makeshift
 
 	}
 
-	void Engine::loadLevel(const std::string& location)
+	void Engine::loadLevel(const std::string& name, bool savegame)
 	{
 		DEBUG_TRACE("Makeshift::Engine::loadLevel()");
 
 		// ShowLoadingScreen
 		if (m_CurrentSaveGame != 0)
 		{
-			m_ActiveLevel->save(FileLocations::levelLocation(true));
+			m_ActiveLevel->saveSaveData();
 		}
 
 		m_ResourceMap->removeResource(m_ActiveLevel->m_Location);
-		m_ActiveLevel = m_ResourceMap->addResource<Level>(location);
+		m_ActiveLevel = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + name + ".json");
+
+		if (savegame)
+		{
+			m_ActiveLevel->loadSaveData();
+		}
 
 	}
 
@@ -104,7 +113,10 @@ namespace Makeshift
 	{
 		DEBUG_TRACE("Makeshift::Engine::quickSave()");
 
-		m_ActiveLevel->save(FileLocations::quickSaveLocation());
+		int tmp = m_CurrentSaveGame;
+		setSaveGame(0);
+		m_ActiveLevel->saveSaveData();
+		setSaveGame(tmp);
 
 	}
 

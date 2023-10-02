@@ -26,11 +26,6 @@ namespace Makeshift
 		return "savegames/savegame" + Engine::getInstance().getCurrentSaveGame() + (std::string)"/";
 	}
 
-	std::string FileLocations::quickSaveLocation()
-	{
-		return "savegames/quick/";
-	}
-
 	std::string FileLocations::modelLocation(bool savegame)
 	{
 		if (savegame)
@@ -62,7 +57,7 @@ namespace Makeshift
 
 	std::string FileLocations::logLocation()
 	{
-		return "log";
+		return "log/";
 	}
 
 
@@ -72,10 +67,6 @@ namespace Makeshift
 		if (!dirExist(FileLocations::contentLocation()))
 		{
 			makeDirComplete(FileLocations::contentLocation());
-		}
-		if (!dirExist(FileLocations::quickSaveLocation()))
-		{
-			makeDirComplete(FileLocations::quickSaveLocation());
 		}
 		if (!dirExist(FileLocations::modelLocation(false)))
 		{

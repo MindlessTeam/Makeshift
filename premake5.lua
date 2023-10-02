@@ -61,9 +61,14 @@ project "MakeshiftEngine"
 		"glfw3.lib"
 	}
 
-	postbuildcommands
+	prebuildcommands
 	{
 		"../scripts/generateIncludes.bat"
+	}
+
+	postbuildcommands
+	{
+		"../scripts/copyContent.bat"
 	}
 
 	filter "configurations:Debug"

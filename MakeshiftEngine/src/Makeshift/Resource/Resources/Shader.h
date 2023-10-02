@@ -7,52 +7,35 @@
 
 #include <Makeshift/Resource/Resource.h>
 
-#include "Makeshift/OpenGL/VAO.h"
-
-#include <glm/vec3.hpp>
-#include <vector>
+#include "Makeshift/OpenGL/ShaderProgram.h"
 
 namespace Makeshift
 {
 
-	struct Vertex
-	{
-		glm::vec3 position;
-	};
-
-	// Mesh - Resource
+	// Shader - Resource
 	// --------------------------------------
 	// <description>
-	struct Mesh : public Resource
+	struct Shader : public Resource
 	{
 
 	public:
 		struct Data
 		{
-			std::vector<Vertex> vertices;
-			std::vector<uint32_t> indices;
-			VAO vao;
+			std::string vertexShaderSource, fragmentShaderSource; //TODO: Geometry/Compute
+			ShaderProgram shaderProgram;
 		};
 
 	public:
-		~Mesh() = default;
+		~Shader() = default;
 
 		Data& getData() { return m_Data; }
-#ifdef EDITOR
 		void setData(Data data) { m_Data = data; }
-#endif
 
 	public:
 		// Inherited via Resource
 		virtual void load(const std::string& location) override;
 
-#ifdef EDITOR
-		virtual void renderIMGUI() override
-		{
-			ImGui::Text(std::to_string(m_Data.vertices.size()).c_str());
-			ImGui::Text(std::to_string(m_Data.indices.size()).c_str());
-		}
-#endif
+		virtual void renderIMGUI() override;
 
 	private:
 		Data m_Data;

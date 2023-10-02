@@ -16,6 +16,7 @@ namespace Makeshift
 	class $itemname$ : public Entity
 	{
 
+	public:
 		std::string getName() override
 		{
 			return "$itemname$";

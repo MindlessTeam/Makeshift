@@ -26,20 +26,13 @@ namespace Makeshift
 		~$itemname$() = default;
 
 		Data& getData() { return m_Data; }
-#ifdef EDITOR
 		void setData(Data data) { m_Data = data; }
-#endif
 
 	public:
 		// Inherited via Resource
 		virtual void load(const std::string& location) override;
 
-#ifdef EDITOR
-		virtual void renderIMGUI() override
-		{
-
-		}
-#endif
+		virtual void renderIMGUI() override;
 
 	private:
 		Data m_Data;

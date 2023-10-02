@@ -12,10 +12,6 @@
 
 #include <imgui/imgui.h> 
 
-#include "EditorWindows/MaterialCreator.h"
-#include "EditorWindows/MeshCreator.h"
-#include "EditorWindows/LevelEditor.h"
-
 namespace MakeshiftEditor
 {
 
@@ -45,9 +41,6 @@ namespace MakeshiftEditor
 
 				if (ImGui::BeginMenu("Tools"))
 				{
-					if (ImGui::MenuItem("Material Creator", nullptr, &m_MaterialCreator.enabled)){}
-					if (ImGui::MenuItem("Mesh Creator", nullptr, &m_MeshCreator.enabled)){}
-					if (ImGui::MenuItem("Level Editor", nullptr, &m_LevelEditor.enabled)){}
 					ImGui::EndMenu();
 				}
 
@@ -60,11 +53,9 @@ namespace MakeshiftEditor
 				ImGui::EndMainMenuBar();
 			}
 
-			m_MaterialCreator.renderIMGUI();
-			m_MeshCreator.renderIMGUI();
-			m_LevelEditor.renderIMGUI();
-
 			Client::renderIMGUI();
+
+			ImGui::ShowDemoWindow();
 
 		}
 
@@ -74,9 +65,6 @@ namespace MakeshiftEditor
 		}
 
 	private:
-		MaterialCreator m_MaterialCreator;
-		MeshCreator m_MeshCreator;
-		LevelEditor m_LevelEditor;
 
 	};
 
