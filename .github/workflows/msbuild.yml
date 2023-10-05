@@ -31,14 +31,17 @@ jobs:
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
     - name: Read current version
-      run: echo "::set-env name=VERSION::$(grep -oP '(?<=VERSION ")[^"]*' MakeshiftEngine/src/Makeshift/Version.h)"
+      id: set-version
+      run: |
+        VERSION=$(grep -oP '(?<=VERSION ")[^"]*' MakeshiftEngine/src/Makeshift/Version.h)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Increment COMMITHASH
-      run: echo "::set-env name=COMMITHASH::$(date +%s)"
+      run: echo "COMMITHASH=$(date +%s)" >> $GITHUB_ENV
 
     - name: Update Version and Commit Hash
       run: |
-        sed -i "s/COMMIT \".*\"/COMMIT \"${{ env.COMMITHASH }}\"/" MakeshiftEngine/src/Makeshift/Version.h
+        sed -i "s/COMMIT \".*\"/COMMIT \"$(cat $GITHUB_ENV | grep -oP 'COMMITHASH=\K.*')\"/" MakeshiftEngine/src/Makeshift/Version.h
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add MakeshiftEngine/src/Makeshift/Version.h
@@ -62,6 +65,6 @@ jobs:
         echo "Creating GitHub release..."
         RELEASE_TITLE="Release v${{ env.VERSION }}${{ env.COMMITHASH }}"
         gh release create "$RELEASE_TITLE" \
-          --notes "Release notes for "$RELEASE_TITLE"" \
+          --notes "Release notes for $RELEASE_TITLE" \
           --repo MindlessTeam/Makeshift \
           app-artifact editor-artifact
