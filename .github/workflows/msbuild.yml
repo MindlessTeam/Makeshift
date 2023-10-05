@@ -43,8 +43,7 @@ jobs:
 
     - name: Update Version and Commit Hash
       run: |
-        $CommithashValue = Get-Content $env:GITHUB_ENV | Select-String -Pattern 'COMMITHASH=' | ForEach-Object { $_.ToString().Split('=')[1].Trim() }
-        (Get-Content MakeshiftEngine/src/Makeshift/Version.h) -replace 'COMMIT \".*\"', "COMMIT \"$CommithashValue\"" | Set-Content MakeshiftEngine/src/Makeshift/Version.h
+        (Get-Content MakeshiftEngine/src/Makeshift/Version.h) | ForEach-Object { $_ -replace 'COMMIT ".+"', "COMMIT ""$COMMITHASH""" } | Set-Content MakeshiftEngine/src/Makeshift/Version.h
 
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
