@@ -1,8 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: MSBuild
 
 on:
@@ -18,15 +13,12 @@ env:
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
 
-permissions:
-  contents: read
-
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
     - name: Run Premake
       run: scripts/generateProject_VisualStudio22
@@ -36,22 +28,40 @@ jobs:
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
     - name: Read current version
-      id: read-version
-      run: echo "::set-output name=version::$(grep -oP '(?<=VERSION ")[^"]*' MakeshiftEngine/src/Makeshift/Version.h)"
+      run: echo "::set-env name=VERSION::$(grep -oP '(?<=VERSION ")[^"]*' MakeshiftEngine/src/Makeshift/Version.h)"
 
     - name: Increment COMMITHASH
-      id: increment-commithash
-      run: echo "::set-output name=commithash::$(date +%s)"
+      run: echo "::set-env name=COMMITHASH::$(date +%s)"
 
     - name: Update Version and Commit Hash
       run: |
-        sed -i "s/COMMIT \".*\"/COMMIT \"${{ steps.increment-commithash.outputs.commithash }}\"/" MakeshiftEngine/src/Makeshift/Version.h
+        sed -i "s/COMMIT \".*\"/COMMIT \"${{ env.COMMITHASH }}\"/" MakeshiftEngine/src/Makeshift/Version.h
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Update VERSION and COMMIT" Version.h
-        git push
+        git add MakeshiftEngine/src/Makeshift/Version.h
+        git add path/to/your/second/file.extension
+        git commit -m "Update VERSION and COMMIT" Version.h path/to/your/second/file.extension
+
+    - name: Create Editor Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: editor-artifact
+        path: out/bin/Release-window-x86_64/MakeshiftEditor  
+
+    - name: Create App Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-artifact
+        path: out/bin/Release-window-x86_64/MakeshiftApplication
+
+    - name: Create GitHub Release
+      run: |
+        echo "Creating GitHub release..."
+        RELEASE_TITLE="Release v${{ env.VERSION }}${{ env.COMMITHASH }}"
+        gh release create "$RELEASE_TITLE" \
+          --notes "Release notes for "$RELEASE_TITLE"" \
+          --repo MindlessTeam/Makeshift \
+          app-artifact editor-artifact
