@@ -55,6 +55,12 @@ jobs:
         name: editor-artifact
         path: out/bin/Release-window-x86_64/MakeshiftEditor  
 
+    - name: Create Include Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-artifact
+        path: out/include
+
     - name: Create App Artifact
       uses: actions/upload-artifact@v2
       with:
@@ -64,7 +70,7 @@ jobs:
     - name: Create GitHub Release
       run: |
         echo "Creating GitHub release..."
-        RELEASE_TITLE="Release v${{ env.VERSION }}${{ env.COMMITHASH }}"
+        RELEASE_TITLE="Release v$VERSION-$COMMITHASH}"
         gh release create "$RELEASE_TITLE" \
           --notes "Release notes for $RELEASE_TITLE" \
           --repo MindlessTeam/Makeshift \
