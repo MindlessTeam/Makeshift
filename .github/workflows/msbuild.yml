@@ -49,22 +49,29 @@ jobs:
         git config --local user.name "GitHub Action"
         git commit -m "Update VERSION" MakeshiftEngine/src/Makeshift/Version.h
 
-    - name: Create Include Artifact
+    - name: Zip Includes
       run: zip -r artifacts/include.zip out/include
+
+
+    - name: Create Include Artifact
       uses: actions/upload-artifact@v2
       with:
         name: include-artifact
         path: artifacts/include.zip
 
-    - name: Create Editor Artifact
+    - name: Zip Editor
       run: zip -r artifacts/Editor.zip out/bin/Release-window-x86_64/MakeshiftEditor 
+
+    - name: Create Editor Artifact
       uses: actions/upload-artifact@v2
       with:
         name: editor-artifact
         path: artifacts/Editor.zip 
 
-    - name: Create App Artifact
+    - name: Zip App
       run: zip -r artifacts/App.zip out/bin/Release-window-x86_64/MakeshiftApplication
+
+    - name: Create App Artifact
       uses: actions/upload-artifact@v2
       with:
         name: app-artifact
