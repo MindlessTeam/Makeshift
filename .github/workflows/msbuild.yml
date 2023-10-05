@@ -58,7 +58,7 @@ jobs:
     - name: Create Include Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: app-artifact
+        name: include-artifact
         path: out/include
 
     - name: Create App Artifact
@@ -71,7 +71,7 @@ jobs:
       run: |
         echo "Creating GitHub release..."
         RELEASE_TITLE="Release v$VERSION-$COMMITHASH}"
-        gh release create "$RELEASE_TITLE" \
-          --notes "Release notes for $RELEASE_TITLE" \
-          --repo MindlessTeam/Makeshift \
-          app-artifact editor-artifact
+        gh release create "$RELEASE_TITLE" `
+          --notes "Release notes for $RELEASE_TITLE" `
+          --repo MindlessTeam/Makeshift `
+          app-artifact editor-artifact include-artifact
