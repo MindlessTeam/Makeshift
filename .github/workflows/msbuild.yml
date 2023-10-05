@@ -47,7 +47,7 @@ jobs:
 
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Update VERSION" MakeshiftEngine/src/Makeshift/Version.h path/to/your/second/file.extension
+        git commit -m "Update VERSION" MakeshiftEngine/src/Makeshift/Version.h
 
     - name: Create Editor Artifact
       uses: actions/upload-artifact@v2
