@@ -52,35 +52,35 @@ jobs:
     - name: Zip Includes
       run: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/include', 'artifacts/include.zip')
+        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/include', 'include.zip')
 
     - name: Create Include Artifact
       uses: actions/upload-artifact@v2
       with:
         name: include-artifact
-        path: artifacts/include.zip
+        path: include.zip
 
     - name: Zip Editor
       run: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-window-x86_64/MakeshiftEditor', 'artifacts/Editor.zip')
+        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-window-x86_64/MakeshiftEditor', 'Editor.zip')
 
     - name: Create Editor Artifact
       uses: actions/upload-artifact@v2
       with:
         name: editor-artifact
-        path: artifacts/Editor.zip 
+        path: Editor.zip 
 
     - name: Zip App
       run: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-window-x86_64/MakeshiftApplication', 'artifacts/App.zip')
+        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-window-x86_64/MakeshiftApplication', 'App.zip')
 
     - name: Create App Artifact
       uses: actions/upload-artifact@v2
       with:
         name: app-artifact
-        path: artifacts/App.zip
+        path: App.zip
 
     - name: Create GitHub Release
       run: |
