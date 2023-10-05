@@ -85,10 +85,7 @@ jobs:
     - name: Create GitHub Release
       run: |
         echo "Creating GitHub release..."
-        $RELEASE_TITLE="Release v$VERSION-$COMMITHASH"
+        $RELEASE_TITLE="Release v$VERSION-$COMMITHASH}"
         gh release create "$RELEASE_TITLE" `
-          --notes "Release notes for $RELEASE_TITLE" `
-          --repo MindlessTeam/Makeshift `
-          app-artifact editor-artifact include-artifact
       env:
         GH_TOKEN: ${{ github.token }}
