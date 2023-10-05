@@ -14,7 +14,8 @@ namespace Makeshift
 
 	// Shader - Resource
 	// --------------------------------------
-	// <description>
+	// A Resource representing a 
+	// Shader-Program
 	struct Shader : public Resource
 	{
 

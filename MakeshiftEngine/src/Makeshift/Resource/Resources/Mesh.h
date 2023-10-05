@@ -15,6 +15,9 @@
 namespace Makeshift
 {
 
+	// Vertex
+	// --------------------------------------
+	// Represents a Vertex
 	struct Vertex
 	{
 		glm::vec3 position;
@@ -22,7 +25,7 @@ namespace Makeshift
 
 	// Mesh - Resource
 	// --------------------------------------
-	// <description>
+	// A Resource representing a 3D Mesh
 	struct Mesh : public Resource
 	{
 
