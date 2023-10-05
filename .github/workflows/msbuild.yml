@@ -53,7 +53,6 @@ jobs:
       run: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
         [System.IO.Compression.ZipFile]::CreateFromDirectory('out/include', 'include.zip')
-      working-directory: /
 
     - name: Create Include Artifact
       uses: actions/upload-artifact@v2
@@ -64,8 +63,7 @@ jobs:
     - name: Zip Editor
       run: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-window-x86_64/MakeshiftEditor', 'Editor.zip')
-      working-directory: /
+        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-windows-x86_64/MakeshiftEditor', 'Editor.zip')
 
     - name: Create Editor Artifact
       uses: actions/upload-artifact@v2
@@ -76,8 +74,7 @@ jobs:
     - name: Zip App
       run: |
         Add-Type -AssemblyName System.IO.Compression.FileSystem
-        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-window-x86_64/MakeshiftApplication', 'App.zip')
-      working-directory: /
+        [System.IO.Compression.ZipFile]::CreateFromDirectory('out/bin/Release-windows-x86_64/MakeshiftApplication', 'App.zip')
 
     - name: Create App Artifact
       uses: actions/upload-artifact@v2
