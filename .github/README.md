@@ -17,4 +17,4 @@ Because Makeshift is a project intended for learning and I am in no way an exper
 
 ## LICENSING
 
-Makeshift is licensed under the MIT-license, for more details see <a href="https://github.com/MindlessTeam/Makeshift/blob/main/.github/License.txt">LICENSE.txt</a>.
+Makeshift is licensed under the MIT-license, for more details see <a href="https://github.com/MindlessTeam/Makeshift/blob/main/.github/LICENSE.txt">LICENSE.txt</a>.
