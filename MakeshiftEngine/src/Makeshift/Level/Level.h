@@ -93,7 +93,7 @@ namespace Makeshift
 	template<typename T>
 	inline void EntityRegistry::registerEntity()
 	{
-		DEBUG_TRACE("Makeshift::EntityRegistry::registerEntity()");
+		//DEBUG_TRACE("Makeshift::EntityRegistry::registerEntity()");
 
 		T entity;
 

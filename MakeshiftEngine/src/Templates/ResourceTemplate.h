@@ -31,6 +31,7 @@ namespace Makeshift
 	public:
 		// Inherited via Resource
 		virtual void load(const std::string& location) override;
+		virtual void save(const std::string& location) override;
 
 		virtual void renderIMGUI() override;
 

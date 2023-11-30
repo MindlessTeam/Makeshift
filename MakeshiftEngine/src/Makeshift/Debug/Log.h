@@ -85,12 +85,19 @@ namespace Makeshift
 // crash or a completely ruined experience would be given anyway.
 //
 
+#include <iostream>
+#include <string>
+
 #ifdef CFG_DEBUG
 
 #define DEBUG_TRACE(...) Makeshift::Log::getLogger()->log(spdlog::level::trace, __VA_ARGS__);
+
 #define DEBUG_INFO(...)  Makeshift::Log::getLogger()->log(spdlog::level::info, __VA_ARGS__);
+
 #define DEBUG_WARN(...)  Makeshift::Log::getLogger()->log(spdlog::level::warn, __VA_ARGS__);
+
 #define DEBUG_ERROR(...) Makeshift::Log::getLogger()->log(spdlog::level::err, __VA_ARGS__);
+
 #define DEBUG_FATAL(...) Makeshift::Log::getLogger()->log(spdlog::level::critical, __VA_ARGS__); Makeshift::Log::getLogger()->flush(); throw(std::runtime_error("FATAL ERROR"));
 
 #elif CFG_PRE_RELEASE

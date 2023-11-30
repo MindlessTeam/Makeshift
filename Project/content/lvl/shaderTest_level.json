@@ -1,0 +1,12 @@
+{
+  "LevelName": "ShaderTestLevel",
+  "Entities": [
+    {
+      "ID": 1,
+      "Type": "ShaderTest",
+      "SaveState": false,
+      "Mesh": "content/shaderTest_mesh.json",
+      "Material": "content/shaderTest_material.json"
+    }
+  ]
+}

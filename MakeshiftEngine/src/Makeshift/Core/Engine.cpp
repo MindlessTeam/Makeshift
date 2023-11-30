@@ -19,6 +19,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Makeshift/Level/Entities/StaticProp.h"
+#include "Makeshift/ShaderTest.h"
 
 namespace Makeshift
 {
@@ -46,6 +47,7 @@ namespace Makeshift
 
 		// Registering Engine Entities
 		EntityRegistry::registerEntity<StaticProp>();
+		EntityRegistry::registerEntity<ShaderTest>();
 		// -------------------------------------------
 
 		m_ActiveLevel = std::make_shared<Level>();
@@ -61,14 +63,15 @@ namespace Makeshift
 		{
 			m_Display->clear();
 
+			Time::updateTime();
 			ImGuiRenderer::prepareFrame();
 
 			Input::pollInput();
 			update();
-			m_ActiveLevel->update();
 
 			ImGuiRenderer::endFrame();
 
+			m_ActiveLevel->update();
 			m_Display->swapBuffers();
 		}
 

@@ -11,6 +11,8 @@
 
 #include <fstream>
 
+#include <imgui/imgui.h>
+
 namespace Makeshift
 {
 
@@ -44,6 +46,18 @@ namespace Makeshift
 
 		m_Data.vertexShaderSource = root["Vertex Code"].asString();
 		m_Data.fragmentShaderSource = root["Fragment Code"].asString();
+
+		m_Data.shaderProgram = std::make_shared<ShaderProgram>(m_Data.vertexShaderSource, m_Data.fragmentShaderSource);
+
+	}
+
+	void Shader::renderIMGUI()
+	{
+
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.5f, 1.0f), "VertexShader:");
+		ImGui::Text(m_Data.vertexShaderSource.c_str());
+		ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.5f, 1.0f), "FragmentShader:");
+		ImGui::Text(m_Data.fragmentShaderSource.c_str());
 
 	}
 

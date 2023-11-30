@@ -9,6 +9,8 @@
 #include "Makeshift/Resource/ResourceMap.h"
 #include "Makeshift/Level/Level.h"
 
+#include "Time.h"
+
 #include <memory>
 
 #include <imgui/imgui.h>

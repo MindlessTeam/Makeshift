@@ -51,6 +51,10 @@ namespace Makeshift
 			vtx.position.y = vertexNode["Position"]["y"].asFloat();
 			vtx.position.z = vertexNode["Position"]["z"].asFloat();
 			
+			std::cout << vertexNode["Position"]["x"].asFloat() << std::endl;
+			std::cout << vertexNode["Position"]["y"].asFloat() << std::endl;
+			std::cout << vertexNode["Position"]["z"].asFloat() << std::endl;
+
 			m_Data.vertices.push_back(vtx);
 		}
 
@@ -60,15 +64,60 @@ namespace Makeshift
 			m_Data.indices.push_back(indexNode.asUInt());
 		}
 
-		std::shared_ptr<VertexBufferLayout> layout;
+		std::shared_ptr<VertexBufferLayout> layout = std::make_shared<VertexBufferLayout>();
 		layout->Push(GL_FLOAT, 3, false);
+		
+		m_Data.vao = std::make_shared<VAO>();
 
-		std::shared_ptr<VBO> vbo = std::make_shared<VBO>(m_Data.vertices.data(), m_Data.vertices.size());
-		std::shared_ptr<EBO> ebo = std::make_shared<EBO>(m_Data.indices.data(), m_Data.indices.size());
+		m_Data.vao->bind();
 
-		m_Data.vao.addVBO(vbo, layout);
-		m_Data.vao.addEBO(ebo);
+		std::shared_ptr<VBO> vbo = std::make_shared<VBO>(m_Data.vertices.data(), sizeof(Vertex) * m_Data.vertices.size());
+		std::shared_ptr<EBO> ebo = std::make_shared<EBO>(m_Data.indices.data(), sizeof(unsigned int) * m_Data.indices.size());
 
+		m_Data.vao->addVBO(vbo, layout);
+		m_Data.vao->addEBO(ebo);
+
+		m_Data.vertices.data()->position.x;
+
+		m_Data.vao->unbind();
+
+	}
+
+	void Mesh::renderIMGUI()
+	{
+
+		ImGui::Text("VertexCount: %d", m_Data.vertices.size());
+
+		if (ImGui::BeginTable(std::string(m_Location + "Table").c_str(), 3))
+		{
+
+			ImGui::TableSetupColumn("X");
+			ImGui::TableSetupColumn("Y");
+			ImGui::TableSetupColumn("Z");
+			ImGui::TableHeadersRow();
+
+			for (auto vertex : m_Data.vertices)
+			{
+				ImGui::TableNextRow();
+				ImGui::TableSetColumnIndex(0);
+				ImGui::Text("%f", vertex.position.x);
+
+				ImGui::TableSetColumnIndex(1);
+				ImGui::Text("%f", vertex.position.y);
+
+				ImGui::TableSetColumnIndex(2);
+				ImGui::Text("%f", vertex.position.z);
+			}
+		
+			ImGui::EndTable();
+		}
+
+		ImGui::Text("IndexCount: %d", m_Data.indices.size());
+
+		for (auto index : m_Data.indices)
+		{
+			ImGui::Text("%d", index);
+		}
 	}
 
 }

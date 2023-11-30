@@ -47,6 +47,7 @@ namespace Makeshift
 		void clear();
 		void swapBuffers();
 
+		void switchPolygonMode();
 
 		void setDisplaySettings(DisplaySettings settings);
 		DisplaySettings& getDisplaySettings();
@@ -59,6 +60,9 @@ namespace Makeshift
 	private:
 		static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
 		//TODO: static void monitorCallback();
+
+	private:
+		int m_CurrentPolygonMode;
 
 	private:
 		GLFWwindow* m_Window;

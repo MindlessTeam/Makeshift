@@ -6,7 +6,6 @@
 #pragma once
 
 #include <string>
-#include <imgui/imgui.h>
 
 namespace Makeshift
 {
@@ -25,7 +24,8 @@ namespace Makeshift
 
 	public:       
 		virtual void load(const std::string& location) = 0;
-		virtual void save(const std::string& location) {};
+		virtual void save(const std::string& location) = 0;
+		virtual void save() {};
 		// The save function remains empty-bodied for most resources
 		// since most resources are static (meaning: they are loaded
 		// and not modified). However, this function exists for

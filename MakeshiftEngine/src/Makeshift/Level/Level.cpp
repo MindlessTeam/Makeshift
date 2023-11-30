@@ -64,7 +64,7 @@ namespace Makeshift
 
 	void Level::load(const std::string& location)
 	{
-		DEBUG_TRACE("Makeshift::Level::loadComplete()");
+		DEBUG_TRACE("Makeshift::Level::load()");
 
 		DEBUG_INFO("Loading Level-File '{}'", location);
 
@@ -111,6 +111,7 @@ namespace Makeshift
 			entity->deSerialize(entityNode);
 
 			m_EntityMap.emplace(entityID, std::make_pair(saveState, entity));
+			entity->enable();
 
 		}
 

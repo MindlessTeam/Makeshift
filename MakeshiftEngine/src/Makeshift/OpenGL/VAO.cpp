@@ -53,7 +53,6 @@ namespace Makeshift
 		DEBUG_TRACE("Makeshift::VAO::addVBO()");
 
 		bind();
-		DEBUG_WARN("1");
 		
 
 		unsigned int offset = 0;
@@ -62,8 +61,6 @@ namespace Makeshift
 		{
 
 			glEnableVertexAttribArray(m_VBOIndex);
-
-			DEBUG_WARN("2");
 			
 			glVertexAttribPointer(m_VBOIndex,
 				element.count,
@@ -71,7 +68,6 @@ namespace Makeshift
 				element.normalized ? GL_TRUE : GL_FALSE,
 				layout->getStride(),
 				(const void*)offset);
-			DEBUG_WARN("3");
 			
 
 			offset += element.count * VertexBufferElement::getSizeOfType(element.type);
@@ -80,6 +76,8 @@ namespace Makeshift
 		}
 
 		m_VBOs.push_back({ vbo, layout });
+
+		unbind();
 
 	}
 

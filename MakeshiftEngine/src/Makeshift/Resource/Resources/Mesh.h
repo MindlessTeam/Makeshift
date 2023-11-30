@@ -34,7 +34,7 @@ namespace Makeshift
 		{
 			std::vector<Vertex> vertices;
 			std::vector<uint32_t> indices;
-			VAO vao;
+			std::shared_ptr<VAO> vao;
 		};
 
 	public:
@@ -46,6 +46,7 @@ namespace Makeshift
 	public:
 		// Inherited via Resource
 		virtual void load(const std::string& location) override;
+		virtual void save(const std::string& location) override {}
 
 		virtual void renderIMGUI() override;
 

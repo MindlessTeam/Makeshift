@@ -5,10 +5,14 @@
 
 #include "clientAPI.h"
 
+//#include "ShaderTest.h"
+
+#include <Makeshift/Level/Level.h>
+
 CLIENT_API void Client::registerEntities()
 {
     
-    
+    //Makeshift::EntityRegistry::registerEntity<Makeshift::ShaderTest>();
 
 }
 

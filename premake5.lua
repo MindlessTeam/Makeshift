@@ -108,7 +108,9 @@ project "MakeshiftClient"
 	includedirs
 	{
 		"MakeshiftClient/src",
-		"%{wks.location}/MakeshiftEngine/src"
+		"%{wks.location}/MakeshiftEngine/src",
+		"%{wks.location}/dependencies/include",
+		"%{wks.location}/dependencies/include/imgui"
 	}
 
 	files 
@@ -118,6 +120,10 @@ project "MakeshiftClient"
 		"MakeshiftClient/src/**.h"
 	}
 
+	links
+	{
+		"MakeshiftEngine"
+	}
 	
 	postbuildcommands
 	{

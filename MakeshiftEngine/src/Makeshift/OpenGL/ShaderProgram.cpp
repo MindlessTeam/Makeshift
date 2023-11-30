@@ -65,6 +65,12 @@ namespace Makeshift
 			DEBUG_FATAL("Shader Program creation failed with Info: '{}'", info);
 		}
 
+		GLenum error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
+			std::cerr << "OpenGL error: " << error << std::endl;
+		}
+
 		// cleanup
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
@@ -76,19 +82,19 @@ namespace Makeshift
 		glUseProgram(m_ID);
 	}
 
-	void ShaderProgram::setBool(const std::string& name, bool value) const
+	void ShaderProgram::setBool(int location, bool value) const
 	{
-		glUniform1i(glGetUniformLocation(m_ID, name.c_str()), (int)value);
+		glUniform1i(location, (int)value);
 	}
 
-	void ShaderProgram::setInt(const std::string& name, int value) const
+	void ShaderProgram::setInt(int location, int value) const
 	{
-		glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
+		glUniform1i(location, (int)value);
 	}
 
-	void ShaderProgram::setFloat(const std::string& name, float value) const
+	void ShaderProgram::setFloat(int location, float value) const
 	{
-		glUniform1f(glGetUniformLocation(m_ID, name.c_str()), value);
+		glUniform1f(location, (int)value);
 	}
 
 }

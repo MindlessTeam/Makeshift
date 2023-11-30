@@ -36,6 +36,10 @@ namespace Makeshift
 
         void removeResource(const std::string& source);
 
+    public:
+        std::unordered_map<std::string, std::pair<int, std::shared_ptr<Resource>>>& getResources() { return m_Resources; }
+
+
     private:
         std::unordered_map<std::string, std::pair<int, std::shared_ptr<Resource>>> m_Resources;
         // [Resource filepath | Usage count | Resource Data]

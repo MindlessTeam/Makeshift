@@ -54,8 +54,16 @@ namespace Makeshift
 
 		glfwSetFramebufferSizeCallback(m_Window, framebufferResizeCallback);
 
+		m_CurrentPolygonMode = GL_FILL;
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+		glEnable(GL_DEBUG_OUTPUT);
 
+	}
+
+	void GLAPIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+	{
+		std::cout << message << std::endl;
 	}
 
 	void Display::setDisplaySettings(DisplaySettings settings)
@@ -112,6 +120,25 @@ namespace Makeshift
 
 		glfwSwapBuffers(m_Window);
 
+	}
+
+	void Display::switchPolygonMode()
+	{
+		if (m_CurrentPolygonMode == GL_FILL) 
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			m_CurrentPolygonMode = GL_LINE;
+		}
+		else if (m_CurrentPolygonMode == GL_LINE) 
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+			m_CurrentPolygonMode = GL_POINT;
+		}
+		else 
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			m_CurrentPolygonMode = GL_FILL;
+		}
 	}
 
 	bool Display::isActive()

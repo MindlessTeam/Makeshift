@@ -27,6 +27,9 @@ namespace Makeshift
 		void addVBO(const std::shared_ptr<VBO>& vbo, const std::shared_ptr<VertexBufferLayout>& layout);
 		void addEBO(const std::shared_ptr<EBO>& ebo);
 
+	public:
+		unsigned int getRenderID() { return m_ID; }
+
 	private:
 		unsigned int m_ID;
 		unsigned int m_VBOIndex = 0;

@@ -9,6 +9,8 @@
 
 #include "Makeshift/OpenGL/ShaderProgram.h"
 
+#include <memory>
+
 namespace Makeshift
 {
 
@@ -23,7 +25,7 @@ namespace Makeshift
 		struct Data
 		{
 			std::string vertexShaderSource, fragmentShaderSource; //TODO: Geometry/Compute
-			ShaderProgram shaderProgram;
+			std::shared_ptr<ShaderProgram> shaderProgram;
 		};
 
 	public:
@@ -35,6 +37,7 @@ namespace Makeshift
 	public:
 		// Inherited via Resource
 		virtual void load(const std::string& location) override;
+		virtual void save(const std::string& location) override {}
 
 		virtual void renderIMGUI() override;
 

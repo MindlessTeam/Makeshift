@@ -21,12 +21,15 @@ namespace Makeshift
 
 		void use();
 
-		void setBool(const std::string& name, bool value) const;
-		void setInt(const std::string& name, int value) const;
-		void setFloat(const std::string& name, float value) const;
+		void setBool(int location, bool value) const;
+		void setInt(int location, int value) const;
+		void setFloat(int location, float value) const;
+
+	public:
+		unsigned int getRenderID() { return m_ID; }
 
 	private:
-		unsigned int m_ID;
+		unsigned int m_ID = 0;
 
 	};
 
