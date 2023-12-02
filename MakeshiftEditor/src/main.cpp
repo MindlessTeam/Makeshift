@@ -23,8 +23,9 @@ namespace MakeshiftEditor
 
 		void init() override
 		{
-
+			Client::initLog();
 			Client::registerEntities();
+
 
 			loadLevel("shaderTest_level", false);
 

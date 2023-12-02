@@ -62,12 +62,12 @@ namespace Makeshift
 		for (const Json::Value& materialProperty : materialProperties)
 		{
 
-			std::shared_ptr<MaterialProperty> property = MaterialProperty::create(materialProperty["Property Type"].asString());
-			property->deSerialize(&materialProperty["Data"]);
-
-			property->location = glGetUniformLocation(m_Data.shader->getData().shaderProgram->getRenderID(), property->uniformName.c_str());
-
-			m_Data.materialProperties.push_back(property);
+			//std::shared_ptr<MaterialProperty> property = MaterialProperty::create(materialProperty["Property Type"].asString());
+			//property->deSerialize(&materialProperty["Data"]);
+			//
+			//property->location = glGetUniformLocation(m_Data.shader->getData().shaderProgram->getRenderID(), property->uniformName.c_str());
+			//
+			//m_Data.materialProperties.push_back(property);
 			
 		}
 
@@ -85,7 +85,7 @@ namespace Makeshift
 		for (auto& materialProperty : m_Data.materialProperties)
 		{
 			Json::Value matProp;
-			materialProperty->serialize(matProp);
+			//materialProperty->serialize(matProp);
 			materialProperties.append(matProp);
 		}
 
@@ -116,61 +116,6 @@ namespace Makeshift
 	}
 
 	// -----------------------------
-
-	std::shared_ptr<MaterialProperty> MaterialProperty::create(std::string propertyType)
-	{
-		if (propertyType == "Float")
-			return std::shared_ptr<MaterialPropertyFloat>();
-		else if (propertyType == "Int")
-			return std::shared_ptr<MaterialPropertyInt>();
-		else if (propertyType == "Bool")
-			return std::shared_ptr<MaterialPropertyBool>();
-	}
-
-	void MaterialPropertyFloat::serialize(Json::Value& JsonValue)
-	{
-		JsonValue["Property Type"] = std::string("Float");
-
-		Json::Value data;
-
-		data["Value"] = value;
-
-		JsonValue["Data"] = data;
-	}
-	void MaterialPropertyFloat::deSerialize(const Json::Value& JsonValue)
-	{
-		value = JsonValue["Value"].asFloat();
-	}
-
-	void MaterialPropertyInt::serialize(Json::Value& JsonValue)
-	{
-		JsonValue["Property Type"] = std::string("Int");
-
-		Json::Value data;
-
-		data["Value"] = value;
-
-		JsonValue["Data"] = data;
-	}
-	void MaterialPropertyInt::deSerialize(const Json::Value& JsonValue)
-	{
-		value = JsonValue["Value"].asInt();
-	}
-
-	void MaterialPropertyBool::serialize(Json::Value& JsonValue)
-	{
-		JsonValue["Property Type"] = std::string("Bool");
-
-		Json::Value data;
-
-		data["Value"] = value;
-
-		JsonValue["Data"] = data;
-	}
-	void MaterialPropertyBool::deSerialize(const Json::Value& JsonValue)
-	{
-		value = JsonValue["Value"].asBool();
-	}
 
 
 }

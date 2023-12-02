@@ -5,8 +5,8 @@
       "ID": 1,
       "Type": "ShaderTest",
       "SaveState": false,
-      "Mesh": "content/shaderTest_mesh.json",
-      "Material": "content/shaderTest_material.json"
+      "Mesh": "content/mdl/shaderTest_mesh.json",
+      "Material": "content/mat/shaderTest_material.json"
     }
   ]
 }

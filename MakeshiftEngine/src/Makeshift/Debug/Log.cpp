@@ -29,8 +29,12 @@ namespace Makeshift
 
 		spdlog::sinks_init_list sinkList = { fileSink, consoleSink };
 
-		s_Logger = std::make_shared<spdlog::logger>("MAKESHIFT", sinkList.begin(), sinkList.end());
-
+		s_Logger = spdlog::get("MAKESHIFT");
+		if (!s_Logger)
+		{
+			s_Logger = std::make_shared<spdlog::logger>("MAKESHIFT", sinkList.begin(), sinkList.end());
+			spdlog::register_logger(s_Logger);
+		}
 		s_Logger->set_pattern("%^[%L]%$: %v"); // e.g. [I]: Lorem ipsum
 
 		s_Logger->set_level(spdlog::level::trace);

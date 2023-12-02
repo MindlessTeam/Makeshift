@@ -9,10 +9,17 @@
 
 #include <Makeshift/Level/Level.h>
 
+#include <Makeshift/Debug/Log.h>
+
+CLIENT_API void Client::initLog()
+{
+    Makeshift::Log::init();
+}
+
 CLIENT_API void Client::registerEntities()
 {
     
-    //Makeshift::EntityRegistry::registerEntity<Makeshift::ShaderTest>();
+    DEBUG_INFO("Client is registering entities");
 
 }
 

@@ -51,6 +51,32 @@ namespace Makeshift
 
 	}
 
+	void Shader::save(const std::string& location)
+	{
+		DEBUG_TRACE("Makeshift::Shader::save()");
+
+		Json::Value root;
+
+		root["Vertex Code"] = m_Data.vertexShaderSource;
+		root["Fragment Code"] = m_Data.fragmentShaderSource;
+
+		DEBUG_INFO("Writing Shader-File '{}'...", location);
+
+		Json::StyledWriter writer;
+
+		std::ofstream file(location);
+		if (file.is_open())
+		{
+			file << writer.write(root);
+			file.close();
+		}
+		else
+		{
+			DEBUG_ERROR("Failed to write Shader-File to location '{}'", location);
+		}
+
+	}
+
 	void Shader::renderIMGUI()
 	{
 

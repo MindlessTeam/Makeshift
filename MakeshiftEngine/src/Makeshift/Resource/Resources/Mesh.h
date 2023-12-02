@@ -10,6 +10,7 @@
 #include "Makeshift/OpenGL/VAO.h"
 
 #include <glm/vec3.hpp>
+#include <glm/vec2.hpp>
 #include <vector>
 
 namespace Makeshift
@@ -21,6 +22,7 @@ namespace Makeshift
 	struct Vertex
 	{
 		glm::vec3 position;
+		glm::vec2 UV;
 	};
 
 	// Mesh - Resource
@@ -46,7 +48,7 @@ namespace Makeshift
 	public:
 		// Inherited via Resource
 		virtual void load(const std::string& location) override;
-		virtual void save(const std::string& location) override {}
+		virtual void save(const std::string& location) override;
 
 		virtual void renderIMGUI() override;
 

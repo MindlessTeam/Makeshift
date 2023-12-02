@@ -46,16 +46,15 @@ namespace Makeshift
 		const Json::Value& vertices = root["Vertices"];
 		for (const Json::Value vertexNode : vertices)
 		{
-			Vertex vtx;
-			vtx.position.x = vertexNode["Position"]["x"].asFloat();
-			vtx.position.y = vertexNode["Position"]["y"].asFloat();
-			vtx.position.z = vertexNode["Position"]["z"].asFloat();
-			
-			std::cout << vertexNode["Position"]["x"].asFloat() << std::endl;
-			std::cout << vertexNode["Position"]["y"].asFloat() << std::endl;
-			std::cout << vertexNode["Position"]["z"].asFloat() << std::endl;
+			Vertex vertex;
+			vertex.position.x = vertexNode["Position"]["x"].asFloat();
+			vertex.position.y = vertexNode["Position"]["y"].asFloat();
+			vertex.position.z = vertexNode["Position"]["z"].asFloat();
 
-			m_Data.vertices.push_back(vtx);
+			vertex.UV.x = vertexNode["UV"]["x"].asFloat();
+			vertex.UV.y = vertexNode["UV"]["y"].asFloat();
+			
+			m_Data.vertices.push_back(vertex);
 		}
 
 		const Json::Value& indices = root["Indices"];
@@ -66,6 +65,7 @@ namespace Makeshift
 
 		std::shared_ptr<VertexBufferLayout> layout = std::make_shared<VertexBufferLayout>();
 		layout->Push(GL_FLOAT, 3, false);
+		layout->Push(GL_FLOAT, 2, false);
 		
 		m_Data.vao = std::make_shared<VAO>();
 
@@ -80,6 +80,53 @@ namespace Makeshift
 		m_Data.vertices.data()->position.x;
 
 		m_Data.vao->unbind();
+
+	}
+
+	void Mesh::save(const std::string& location)
+	{
+		DEBUG_TRACE("Makeshift::Mesh::save()");
+
+		Json::Value root;
+
+		Json::Value vertices;
+		for (auto vertex : m_Data.vertices)
+		{
+			Json::Value vertexNode;
+
+			vertexNode["Position"]["x"] = vertex.position.x;
+			vertexNode["Position"]["y"] = vertex.position.y;
+			vertexNode["Position"]["z"] = vertex.position.z;
+
+			vertexNode["UV"]["x"] = vertex.UV.x;
+			vertexNode["UV"]["y"] = vertex.UV.y;
+
+			vertices.append(vertexNode);
+
+		}
+		root["Vertices"] = vertices;
+
+		Json::Value indices;
+		for (auto index : m_Data.indices)
+		{
+			indices.append(index);
+		}
+		root["Indices"] = indices;
+
+		DEBUG_INFO("Writing Mesh-File '{}'...", location);
+
+		Json::StyledWriter writer;
+
+		std::ofstream file(location);
+		if (file.is_open())
+		{
+			file << writer.write(root);
+			file.close();
+		}
+		else
+		{
+			DEBUG_ERROR("Failed to write Mesh-File to location '{}'", location);
+		}
 
 	}
 

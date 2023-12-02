@@ -5,14 +5,15 @@
 
 #include <Makeshift/Makeshift.hpp>
 
-#include <Makeshift/ShaderTest.h>
+#include <clientAPI.h>
 
 class MakeshiftApp : public Makeshift::Engine
 {
 
 	void init() override
 	{
-
+		Client::initLog();
+		Client::registerEntities();
 		
 
 	}
