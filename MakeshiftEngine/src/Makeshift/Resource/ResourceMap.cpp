@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -31,6 +31,8 @@ namespace Makeshift
             }
 
             DEBUG_INFO("Removing Resource '{}'", source);
+            
+
             m_Resources.erase(resource);
             return;
         }

@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -12,8 +12,15 @@
 #include <clientAPI.h>
 
 #include <imgui/imgui.h> 
+#include <imgui/imgui_stdlib.h>
 
 #include <Makeshift/Resource/ResourceMap.h>
+
+#include <GLFW/glfw3.h>
+
+#include "EditorWindows/FileBrowser.h"
+#include "EditorWindows/TextureCreator.h"
+#include "EditorWindows/LevelMap.h"
 
 namespace MakeshiftEditor
 {
@@ -26,19 +33,14 @@ namespace MakeshiftEditor
 			Client::initLog();
 			Client::registerEntities();
 
+			glfwSetDropCallback(getDisplay()->getNativeWindow(), dragAndDropCallback);
 
-			loadLevel("shaderTest_level", false);
-
+			//loadLevel("shaderTest_level", false);
 
 		}
 
 		void update() override
 		{
-
-			if (!bla)
-			{
-				bla = true;
-			}
 
 			if (ImGui::BeginMainMenuBar())
 			{
@@ -57,12 +59,31 @@ namespace MakeshiftEditor
 					{
 						Engine::getInstance().getDisplay()->switchPolygonMode();
 					}
+					if(ImGui::MenuItem("Statistics"))
+					{
+						m_RenderStatistics = !m_RenderStatistics;
+					}
+					if (ImGui::MenuItem("Open Current Location"))
+					{
 
+					}
 					ImGui::EndMenu();
 				}
 
 				if (ImGui::BeginMenu("Tools"))
 				{
+					if (ImGui::MenuItem("File Browser"))
+					{
+						m_FileBrowser.enabled = !m_FileBrowser.enabled;
+					}
+					if (ImGui::MenuItem("Texture Creator"))
+					{
+						m_TextureCreator.enabled = !m_TextureCreator.enabled;
+					}
+					if (ImGui::MenuItem("Level Map"))
+					{
+						m_LevelMap.enabled = !m_LevelMap.enabled;
+					}
 					ImGui::EndMenu();
 				}
 			
@@ -75,28 +96,22 @@ namespace MakeshiftEditor
 				ImGui::EndMainMenuBar();
 			}
 			
-			ImGui::Begin("ResourceMappyOppy");
-			
-			for (auto resource : getResourceMap()->getResources())
-			{
-			
-				ImGui::TextColored(ImVec4(0.7f, 0.7f, 0.7f, 1.0f), resource.first.c_str());
-				ImGui::Text("Usage Count: %d", resource.second.first);
-			
-				if (ImGui::CollapsingHeader(std::string(resource.first + "Data").c_str()))
-				{
-					resource.second.second->renderIMGUI();
-				}
-			
-				ImGui::Separator();
-			
-			}
-			
-			ImGui::End();
-			
+			//ImGui::End();
+
+			if (m_RenderStatistics)
+				renderStatistics();
+
+			m_FileBrowser.renderIMGUI();
+			m_TextureCreator.renderIMGUI();
+			m_LevelMap.renderIMGUI();
+
 			Client::renderIMGUI();
-			
-			ImGui::ShowDemoWindow();
+
+			GLenum error = glGetError();
+			if (error != GL_NO_ERROR) 
+			{
+				DEBUG_ERROR("OPENGL ERROR: {}", error);
+			}
 
 		}
 
@@ -106,7 +121,37 @@ namespace MakeshiftEditor
 		}
 
 	private:
-		bool bla = false;
+		FileBrowser m_FileBrowser;
+		TextureCreator m_TextureCreator;
+		LevelMap m_LevelMap;
+
+	private:
+		bool m_RenderStatistics = true;
+		void renderStatistics()
+		{
+			ImGui::SetNextWindowBgAlpha(0.2f);
+			ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowPos().x - 40, ImGui::GetWindowPos().y - 20));
+
+			ImGui::Begin("Statistics", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs);
+			ImGui::TextColored(ImVec4(1.0f, 0.8f, 0.5f, 1.0f), "FPS: %.2f", (1 / Makeshift::Time::getDeltaTime()));
+			ImGui::Text("DeltaTime: %f", Makeshift::Time::getDeltaTime());
+			ImGui::Text("Elapsed Time: %.1f s", Makeshift::Time::getElapsed());
+
+			ImGui::End();
+		}
+
+	private:
+		static void dragAndDropCallback(GLFWwindow* window, int count, const char** paths)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceExtern))
+				{
+					ImGui::SetDragDropPayload("EXTERNAL", paths[i], strlen(paths[i]) + 1);
+					ImGui::EndDragDropSource();
+				}
+			}
+		}
 
 	};
 

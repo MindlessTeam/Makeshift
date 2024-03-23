@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -9,7 +9,7 @@
 
 #include <glad/glad.h>
 
-namespace Makeshift
+namespace Makeshift::OpenGL
 {
 
 	ShaderProgram::ShaderProgram(const std::string& vertexSource, const std::string& fragmentSource)
@@ -75,6 +75,11 @@ namespace Makeshift
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 
+	}
+
+	ShaderProgram::~ShaderProgram()
+	{
+		glDeleteProgram(m_ID);
 	}
 
 	void ShaderProgram::use()

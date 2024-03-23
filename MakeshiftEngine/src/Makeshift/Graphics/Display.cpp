@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -59,11 +59,6 @@ namespace Makeshift
 
 		glEnable(GL_DEBUG_OUTPUT);
 
-	}
-
-	void GLAPIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
-	{
-		std::cout << message << std::endl;
 	}
 
 	void Display::setDisplaySettings(DisplaySettings settings)

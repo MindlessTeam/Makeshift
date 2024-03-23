@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -26,6 +26,7 @@ namespace Makeshift
 
 		int width, height; // Vec2 maybe?
 		WindowMode mode;
+		bool VSync;
 	};
 
 	//TODO: Implement Display Settings into Display class

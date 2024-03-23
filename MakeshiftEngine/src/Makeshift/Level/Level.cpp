@@ -1,10 +1,11 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
 #include "Level.h"
 
+#include "Makeshift/Version.h"
 #include "Makeshift/Utility/FileSystem.h"
 
 #include "Makeshift/Utility/Random.h"
@@ -62,35 +63,9 @@ namespace Makeshift
 
 	}
 
-	void Level::load(const std::string& location)
+	void Level::loadJson(Json::Value root)
 	{
-		DEBUG_TRACE("Makeshift::Level::load()");
-
-		DEBUG_INFO("Loading Level-File '{}'", location);
-
-		std::ifstream file(location);
-
-		if (!file.is_open())
-		{
-			DEBUG_ERROR("Failed to open JSON file '{}'", location);
-			return;
-		}
-
-		Json::CharReaderBuilder reader;
-		std::string errors;
-
-		DEBUG_INFO("Parsing Level-Data from JSON...", location);
-
-		Json::Value root;
-
-		if (!Json::parseFromStream(reader, file, &root, &errors))
-		{
-			file.close();
-			DEBUG_ERROR("Failed to parse JSON from file '{}' with errors '{}'", location, errors);
-			return;
-		}
-
-		file.close();
+		DEBUG_TRACE("Makeshift::Level::loadJson()");
 
 		m_LevelName = root["LevelName"].asString();
 
@@ -117,120 +92,126 @@ namespace Makeshift
 
 	}
 
-	void Level::save(const std::string& location)
-	{
-		DEBUG_TRACE("Makeshift::Level::saveComplete()");
-
-		std::string writeLocation = FileLocations::levelLocation(false) + m_LevelName + ".json";
-
-		DEBUG_INFO("Parsing Level-Info to JSON...");
-
-		Json::Value root;
-
-		root["LevelName"] = m_LevelName;
-
-		Json::Value entities;
-		for (const auto& entity : m_EntityMap)
-		{
-
-			Json::Value entityNode;
-
-			entityNode["Type"] = entity.second.second->getName();
-			entityNode["ID"] = entity.first;
-			entityNode["SaveState"] = entity.second.first;
-			entity.second.second->serialize(entityNode);
-
-			entities.append(entityNode);
-
-		}
-
-		root["Entities"] = entities;
-
-		DEBUG_INFO("Writing Level-File '{}'...", writeLocation);
-
-		Json::StyledWriter writer;
-
-		std::ofstream file(writeLocation);
-		if (file.is_open())
-		{
-			file << writer.write(root);
-			file.close();
-		}
-		else
-		{
-			DEBUG_ERROR("Failed to write Level-File to location '{}'", writeLocation);
-		}
-
-	}
+	//void Level::save(const std::string& location)
+	//{
+	//	DEBUG_TRACE("Makeshift::Level::saveComplete()");
+	//
+	//	std::string writeLocation = FileLocations::levelLocation(false) + m_LevelName + ".json";
+	//
+	//	DEBUG_INFO("Parsing Level-Info to JSON...");
+	//
+	//	Json::Value root;
+	//	root["Type"] = getType();
+	//	Json::Value version;
+	//	version["major"] = VERSION_MAJOR;
+	//	version["minor"] = VERSION_MINOR;
+	//	version["patch"] = VERSION_PATCH;
+	//	root["Version"] = version;
+	//
+	//	root["LevelName"] = m_LevelName;
+	//
+	//	Json::Value entities;
+	//	for (const auto& entity : m_EntityMap)
+	//	{
+	//
+	//		Json::Value entityNode;
+	//
+	//		entityNode["Type"] = entity.second.second->getName();
+	//		entityNode["ID"] = entity.first;
+	//		entityNode["SaveState"] = entity.second.first;
+	//		entity.second.second->serialize(entityNode);
+	//
+	//		entities.append(entityNode);
+	//
+	//	}
+	//
+	//	root["Entities"] = entities;
+	//
+	//	DEBUG_INFO("Writing Level-File '{}'...", writeLocation);
+	//
+	//	Json::StyledWriter writer;
+	//
+	//	std::ofstream file(writeLocation);
+	//	if (file.is_open())
+	//	{
+	//		file << writer.write(root);
+	//		file.close();
+	//	}
+	//	else
+	//	{
+	//		DEBUG_ERROR("Failed to write Level-File to location '{}'", writeLocation);
+	//	}
+	//
+	//}
 
 	void Level::loadSaveData()
 	{
 		DEBUG_TRACE("Makeshift::Level::loadSaveData()");
-
+	
 		std::string loadLocation = FileLocations::levelLocation(true) + m_LevelName + ".json";
-
+	
 		DEBUG_INFO("Loading Level-Save-Data '{}'", loadLocation);
-
+	
 		std::ifstream file(loadLocation);
-
+	
 		if (!file.is_open())
 		{
 			DEBUG_ERROR("Failed to open JSON file '{}'", loadLocation);
 			return;
 		}
-
+	
 		Json::CharReaderBuilder reader;
 		std::string errors;
-
+	
 		DEBUG_INFO("Parsing Level-Data from JSON...", loadLocation);
-
+	
 		Json::Value root;
-
+	
 		if (!Json::parseFromStream(reader, file, &root, &errors))
 		{
 			file.close();
 			DEBUG_ERROR("Failed to parse JSON from file '{}' with errors '{}'", loadLocation, errors);
 			return;
 		}
-
+	
 		file.close();
 	}
-
+	
 	void Level::saveSaveData()
 	{
 		DEBUG_TRACE("Makeshift::Level::saveSaveData()");
-
+	
 		std::string writeLocation = FileLocations::levelLocation(true) + m_LevelName + ".json";
-
+	
 		DEBUG_INFO("Parsing Level-Save-Data to JSON...");
 	
 		Json::Value root;
-
+	
 		root["AssociatedLevel"] = m_LevelName;
-
+	
 		Json::Value entities;
 		for (const auto& entity : m_EntityMap)
 		{
-
+	
 			if (entity.second.first)
 			{
 				Json::Value entityNode;
-
+	
 				entityNode["Type"] = entity.second.second->getName();
 				entityNode["ID"] = entity.first;
 				entity.second.second->serialize(entityNode);
-
+	
 				entities.append(entityNode);
 			}
-
+	
 		}
-
+	
 		root["Entities"] = entities;
-
+	
 		DEBUG_INFO("Writing Level-Save-Data '{}'...", writeLocation);
-
+	
 		Json::StyledWriter writer;
-
+	
 		std::ofstream file(writeLocation);
 		if (file.is_open())
 		{
@@ -241,7 +222,7 @@ namespace Makeshift
 		{
 			DEBUG_ERROR("Failed to write Level-Save-Data to location '{}'", writeLocation);
 		}
-
+	
 	}
 
 	int Level::generateID()

@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -9,7 +9,7 @@
 
 #include "Makeshift/Utility/OpenGLTypes.h"
 
-namespace Makeshift
+namespace Makeshift::OpenGL
 {
 
 	struct VertexBufferElement
@@ -17,7 +17,7 @@ namespace Makeshift
 		unsigned int type, count;
 		bool normalized;
 
-		static unsigned int getSizeOfType(unsigned int type)
+		static unsigned int getSizeOfType(unsigned int type) //TODO: Create internal type
 		{
 			switch (type)
 			{
@@ -64,6 +64,9 @@ namespace Makeshift
 
 		void bind() const;
 		void unbind() const;
+
+	public:
+		unsigned int getRenderID() const { return m_ID; }
 
 	private:
 		unsigned int m_ID;

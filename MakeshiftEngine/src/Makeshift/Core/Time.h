@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -12,8 +12,8 @@ namespace Makeshift
 	{
 
 	public:
-		static float* getDeltaTime() { return &s_DeltaTime; }
-		static float* getElapsed() { return &s_Elapsed; }
+		static float getDeltaTime() { return s_DeltaTime; }
+		static float getElapsed() { return s_Elapsed; }
 
 	public:
 		static void updateTime();

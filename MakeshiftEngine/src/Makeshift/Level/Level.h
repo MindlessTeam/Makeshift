@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -26,6 +26,12 @@ namespace Makeshift
 	{
 
 	public:
+		std::string getType() override
+		{
+			return "Level";
+		}
+
+	public:
 		void addEntity(std::shared_ptr<Entity> entity);
 
 		template<typename T>
@@ -36,8 +42,7 @@ namespace Makeshift
 	public:
 		void update();
 
-		virtual void load(const std::string& location) override; 
-		virtual void save(const std::string& location) override; // unused location parameter
+		virtual void loadJson(Json::Value root) override; 
 
 		void loadSaveData();
 		void saveSaveData();

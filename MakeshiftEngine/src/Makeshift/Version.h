@@ -1,4 +1,63 @@
 #pragma once
 
-#define VERSION "0.0.1-0" //TODO: Implement Versioning using GitHub Actions
-// Major.Minor.Patch-Commit
+#define VERSION_MAJOR 0 // Major Features / Milestones
+#define VERSION_MINOR 0 // Features
+#define VERSION_PATCH 1 // Bug-Fixes / Patches
+
+struct Version
+{
+
+	int major = VERSION_MAJOR;
+	int minor = VERSION_MINOR;
+	int patch = VERSION_PATCH;
+
+	Version() {}
+	Version(int major, int minor, int patch) : major(major), minor(minor), patch(patch) {}
+	Version(const Version& other) : major(other.major), minor(other.minor), patch(other.patch) {}
+
+	Version& operator=(const Version& other)
+	{
+		if (this != &other)
+		{
+			major = other.major;
+			minor = other.minor;
+			patch = other.patch;
+		}
+		return *this;
+	}
+
+	bool operator==(const Version& other) const
+	{
+		return major == other.major && minor == other.minor && patch == other.patch;
+	}
+
+	bool operator!=(const Version& other) const
+	{
+		return !(*this == other);
+	}
+
+	bool operator<(const Version& other) const
+	{
+		if (major != other.major)
+			return major < other.major;
+		if (minor != other.minor)
+			return minor < other.minor;
+		return patch < other.patch;
+	}
+
+	bool operator>(const Version& other) const
+	{
+		return other < *this;
+	}
+
+	bool operator<=(const Version& other) const
+	{
+		return !(other < *this);
+	}
+
+	bool operator>=(const Version& other) const
+	{
+		return !(*this < other);
+	}
+
+};

@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -32,11 +32,16 @@ namespace Makeshift
 	{
 
 	public:
+		std::string getType() override
+		{
+			return "Mesh";
+		}
+
+	public:
 		struct Data
 		{
-			std::vector<Vertex> vertices;
-			std::vector<uint32_t> indices;
-			std::shared_ptr<VAO> vao;
+			std::shared_ptr<OpenGL::VAO> vao;
+			int indexCount;
 		};
 
 	public:
@@ -47,10 +52,7 @@ namespace Makeshift
 
 	public:
 		// Inherited via Resource
-		virtual void load(const std::string& location) override;
-		virtual void save(const std::string& location) override;
-
-		virtual void renderIMGUI() override;
+		virtual void loadJson(Json::Value) override;
 
 	private:
 		Data m_Data;

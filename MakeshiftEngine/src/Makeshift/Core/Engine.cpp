@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -15,11 +15,10 @@
 
 #include "Makeshift/Graphics/ImGuiRenderer.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "Makeshift/Level/Entities/StaticProp.h"
 #include "Makeshift/ShaderTest.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Makeshift
 {
@@ -50,10 +49,6 @@ namespace Makeshift
 		EntityRegistry::registerEntity<ShaderTest>();
 		// -------------------------------------------
 
-		m_ActiveLevel = std::make_shared<Level>();
-		//m_LoadingScreen = std::make_shared<Level>();
-
-		//m_ActiveLevel = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "mainMenu" + ".json");
 		//m_LoadingScreen = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "loadingScreen" + ".json");
 
 		init();
@@ -64,6 +59,10 @@ namespace Makeshift
 			m_Display->clear();
 
 			Time::updateTime();
+
+			if(m_ActiveLevel != nullptr)
+				m_ActiveLevel->update();
+
 			ImGuiRenderer::prepareFrame();
 
 			Input::pollInput();
@@ -71,7 +70,6 @@ namespace Makeshift
 
 			ImGuiRenderer::endFrame();
 
-			m_ActiveLevel->update();
 			m_Display->swapBuffers();
 		}
 
@@ -79,8 +77,11 @@ namespace Makeshift
 
 		ImGuiRenderer::cleanUp();
 
+		DEBUG_INFO("Engine was active for '{}s'", Time::getElapsed());
+
 		// Shut-Down ---------------------------------
 		m_Display->closeDisplay();
+
 
 	}
 

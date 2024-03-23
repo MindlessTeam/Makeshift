@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -11,7 +11,7 @@
 #include <vector>
 #include <memory>
 
-namespace Makeshift
+namespace Makeshift::OpenGL
 {
 
 	class VAO
@@ -28,7 +28,7 @@ namespace Makeshift
 		void addEBO(const std::shared_ptr<EBO>& ebo);
 
 	public:
-		unsigned int getRenderID() { return m_ID; }
+		unsigned int getRenderID() const { return m_ID; }
 
 	private:
 		unsigned int m_ID;

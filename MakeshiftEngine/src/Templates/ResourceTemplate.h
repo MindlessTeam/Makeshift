@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -15,6 +15,12 @@ namespace Makeshift
 	// <description>
 	struct $itemname$ : public Resource
 	{
+
+	public:
+		std::string getType() override
+		{
+			return "$itemname";
+		}
 
 	public:
 		struct Data

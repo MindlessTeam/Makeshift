@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -40,7 +40,7 @@ namespace Makeshift
 
 	private: // Resources
 		std::shared_ptr<Mesh> m_Mesh;
-		std::shared_ptr<Material> m_Material;
+		//std::shared_ptr<Material> m_Material;
 
 	};
 

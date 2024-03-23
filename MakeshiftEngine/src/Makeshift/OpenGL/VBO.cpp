@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -9,7 +9,7 @@
 
 #include <glad/glad.h>
 
-namespace Makeshift
+namespace Makeshift::OpenGL
 {
 
 	VBO::VBO(const void* data, unsigned int size)

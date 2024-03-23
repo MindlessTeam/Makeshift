@@ -1,5 +1,5 @@
 // ----------------------------------------------
-// Copyright (c) 2022-2023 Aaron Kerker
+// Copyright (c) 2022-2024 Aaron Kerker
 // MIT-Licensed: https://opensource.org/licenses/MIT
 // ----------------------------------------------
 
@@ -9,7 +9,7 @@
 
 #include <glad/glad.h>
 
-namespace Makeshift
+namespace Makeshift::OpenGL
 {
 
 	EBO::EBO(const unsigned int* indices, unsigned int indexCount)
@@ -46,15 +46,6 @@ namespace Makeshift
 		DEBUG_TRACE("Makeshift::EBO::unbind()");
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		
-	}
-
-	unsigned int EBO::getIndexCount() const
-	{
-		//DEBUG_TRACE("Makeshift::EBO::getIndexCount()");
-
-		return m_IndexCount;
 
 		
 	}
