@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace MakeshiftEditor
+namespace MakeshiftEditor::Util
 {
 
 	struct Explorer

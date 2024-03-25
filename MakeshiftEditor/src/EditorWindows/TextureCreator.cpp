@@ -62,7 +62,7 @@ namespace MakeshiftEditor
 		ImGui::SameLine();
 		if(ImGui::Button("Browse"))
 		{
-			m_TextureDestination = Explorer::getFilePath();
+			m_TextureDestination = Util::Explorer::getFilePath();
 		}
 
 		if (ImGui::Button("Compile Texture", ImVec2(ImGui::GetContentRegionAvail().x, 0)))

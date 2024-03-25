@@ -8,6 +8,7 @@
 #include <string>
 
 #include <Makeshift/Resource/Resources/Texture.h>
+#include "ContentMeta.h"
 
 namespace MakeshiftEditor
 {
@@ -19,14 +20,26 @@ namespace MakeshiftEditor
 
 		void renderIMGUI();
 
+	public:
+		~FileBrowser();
+
 	private: // Values
 		std::string currentPath = "content\\";
 		std::string selectedFile;
 
 	private:
+		int cellSize = 128;
+
+	private:
 		std::shared_ptr<Makeshift::Texture> m_FolderIcon;
 		std::shared_ptr<Makeshift::Texture> m_FileIcon;
 		std::shared_ptr<Makeshift::Texture> m_ResourceIcon;
+
+		std::shared_ptr<ContentMeta> m_ContentMeta;
+
+	private:
+		void cleanUpMeta();
+		void saveContentMeta();
 
 	};
 

@@ -16,6 +16,8 @@
 
 #include <Makeshift/Resource/ResourceMap.h>
 
+#include <Makeshift/Graphics/ImGuiRenderer.h>
+
 #include <GLFW/glfw3.h>
 
 #include "EditorWindows/FileBrowser.h"
@@ -41,6 +43,9 @@ namespace MakeshiftEditor
 
 		void update() override
 		{
+
+			
+			ImGui::DockSpaceOverViewport(ImGui::GetWindowViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 
 			if (ImGui::BeginMainMenuBar())
 			{
@@ -90,6 +95,19 @@ namespace MakeshiftEditor
 				if (ImGui::BeginMenu("Client"))
 				{
 					Client::clientMenuItems();
+					ImGui::EndMenu();
+				}
+
+				if (ImGui::BeginMenu("Settings"))
+				{
+					if (ImGui::MenuItem("Double UI"))
+					{
+						Makeshift::ImGuiRenderer::doubleUISize();
+					}
+					if (ImGui::MenuItem("Half UI"))
+					{
+						Makeshift::ImGuiRenderer::halfUISize();
+					}
 					ImGui::EndMenu();
 				}
 			
