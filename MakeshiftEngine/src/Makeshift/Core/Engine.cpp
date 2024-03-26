@@ -51,6 +51,7 @@ namespace Makeshift
 
 		//m_LoadingScreen = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "loadingScreen" + ".json");
 
+		// Initialize the applications resources
 		init();
 
 		// Game Loop ---------------------------------
@@ -72,6 +73,7 @@ namespace Makeshift
 
 			m_Display->swapBuffers();
 		}
+		// -------------------------------------------
 
 		cleanUp();
 
@@ -87,6 +89,7 @@ namespace Makeshift
 
 	void Engine::setSaveGame(int number)
 	{
+		DEBUG_TRACE("Makeshift::Engine::setSaveGame()");
 
 		m_CurrentSaveGame = number;
 		FileSystem::initSaveGame();
@@ -97,16 +100,18 @@ namespace Makeshift
 	{
 		DEBUG_TRACE("Makeshift::Engine::loadLevel()");
 
-		// ShowLoadingScreen
+		//TODO: Show Loading Screen
 		if (m_CurrentSaveGame != 0)
 		{
 			m_ActiveLevel->saveSaveData();
 		}
 
+		// Remove the old level and load the new one
 		m_ResourceMap->removeResource(m_ActiveLevel->m_Location);
 		m_ActiveLevel = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + name + ".json");
 
-		if (savegame)
+		// If there's an active SaveGame load the data into the level.
+		if (savegame && m_CurrentSaveGame != 0)
 		{
 			m_ActiveLevel->loadSaveData();
 		}
@@ -117,6 +122,10 @@ namespace Makeshift
 	{
 		DEBUG_TRACE("Makeshift::Engine::quickSave()");
 
+		// Perhaps quick saves should be in a different folder.
+		// For now we just use savegame 0 as the quicksave folder,
+		// since it is an "invalid" saveGame.
+
 		int tmp = m_CurrentSaveGame;
 		setSaveGame(0);
 		m_ActiveLevel->saveSaveData();
@@ -126,6 +135,7 @@ namespace Makeshift
 
 	void Engine::quit()
 	{
+		DEBUG_TRACE("Makeshift::Engine::quit()");
 
 		quickSave();
 		

@@ -10,7 +10,11 @@
 namespace Makeshift
 {
 
-	float Time::s_DeltaTime = 0.0f;
+	//NOTE: During the first frame s_DeltaTime will always be zero. 
+	// This should never be an issue and even if a calculation somehow
+	// request detaTime in the FIRST EVER FRAME it should have a 
+	// negligible impact.
+	float Time::s_DeltaTime = 0.0f; 
 	float Time::s_Elapsed = 0.0f;
 	float Time::s_LastFrame = 0.0f;
 

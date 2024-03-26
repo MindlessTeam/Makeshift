@@ -14,13 +14,21 @@ namespace Makeshift
 {
 
 	// Log
-	// --------------------------------------------
+	// ---------------------------------------------
 	// Logging System for debugging.
 	struct Log
 	{
 
+		// Log::init()
+		// -----------------------------------------
+		// Initialises the spdlog-logging library.
 		static void init();
 
+		// Log::getLogger()
+		// -----------------------------------------
+		// Returns a shared_ptr to the current
+		// spdlog-logger. Don't call this function
+		// directly. Use the Macros!
 		static std::shared_ptr<spdlog::logger> getLogger() { return s_Logger; }
 
 	private:
@@ -48,7 +56,7 @@ namespace Makeshift
 // A PRERELEASE build will print Warning, Errors, and Fatal Errors.
 // A RELEASE build will only print Errors and Fatal Errors.
 //
-// Logging is one of the most useful debugging tools in existance, so
+// Logging is one of the most useful debugging tools in existence, so
 // here are a couple of rules to help decide which log level is 
 // necessary.
 // 
@@ -64,8 +72,6 @@ namespace Makeshift
 // DEBUG_TRACE is therefore used at the start of a function, which helps
 // to find out in what function an error occurs in if no other indication is
 // given.
-// In functions that continously repeat every frame, I'd recommend against
-// using a DEBUG_TRACE because it makes things rather un-nice to read.
 // 
 // DEBUG_INFO:
 // DEBUG_INFO is used for anything that we want to be outputted, maybe a 
@@ -73,7 +79,7 @@ namespace Makeshift
 // 
 // DEBUG_WARN:
 // Warnings are used for things that do not happen according to plan, but 
-// that should not affect the experience.
+// should not affect the experience.
 // 
 // DEBUG_ERROR:
 // An Error is outputted whenever something did not go to plan that could
@@ -90,14 +96,60 @@ namespace Makeshift
 
 #ifdef CFG_DEBUG
 
+// DEBUG_TRACE()
+// -----------------------------------------
+// Prints a Trace to the log.
+// 
+// Active in:
+// - CFG_DEBUG
+// 
+//NOTE: Place at the start of a function. (see Log.h for more info!)
 #define DEBUG_TRACE(...) Makeshift::Log::getLogger()->log(spdlog::level::trace, __VA_ARGS__);
 
+// DEBUG_INFO()
+// -----------------------------------------
+// Prints an Info-Statement to the log.
+// 
+// Active in:
+// - CFG_DEBUG
+// 
+//NOTE: For usecases see Log.h and/or existing code.
 #define DEBUG_INFO(...)  Makeshift::Log::getLogger()->log(spdlog::level::info, __VA_ARGS__);
 
+// DEBUG_WARN()
+// -----------------------------------------
+// Prints a Warning to the log.
+// 
+// Active in:
+// - CFG_DEBUG
+// - CFG_PRE_RELEASE
+// 
+//NOTE: For usecases see Log.h and/or existing code.
 #define DEBUG_WARN(...)  Makeshift::Log::getLogger()->log(spdlog::level::warn, __VA_ARGS__);
 
+// DEBUG_ERROR()
+// -----------------------------------------
+// Prints an Error to the log.
+// 
+// Active in:
+// - CFG_DEBUG
+// - CFG_PRE_RELEASE
+// - CFG_RELEASE
+// 
+//NOTE: For usecases see Log.h and/or existing code.
 #define DEBUG_ERROR(...) Makeshift::Log::getLogger()->log(spdlog::level::err, __VA_ARGS__);
 
+// DEBUG_FATAL()
+// -----------------------------------------
+// Throws a Fatal Error.
+// WILL CRASH THE PROGRAM!
+// 
+// Active in:
+// - CFG_DEBUG
+// - CFG_PRE_RELEASE
+// - CFG_RELEASE
+// 
+//NOTE: Only use where absoluetely necessary! (see Log.h for more Info)
 #define DEBUG_FATAL(...) Makeshift::Log::getLogger()->log(spdlog::level::critical, __VA_ARGS__); Makeshift::Log::getLogger()->flush(); throw(std::runtime_error("FATAL ERROR"));
 
 #elif CFG_PRE_RELEASE

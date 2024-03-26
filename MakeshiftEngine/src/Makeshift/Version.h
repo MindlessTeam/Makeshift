@@ -4,9 +4,14 @@
 #define VERSION_MINOR 0 // Features
 #define VERSION_PATCH 1 // Bug-Fixes / Patches
 
+// Version
+// -----------------------------------------
+// A Utility class that implements a nicer
+// way of working with Versions.
 struct Version
 {
 
+	// If you create an Empty Version Object, it will have the current Engine Version
 	int major = VERSION_MAJOR;
 	int minor = VERSION_MINOR;
 	int patch = VERSION_PATCH;

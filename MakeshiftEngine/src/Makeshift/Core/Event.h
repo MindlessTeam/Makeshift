@@ -11,6 +11,10 @@
 namespace Makeshift
 {
 
+	// Event
+	// ---------------------------------------------
+	// A basic implementation of an Event System.
+	//NOTE: Currently unused.
 	template<typename... Args>
 	class Event
 	{
