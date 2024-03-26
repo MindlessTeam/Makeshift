@@ -45,7 +45,6 @@ namespace Makeshift
 		float DPI;
 		glfwGetMonitorContentScale(glfwGetPrimaryMonitor(), &DPI, nullptr);
 		ImGuiRenderer::setUISize(DPI);
-		ImGuiRenderer::initializeImGui();
 
 		// Registering Engine Entities
 		EntityRegistry::registerEntity<StaticProp>();

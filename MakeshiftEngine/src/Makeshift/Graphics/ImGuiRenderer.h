@@ -20,8 +20,10 @@ namespace Makeshift
 		static void cleanUp();
 
 	public:
-		static float getFontSize() { return fontSizeDefault * UISizeModifier; }
-		static float getUISizeModifier() { return UISizeModifier; }
+		static float getFontSize() { return s_FontSizeDefault * s_UISizeModifier; }
+		static float getUISizeModifier() { return s_UISizeModifier; }
+
+		static bool isInitialized() { return s_IsInitialized; }
 
 	public:
 		static void doubleUISize();
@@ -32,11 +34,14 @@ namespace Makeshift
 
 	private:
 		static void updateImGuiStyle();
+		static void saveFileToDisk();
+		static void loadFileFromDisk();
 
 	private:
-		static float UISizeModifier;
-		static float fontSizeDefault;
-		static bool resizeRequested;
+		static float s_UISizeModifier;
+		static float s_FontSizeDefault;
+		static bool s_ResizeRequested;
+		static bool s_IsInitialized;
 
 	};
 

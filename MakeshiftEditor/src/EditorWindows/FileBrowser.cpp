@@ -40,10 +40,9 @@ namespace MakeshiftEditor
 
 		ImGui::Begin("File Browser", &enabled);
 
-		int availableWidth = ImGui::GetContentRegionAvail().x;
-
 		ImGui::SliderInt("Cell Size:", &cellSize, 32, 256);
 
+		int availableWidth = ImGui::GetContentRegionAvail().x;
 		int cellsPerRow = availableWidth / (cellSize + (4 * Makeshift::ImGuiRenderer::getUISizeModifier()));
 
 

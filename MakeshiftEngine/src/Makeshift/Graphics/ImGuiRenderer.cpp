@@ -19,9 +19,10 @@
 namespace Makeshift
 {
 
-	float ImGuiRenderer::fontSizeDefault = 16.0f;
-	float ImGuiRenderer::UISizeModifier = 1.0f;
-	bool ImGuiRenderer::resizeRequested = false;
+	float ImGuiRenderer::s_FontSizeDefault = 16.0f;
+	float ImGuiRenderer::s_UISizeModifier = 1.0f;
+	bool ImGuiRenderer::s_ResizeRequested = false;
+	bool ImGuiRenderer::s_IsInitialized = false;
 
 	void ImGuiRenderer::initializeImGui()
 	{
@@ -40,15 +41,17 @@ namespace Makeshift
 
 		io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + "SegUIVar.ttf").c_str(), getFontSize());
 
+		loadFileFromDisk();
+
 		DEBUG_INFO("Applying ImGui style...");
 
 		ImGui::StyleColorsDark();
 
-		ImGui::GetStyle().WindowPadding = ImVec2(4 * UISizeModifier, 5 * UISizeModifier);
-		ImGui::GetStyle().FramePadding = ImVec2(4 * UISizeModifier, 4 * UISizeModifier);
-		ImGui::GetStyle().CellPadding = ImVec2(4 * UISizeModifier, 4 * UISizeModifier);
-		ImGui::GetStyle().ItemSpacing = ImVec2(4 * UISizeModifier, 4 * UISizeModifier);
-		ImGui::GetStyle().ItemInnerSpacing = ImVec2(4 * UISizeModifier, 4 * UISizeModifier);
+		ImGui::GetStyle().WindowPadding = ImVec2(4 * s_UISizeModifier, 5 * s_UISizeModifier);
+		ImGui::GetStyle().FramePadding = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
+		ImGui::GetStyle().CellPadding = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
+		ImGui::GetStyle().ItemSpacing = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
+		ImGui::GetStyle().ItemInnerSpacing = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
 		ImGui::GetStyle().TouchExtraPadding = ImVec2(2, 2);
 		ImGui::GetStyle().IndentSpacing = 30;
 		ImGui::GetStyle().ScrollbarSize = 15;
@@ -125,7 +128,7 @@ namespace Makeshift
 	void ImGuiRenderer::prepareFrame()
 	{
 
-		if (resizeRequested)
+		if (s_ResizeRequested)
 			updateImGuiStyle();
 
 		ImGui_ImplGlfw_NewFrame();
@@ -155,17 +158,24 @@ namespace Makeshift
 			glfwMakeContextCurrent(backup);
 		}
 
+		if (!s_IsInitialized)
+			s_IsInitialized = true;
+
 	}
 
 	void ImGuiRenderer::cleanUp()
 	{
 		DEBUG_TRACE("Makeshift::ImGuiRenderer::cleanUp()");
 
+		if (!s_IsInitialized)
+			return;
+
+		if(!s_ResizeRequested)
+			saveFileToDisk();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
-		
 		ImGui::DestroyContext();
-
 	}
 
 	void ImGuiRenderer::updateImGuiStyle()
@@ -173,25 +183,60 @@ namespace Makeshift
 		cleanUp();
 		initializeImGui();
 
-		resizeRequested = false;
+		s_ResizeRequested = false;
+		s_IsInitialized = false;
+	}
+
+	void ImGuiRenderer::saveFileToDisk()
+	{
+		if (!s_IsInitialized)
+			return;
+
+		std::string modifier = std::to_string(s_UISizeModifier);
+
+		size_t dotPosition = modifier.find('.');
+		if (dotPosition != std::string::npos)
+		{
+			modifier.erase(dotPosition, 1);
+		}
+
+		std::string fileName = std::string("imgui_" + modifier + ".ini").c_str();
+		ImGui::SaveIniSettingsToDisk(fileName.c_str());
+	}
+
+	void ImGuiRenderer::loadFileFromDisk()
+	{
+		std::string modifier = std::to_string(s_UISizeModifier);
+
+		size_t dotPosition = modifier.find('.');
+		if (dotPosition != std::string::npos)
+		{
+			modifier.erase(dotPosition, 1);
+		}
+
+		std::string fileName = std::string("imgui_" + modifier + ".ini").c_str();
+		ImGui::LoadIniSettingsFromDisk(fileName.c_str());
 	}
 
 	void ImGuiRenderer::doubleUISize()
 	{
-		UISizeModifier *= 2;
-		resizeRequested = true;
+		saveFileToDisk();
+		s_UISizeModifier *= 2;
+		s_ResizeRequested = true;
 	}
 
 	void ImGuiRenderer::halfUISize()
 	{
-		UISizeModifier /= 2;
-		resizeRequested = true;
+		saveFileToDisk();
+		s_UISizeModifier /= 2;
+		s_ResizeRequested = true;
 	}
 
 	void ImGuiRenderer::setUISize(float size)
 	{
-		UISizeModifier = size;
-		resizeRequested = true;
+		saveFileToDisk();
+		s_UISizeModifier = size;
+		s_ResizeRequested = true;
 	}
 
 	void ImGuiRenderer::applyModifiersBasedOnMonitorResolution(float width, float height)
@@ -199,8 +244,9 @@ namespace Makeshift
 		float horizontalScalingFactor = width / 1920;
 		float verticalScalingFactor = height / 1080;
 
-		UISizeModifier = (horizontalScalingFactor + verticalScalingFactor) / 2;
-		resizeRequested = true;
+		saveFileToDisk();
+		s_UISizeModifier = (horizontalScalingFactor + verticalScalingFactor) / 2;
+		s_ResizeRequested = true;
 	}
 
 }
