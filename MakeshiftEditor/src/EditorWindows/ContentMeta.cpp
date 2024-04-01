@@ -47,6 +47,7 @@ namespace MakeshiftEditor
 		if (!file.is_open())
 		{
 			DEBUG_ERROR("Failed to open JSON file '{}'", location);
+			m_Data.m_Resources.emplace(location, std::make_pair("CORRUPT", Version()));
 			return;
 		}
 
@@ -59,6 +60,7 @@ namespace MakeshiftEditor
 		{
 			file.close();
 			DEBUG_ERROR("Failed to parse JSON from file '{}' with errors '{}'", location, errors);
+			m_Data.m_Resources.emplace(location, std::make_pair("CORRUPT", Version()));
 			return;
 		}
 

@@ -13,6 +13,10 @@
 namespace MakeshiftEditor
 {
 
+	// File Browser
+	// ---------------------------------------------
+	// Editor window for browsing the project folder.
+	//NOTE: Currently the "project folder" is always "content\\"
 	struct FileBrowser
 	{
 

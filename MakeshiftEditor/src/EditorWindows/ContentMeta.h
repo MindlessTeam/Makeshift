@@ -17,13 +17,14 @@ namespace MakeshiftEditor
 {
 
 	// Content Meta - Resource
-	// --------------------------------------
+	// ---------------------------------------------
 	// A file used by the FileBrowser to
 	// determine the type of resources
 	struct ContentMeta : public Makeshift::Resource
 	{
 
 	public:
+		// Inherited via Resource
 		std::string getType() override
 		{
 			return "ContentMeta";
@@ -43,6 +44,12 @@ namespace MakeshiftEditor
 		void setData(Data data) { m_Data = data; }
 
 	public:
+		// ContentMeta::addEntry()
+		// -----------------------------------------
+		// Adds an entry to the ContentMeta.
+		//
+		// Parameters:
+		// - location: the location of the resource to be added
 		void addEntry(const std::string& location);
 
 	public:

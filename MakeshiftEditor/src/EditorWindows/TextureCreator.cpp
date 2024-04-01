@@ -57,6 +57,11 @@ namespace MakeshiftEditor
 				const char* path = static_cast<const char*>(payload->Data);
 				m_TextureDestination = path;
 			}
+			if (const auto payload = ImGui::AcceptDragDropPayload("FILE_PATH"))
+			{
+				const char* path = static_cast<const char*>(payload->Data);
+				m_TextureDestination = path;
+			}
 			ImGui::EndDragDropTarget();
 		}
 		ImGui::SameLine();

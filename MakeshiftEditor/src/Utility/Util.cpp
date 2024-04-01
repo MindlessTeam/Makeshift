@@ -5,6 +5,8 @@
 
 #include "Util.h"
 
+#include <Makeshift/Graphics/ImGuiRenderer.h>
+
 #include <imgui/imgui.h>
 
 namespace MakeshiftEditor
@@ -59,5 +61,12 @@ namespace MakeshiftEditor
         }
 
 	}
+
+    float Util::getRequiredVerticalTextSize(int lines)
+    {
+
+        return (((Makeshift::ImGuiRenderer::getFontSize()) + (4 * Makeshift::ImGuiRenderer::getUISizeModifier())) * lines) + (4 * Makeshift::ImGuiRenderer::getUISizeModifier());
+
+    }
 
 }
