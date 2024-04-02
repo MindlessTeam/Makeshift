@@ -42,7 +42,6 @@ namespace Makeshift
 		{
 			indexData.push_back(indexNode.asUInt());
 		}
-		m_Data.indexCount = indexData.size();
 
 		std::shared_ptr<OpenGL::VertexBufferLayout> layout = std::make_shared<OpenGL::VertexBufferLayout>();
 		layout->Push(GL_FLOAT, 3, false);
