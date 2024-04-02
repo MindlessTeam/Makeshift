@@ -27,7 +27,7 @@ namespace Makeshift
 
 	// Mesh - Resource
 	// --------------------------------------
-	// A Resource representing a 3D Mesh
+	// A Resource representing a 3D Mesh.
 	struct Mesh : public Resource
 	{
 
@@ -41,7 +41,6 @@ namespace Makeshift
 		struct Data
 		{
 			std::shared_ptr<OpenGL::VAO> vao;
-			int indexCount;
 		};
 
 	public:
