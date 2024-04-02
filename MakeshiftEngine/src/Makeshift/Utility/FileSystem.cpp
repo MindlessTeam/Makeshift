@@ -23,7 +23,10 @@ namespace Makeshift
 
 	std::string FileLocations::saveGameLocation()
 	{
-		return "savegames/savegame" + Engine::getInstance().getCurrentSaveGame() + (std::string)"/";
+		if (Engine::getInstance().getCurrentSaveGame() == 0)
+			return "savegames/quicksaves/";
+
+		return "savegames/savegame" + std::to_string(Engine::getInstance().getCurrentSaveGame()) + (std::string)"/";
 	}
 
 	std::string FileLocations::modelLocation(bool savegame)
@@ -80,6 +83,7 @@ namespace Makeshift
 		{
 			makeDirComplete(FileLocations::levelLocation(false));
 		}
+		initSaveGame();
 
 	}
 

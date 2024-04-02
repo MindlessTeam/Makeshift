@@ -18,7 +18,7 @@ namespace Makeshift
 
 	// Material - Resource
 	// --------------------------------------
-	// A Resource representing a Material
+	// A Resource representing a Material.
 	struct Material : public Resource
 	{
 

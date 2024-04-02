@@ -11,7 +11,7 @@ namespace Makeshift
 	{
 		// Defaults
 		// -----------------------------------------
-		// Default resources
+		// Default resources. TO BE IMPLEMENTED!
 		struct Default
 		{
 			

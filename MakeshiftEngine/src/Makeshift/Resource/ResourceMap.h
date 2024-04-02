@@ -17,7 +17,7 @@ namespace Makeshift
 {
 
     // Resource Map
-    // -----------------------------------------
+    // ---------------------------------------------
     // A class representing all loaded
     // resources.
     class ResourceMap
@@ -28,15 +28,47 @@ namespace Makeshift
         ~ResourceMap() = default;
 
     public:
+        // ResourceMap::addResource()
+        // -----------------------------------------
+        // Adds a resource to the resource map.
+        //
+        // Parameters:
+        // - <T>: the type of resource to be cast to after loading/generation
+        // - source: the source location of the resource
+        // - codeGeneration: when true expects the engine to generate the resources Data elsewhere, therefore creates an empty resource with the assigned location slot
+        //
+        // Returns:
+        // - a shared_ptr to the loaded/generated resource
         template<typename T>
-        std::shared_ptr<T> addResource(const std::string& source);
+        std::shared_ptr<T> addResource(const std::string& source, bool codeGeneration = false);
 
+        // ResourceMap::getResource()
+        // -----------------------------------------
+        // Gets a resource from the resource map.
+        //
+        // Parameters:
+        // - <T>: the type of resource to be cast to
+        // - source: the source location of the resource
+        // 
+        // Returns:
+        // - a shared_ptr to the found resource (or nullptr if it couldn't be found)
         template<typename T>
         std::shared_ptr<T> getResource(const std::string& source);
 
+        // ResourceMap::removeResource()
+        // -----------------------------------------
+        // Removes a resource from the resource map.
+        //NOTE: If the resource is still in use elsewhere, it will remain.
+        // 
+        // Parameters:
+        // - source: the source location of the resource
         void removeResource(const std::string& source);
 
     public:
+        // ResourceMap::getResources()
+        // -----------------------------------------
+        // Returns:
+        // - a pointer to the resource maps map
         std::unordered_map<std::string, std::pair<int, std::shared_ptr<Resource>>>& getResources() { return m_Resources; }
 
 
@@ -47,7 +79,7 @@ namespace Makeshift
     };
 
     template<typename T>
-    inline std::shared_ptr<T> ResourceMap::addResource(const std::string& source)
+    inline std::shared_ptr<T> ResourceMap::addResource(const std::string& source, bool codeGeneration)
     {
         DEBUG_TRACE("Makeshift::ResourceMap::addResource()");
 
@@ -65,7 +97,9 @@ namespace Makeshift
         std::shared_ptr<Resource> res = std::make_shared<T>();
 
         res->m_Location = source;
-        res->load(source);
+
+        if(!codeGeneration)
+            res->load(source);
 
         m_Resources.emplace(source, std::make_pair(1, res));
 

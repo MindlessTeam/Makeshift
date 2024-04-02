@@ -123,7 +123,7 @@ namespace Makeshift
 		std::shared_ptr<Level> m_ActiveLevel;
 
 	private:
-		int m_CurrentSaveGame = 0; // 0 means inactive
+		int m_CurrentSaveGame = 0; // 0 means inactive / quicksave
 
 		// -------------------------------------------------------
 
