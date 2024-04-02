@@ -11,12 +11,15 @@ namespace Makeshift
 {
 
 	// Input
-	// -----------------------------------------
+	// ---------------------------------------------
 	// Class for handling game input.
 	class Input
 	{
 
 	public:
+		// Input::pollInput()
+		// -----------------------------------------
+		// Polls the current Input from the window.
 		static void pollInput();
 
 		//TODO: Input Handling

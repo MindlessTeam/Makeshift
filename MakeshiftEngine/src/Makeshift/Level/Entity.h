@@ -24,21 +24,48 @@ namespace Makeshift
 		virtual ~Entity() = default;
 
 	public:
+		// Entity::init()
+		// -----------------------------------------
+		// Initializes the entity.
+		void init() { onInit(); }
 		// onInit() is a theoretically redundant function,
 		// init() exists purely for consistency. 
 		// The compiler is gonna optimize the hell out of 
 		// my code anyway, so why not encourage it?!
-		void init() { onInit(); }
+
+		// Entity::update()
+		// -----------------------------------------
+		// Updates the entity (providing it is 
+		// enabled).
 		void update() { if (m_IsEnabled) { onUpdate(); } }
 
+		// Entity::enable()
+		// -----------------------------------------
+		// Enables the entity.
 		void enable() { m_IsEnabled = true; onEnable(); }
+
+		// Entity::disable()
+		// -----------------------------------------
+		// Disables the entity.
 		void disable() { m_IsEnabled = false; onDisable(); }
 
 	public:
+		// Entity::serialize()
+		// -----------------------------------------
+		// Serializes the data of the Entity to
+		// JSON.
 		virtual void serialize(Json::Value &value) = 0;
+
+		// Entity::deSerialize()
+		// -----------------------------------------
+		// Reads the Entity Data from JSON.
 		virtual void deSerialize(Json::Value value) = 0;
 
 	public:
+		// Entity::getName()
+		// -----------------------------------------
+		// Returns:
+		// - the name of the entity (e.g. "SoundSource")
 		virtual std::string getName() = 0;
 
 	protected:

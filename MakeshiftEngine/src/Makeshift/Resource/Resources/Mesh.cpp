@@ -45,8 +45,8 @@ namespace Makeshift
 		m_Data.indexCount = indexData.size();
 
 		std::shared_ptr<OpenGL::VertexBufferLayout> layout = std::make_shared<OpenGL::VertexBufferLayout>();
-		layout->Push(GL_FLOAT, 3, false);
-		layout->Push(GL_FLOAT, 2, false);
+		layout->push(GL_FLOAT, 3, false);
+		layout->push(GL_FLOAT, 2, false);
 		
 		m_Data.vao = std::make_shared<OpenGL::VAO>();
 

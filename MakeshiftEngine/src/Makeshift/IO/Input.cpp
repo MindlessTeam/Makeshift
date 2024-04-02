@@ -15,7 +15,7 @@ namespace Makeshift
 
 	void Input::pollInput()
 	{
-		//DEBUG_TRACE("Makeshift::Input::pollInput()");
+		DEBUG_TRACE("Makeshift::Input::pollInput()");
 
 		glfwPollEvents();
 	}

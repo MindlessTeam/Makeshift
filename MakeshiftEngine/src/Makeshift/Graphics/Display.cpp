@@ -39,6 +39,7 @@ namespace Makeshift
 		DEBUG_INFO("Creating Window...");
 		m_Window = glfwCreateWindow(1280, 720, "MAKESHIFT", nullptr, nullptr);
 
+		// This hopefully never happens...
 		if (!m_Window)
 		{
 			DEBUG_FATAL("Failed to create Window!");
@@ -46,6 +47,7 @@ namespace Makeshift
 
 		glfwMakeContextCurrent(m_Window);
 
+		// Same here...
 		DEBUG_INFO("Initializing GLAD...");
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
@@ -63,6 +65,7 @@ namespace Makeshift
 
 	void Display::setDisplaySettings(DisplaySettings settings)
 	{
+		DEBUG_TRACE("Makeshift::Display::setDisplaySettings()");
 
 		if (settings.mode != getDisplaySettings().mode)
 		{
@@ -73,8 +76,9 @@ namespace Makeshift
 
 	}
 
-	DisplaySettings& Display::getDisplaySettings()
+	DisplaySettings Display::getDisplaySettings()
 	{
+		DEBUG_TRACE("Makeshift::Display::getDisplaySettings()");
 
 		DisplaySettings settings;
 		glfwGetWindowSize(m_Window, &settings.width, &settings.height);
@@ -103,7 +107,7 @@ namespace Makeshift
 
 	void Display::clear()
 	{
-		//DEBUG_TRACE("Makeshift::Display::clear()");
+		DEBUG_TRACE("Makeshift::Display::clear()");
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -111,7 +115,7 @@ namespace Makeshift
 
 	void Display::swapBuffers()
 	{
-		//DEBUG_TRACE("Makeshift::Display::swapBuffers()");
+		DEBUG_TRACE("Makeshift::Display::swapBuffers()");
 
 		glfwSwapBuffers(m_Window);
 
@@ -119,6 +123,8 @@ namespace Makeshift
 
 	void Display::switchPolygonMode()
 	{
+		DEBUG_TRACE("Makeshift::Display::switchPolygonMode()");
+
 		if (m_CurrentPolygonMode == GL_FILL) 
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -138,7 +144,7 @@ namespace Makeshift
 
 	bool Display::isActive()
 	{
-		//DEBUG_TRACE("Makeshift::Display::isActive()");
+		DEBUG_TRACE("Makeshift::Display::isActive()");
 
 		if (glfwGetWindowAttrib(m_Window, GLFW_ICONIFIED))
 			return false;

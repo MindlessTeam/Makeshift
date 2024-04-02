@@ -10,6 +10,9 @@
 namespace Makeshift::OpenGL
 {
 
+	// Shader Program
+	// ---------------------------------------------
+	// A wrapper for an OpenGL Shader Program.
 	class ShaderProgram
 	{
 
@@ -19,6 +22,9 @@ namespace Makeshift::OpenGL
 		//TODO: ShaderProgram(const std::string& computeSource) - perhaps a separate class?
 		~ShaderProgram();
 
+		// ShaderProgram::use()
+		// -----------------------------------------
+		// Prepares the ShaderProgram for usage.
 		void use();
 
 		void setBool(int location, bool value) const;
@@ -26,6 +32,10 @@ namespace Makeshift::OpenGL
 		void setFloat(int location, float value) const;
 
 	public:
+		// ShaderProgram::getRenderID()
+		// -----------------------------------------
+		// Returns:
+		// - The ID the ShaderProgram is assigned to
 		unsigned int getRenderID() const { return m_ID; }
 
 	private:

@@ -5,6 +5,8 @@
 
 #include "Time.h"
 
+#include "Makeshift/Debug/Log.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Makeshift
@@ -20,6 +22,7 @@ namespace Makeshift
 
 	void Time::updateTime()
 	{
+		DEBUG_TRACE("Makeshift::Time::updateTime()");
 
 		float currentFrame = glfwGetTime();
 		s_DeltaTime = currentFrame - s_LastFrame;

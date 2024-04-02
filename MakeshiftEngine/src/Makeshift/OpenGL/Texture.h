@@ -8,6 +8,9 @@
 namespace Makeshift::OpenGL
 {
 
+	// Texture
+	// ---------------------------------------------
+	// A wrapper for an OpenGL texture.
 	class Texture
 	{
 
@@ -36,10 +39,21 @@ namespace Makeshift::OpenGL
 		~Texture();
 
 	public:
+		// Texture::bind()
+		// -----------------------------------------
+		// Binds the texture for use.
 		void bind() const;
+		
+		// Texture::unbind()
+		// -----------------------------------------
+		// Unbinds the texture.
 		void unbind() const;
 
 	public:
+		// Texture::getRenderID()
+		// -----------------------------------------
+		// Returns:
+		// - The ID the Texture is assigned to.
 		unsigned int getRenderID() const { return m_ID; }
 
 	private:
