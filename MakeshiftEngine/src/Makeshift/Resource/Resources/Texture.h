@@ -10,13 +10,15 @@
 #include "Makeshift/OpenGL/Texture.h"
 
 #include <memory>
+#include <vector>
 
 namespace Makeshift
 {
 
 	// Texture - Resource
-	// --------------------------------------
-	// <description>
+	// ---------------------------------------------
+	// A Texture Resource. Represents an image in 
+	// Makeshift.
 	struct Texture : public Resource
 	{
 
@@ -31,7 +33,7 @@ namespace Makeshift
 		{
 			std::shared_ptr<OpenGL::Texture> texture;
 			int width, height;
-			OpenGL::Texture::TextureFormat textureFormat;
+			OpenGL::Texture::TextureFormat textureFormat; // To be removed
 			OpenGL::Texture::TextureType textureType;
 			OpenGL::Texture::TextureFiltering textureFiltering;
 		};
@@ -45,6 +47,18 @@ namespace Makeshift
 	public:
 		// Inherited via Resource
 		virtual void loadJson(Json::Value) override;
+
+	private:
+		// Texture::loadTextureData()
+		// -----------------------------------------
+		// Loads an images raw binary data.
+		//
+		// Parameters:
+		// - location: the file location (accepts any file type (in theory))
+		//
+		// Returns:
+		// - a vector of unsigned char representing the bytes of the image data
+		std::vector<unsigned char> loadTextureData(const std::string location);
 
 	private:
 		Data m_Data;

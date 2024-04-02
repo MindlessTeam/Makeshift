@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace Json
+namespace Json // Forward declaration
 {
 	struct Value;
 }
