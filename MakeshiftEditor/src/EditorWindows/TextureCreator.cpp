@@ -23,6 +23,7 @@
 
 #include "Utility/Explorer.h"
 
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
@@ -100,13 +101,16 @@ namespace MakeshiftEditor
 			root["Version"]["minor"] = VERSION_MINOR;
 			root["Version"]["patch"] = VERSION_PATCH;
 
-			Json::Value imageDataJSON;
-			for (auto byte : m_ImageData)
-			{
-				imageDataJSON.append(byte);
-			}
+			std::string texDataLocation(m_TextureDestination + ".data");
 
-			root["Image Data"] = imageDataJSON;
+			std::ofstream datafile(texDataLocation, std::ios::out | std::ios::binary);
+
+			int vectorSize = m_ImageData.size();
+			datafile.write(reinterpret_cast<char*>(&vectorSize), sizeof(vectorSize));
+			datafile.write(reinterpret_cast<char*>(m_ImageData.data()), vectorSize);
+			datafile.close();
+
+			root["Image Data"] = texDataLocation;
 
 			root["Width"] = m_ImageWidth;
 			root["Height"] = m_ImageHeight;
