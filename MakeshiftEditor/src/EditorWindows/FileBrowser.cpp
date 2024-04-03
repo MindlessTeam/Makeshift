@@ -38,6 +38,7 @@ namespace MakeshiftEditor
 		if (!m_ContentMeta)
 			m_ContentMeta = Makeshift::Engine::getInstance().getResourceMap()->addResource<ContentMeta>("meta.json");
 
+		ImGui::SetNextWindowSizeConstraints(ImVec2(650,650), ImVec2(10000000,10000000));
 		ImGui::Begin("File Browser", &enabled);
 
 		// I don't like the way ImGui::Column() looks, so we're doing some simple
@@ -63,6 +64,42 @@ namespace MakeshiftEditor
 		int i = 0; // To Keep Track where in the column we are
 		for (const auto& entry : std::filesystem::directory_iterator(currentPath))
 		{
+
+			// Apply filters
+			if (entry.is_directory() && !showDirectories)
+				continue;
+
+			if (!entry.is_directory() && entry.path().extension() != ".json" && !showFiles)
+				continue;
+
+			if (entry.path().extension() == ".json")
+			{
+				if (m_ContentMeta->getData().m_Resources.find(entry.path().string().c_str()) == m_ContentMeta->getData().m_Resources.end())
+					m_ContentMeta->addEntry(entry.path().string().c_str());
+
+				// This code looks a bit confusing, but it essentially just
+				// checks whether the current item is included in the filters
+				// and if it isn't ignores it.
+
+				bool marked = false;
+				for (auto filter : filters)
+				{
+					marked = true;
+					if (m_ContentMeta->getData().m_Resources.find(entry.path().string().c_str())->second.first == filter.first && filter.second == false)
+					{
+						marked = true;
+						break;
+					}
+					else
+					{
+						marked = false;
+					}
+				}
+
+				if (marked)
+					continue;
+			}
+
 			// We start the iteration process at 1.
 			// This is so for the first line no "ImGui::SameLine()" is called. For 
 			// whatever reason using "ImGui::NextLine()" before this loop (which was
@@ -114,6 +151,10 @@ namespace MakeshiftEditor
 						m_ContentMeta->getData().m_Resources.find(entry.path().string().c_str())->second.second.minor,
 						m_ContentMeta->getData().m_Resources.find(entry.path().string().c_str())->second.second.patch);
 
+					if (filters.find(m_ContentMeta->getData().m_Resources.find(entry.path().string().c_str())->second.first) == filters.end())
+					{
+						filters.emplace(m_ContentMeta->getData().m_Resources.find(entry.path().string().c_str())->second.first, true);
+					}
 				}
 				else
 				{
@@ -188,16 +229,13 @@ namespace MakeshiftEditor
 		ImGui::SetCursorPos(ImVec2(windowOrigin.x, windowOrigin.y + ImGui::GetScrollY()));
 		ImGui::BeginChild("SettingsBar", ImVec2(ImGui::GetContentRegionAvail().x, Util::getRequiredVerticalTextSize(1)));
 		
+		ImVec2 settingsBarOrigin = ImGui::GetCursorPos();
+
 		// As soon as we are in a subfolder of content "enable"
 		// the button.
-		float buttonWidth = Util::getRequiredVerticalTextSize(1);
-		float minTextWidth = 200;
-		float filterAreaWidth = 150;
-		
-		
 		if (currentPath != "content" && currentPath != "content\\") // Perhaps make it absolute?
 		{
-			if (ImGui::Button("< ##ReturnToPrevious"))
+			if (ImGui::Button("< ##ReturnToPrevious", ImVec2(Util::getRequiredVerticalTextSize(1), Util::getRequiredVerticalTextSize(1))))
 			{
 				currentPath = std::filesystem::path(currentPath).parent_path().string();
 			}
@@ -209,23 +247,100 @@ namespace MakeshiftEditor
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.31f, 0.35f, 0.43f, 1.00f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.31f, 0.35f, 0.43f, 1.00f));
 
-			ImGui::SetNextItemWidth(buttonWidth);
-			ImGui::Button("< ##ReturnToPrevious");
+			ImGui::Button("< ##ReturnToPrevious", ImVec2(Util::getRequiredVerticalTextSize(1), Util::getRequiredVerticalTextSize(1)));
 
 			ImGui::PopStyleColor(3);
 		}
 
-		ImGui::SameLine();
-		ImGui::Text(Util::trimTextToFitArea(currentPath, 150 * Makeshift::ImGuiRenderer::getUISizeModifier()).c_str());
+		float textSize = 150 * Makeshift::ImGuiRenderer::getUISizeModifier();
 
-		//TODO: Figure out the spacing
+		// Everything is in one line.
 		ImGui::SameLine();
-		ImGui::SetNextItemWidth(500 * Makeshift::ImGuiRenderer::getUISizeModifier());
-		ImGui::SliderInt("##CellSize", &cellSize, 64, 256);
+		ImGui::Text(Util::trimTextToFitArea(currentPath, textSize, true).c_str());
 		
+		float sliderSize = ImGui::GetWindowWidth() - (2 * Util::getRequiredVerticalTextSize(1) + textSize + 4 * Makeshift::ImGuiRenderer::getUISizeModifier());
+
+		ImGui::SameLine();
+		// Since text doesn't allow a specific size to be set
+		// we manually advance to the position that the text 
+		// can (due to the trimming) have at its max length.
+		ImGui::SetCursorPosX(settingsBarOrigin.x + Util::getRequiredVerticalTextSize(1) + textSize);
+		ImGui::SetNextItemWidth(sliderSize);
+		ImGui::SliderInt("##CellSize", &cellSize, 64, 256);
+	
+		ImGui::SameLine();
+		if (ImGui::Button("Filters", ImVec2(Util::getRequiredVerticalTextSize(1), 0)))
+		{
+			isToolTipOpen = true;
+			cursorToolTipOrigin = ImGui::GetMousePos();
+		}
+
 		ImGui::EndChild(); // Settings Bar
 
 		ImGui::End(); //-------------- FILE BROWSER
+
+		
+	
+		if (!isToolTipOpen)
+			return;
+
+		// ImGui does provide tooltip functionality, but this
+		// is more of a right-click context menu with
+		// interaction and items which wouldn't work with
+		// ImGuis tooltip system.
+
+		// Style the window to look like a popup.
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0);
+		ImGui::PushStyleColor(ImGuiCol_BorderShadow, ImVec4(1, 1, 1, 1));
+
+		ImGui::SetNextWindowPos(cursorToolTipOrigin);
+		ImGui::Begin("##FileBrowserToolTip", &isToolTipOpen, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize);
+
+		ImGui::PopStyleVar(); // Window Rounding
+		ImGui::PopStyleColor(); // Border shadow
+
+		// Close the popup if the user clicks anywhere else
+		// or it has not been hovered for a while.
+		if (!ImGui::IsWindowHovered())
+		{
+			// We wait for half a second before closing the window.
+			// From my (frankly very limited) testing I've found
+			// that this is a nice balance. Shorter timespans can
+			// sometimes close the window whilst you're still trying
+			// to interact with it just because you moved outside for
+			// a tiny moment. And longer periods get annoying because
+			// IT JUST WON'T GO AWAY!!!!! (you get my point?)
+			toolTipOpenTime += Makeshift::Time::getDeltaTime();
+
+			if (toolTipOpenTime >= 0.5 || ImGui::IsMouseClicked(ImGuiMouseButton_Left) || ImGui::IsMouseClicked(ImGuiMouseButton_Middle) || ImGui::IsMouseClicked(ImGuiMouseButton_Right))
+			{
+				isToolTipOpen = false;
+				toolTipOpenTime = 0;
+			}
+		}
+
+		// Generic filters
+		ImGui::Checkbox("Show Directories", &showDirectories);
+		ImGui::Checkbox("Show Files", &showFiles);
+
+		// Resource specific filters
+		ImGui::Separator();
+		ImGui::Text("Resources:");
+
+		for (auto& filter : filters)
+		{
+			if (filter.first == "")
+			{
+				// Just so ImGui doesn't get a heart-attack with a null-id.
+				ImGui::Checkbox("Unknown", &filter.second);
+			}
+			else
+			{
+				ImGui::Checkbox(filter.first.c_str(), &filter.second);
+			}
+		}
+		
+		ImGui::End(); //-------------- FILE BROWSER TOOL TIP
 
 	}
 
@@ -234,6 +349,7 @@ namespace MakeshiftEditor
 
 		auto& resources = m_ContentMeta->getData().m_Resources;
 		std::vector<std::string> keysToRemove;
+
 
 		for (const auto& resource : resources)
 		{
