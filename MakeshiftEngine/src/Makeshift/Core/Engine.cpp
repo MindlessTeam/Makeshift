@@ -42,14 +42,16 @@ namespace Makeshift
 		// Initialization ----------------------------
 		m_Display->createDisplay();
 
-		ImGuiRenderer::initializeImGui();
+		float DPI;
+		glfwGetMonitorContentScale(glfwGetPrimaryMonitor(), &DPI, nullptr);
+		ImGuiRenderer::setUISize(DPI);
 
 		// Registering Engine Entities
 		EntityRegistry::registerEntity<StaticProp>();
 		EntityRegistry::registerEntity<ShaderTest>();
 		// -------------------------------------------
 
-		//m_LoadingScreen = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "loadingScreen" + ".json");
+		//m_LoadingScreen = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "loadingScreen.json");
 
 		// Initialize the applications resources
 		init();
