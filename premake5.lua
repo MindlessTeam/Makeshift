@@ -23,6 +23,7 @@ group "Dependencies"
 	include "dependencies/jsoncpp"
 	include "dependencies/spdlog"
 	include "dependencies/glad"
+	include "dependencies/GLFW"
 group ""
 
 ---------------------------------------------------
@@ -53,12 +54,14 @@ project "MakeshiftEngine"
 		"MakeshiftEngine/src",
 		"%{wks.location}/dependencies/glad/include",
 		"%{wks.location}/dependencies/imgui",
+		"%{wks.location}/dependencies/imgui/imgui",
 		"%{wks.location}/dependencies/glm",
 		"%{wks.location}/dependencies/glfw/include",
 		"%{wks.location}/dependencies/IconFontCppHeaders",
 		"%{wks.location}/dependencies/jsoncpp/include",
 		"%{wks.location}/dependencies/spdlog/include",
-		"%{wks.location}/dependencies/tinyobjloader/include"
+		"%{wks.location}/dependencies/tinyobjloader/include",
+		"%{wks.location}/dependencies/stb"
 	}
 
 	libdirs
@@ -70,11 +73,11 @@ project "MakeshiftEngine"
 	{
 		"opengl32",
 		"freetype.lib",
-		"GLFW",
 		"ImGui",
 		"Json",
 		"spdlog",
-		"Glad"
+		"Glad",
+		"GLFW"
 	}
 
 	prebuildcommands
@@ -125,6 +128,15 @@ project "MakeshiftClient"
 	includedirs
 	{
 		"MakeshiftClient/src",
+		"%{wks.location}/dependencies/glad/include",
+		"%{wks.location}/dependencies/imgui",
+		"%{wks.location}/dependencies/glm",
+		"%{wks.location}/dependencies/glfw/include",
+		"%{wks.location}/dependencies/IconFontCppHeaders",
+		"%{wks.location}/dependencies/jsoncpp/include",
+		"%{wks.location}/dependencies/spdlog/include",
+		"%{wks.location}/dependencies/tinyobjloader/include",
+		"%{wks.location}/dependencies/stb",
 		"%{wks.location}/MakeshiftEngine/src"
 	}
 
@@ -188,6 +200,7 @@ project "MakeshiftApplication"
 		"%{wks.location}/dependencies/jsoncpp/include",
 		"%{wks.location}/dependencies/spdlog/include",
 		"%{wks.location}/dependencies/tinyobjloader/include",
+		"%{wks.location}/dependencies/stb",
 		"%{wks.location}/MakeshiftClient/src",
 		"%{wks.location}/MakeshiftEngine/src"
 	}
@@ -246,6 +259,7 @@ project "MakeshiftEditor"
 		"%{wks.location}/dependencies/jsoncpp/include",
 		"%{wks.location}/dependencies/spdlog/include",
 		"%{wks.location}/dependencies/tinyobjloader/include",
+		"%{wks.location}/dependencies/stb",
 		"%{wks.location}/MakeshiftClient/src",
 		"%{wks.location}/MakeshiftEngine/src"
 	}

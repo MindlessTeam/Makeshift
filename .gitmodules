@@ -22,3 +22,7 @@
 [submodule "dependencies/freetype"]
 	path = dependencies/freetype
 	url = https://github.com/MindlessTeam/freetype-windows-binaries
+[submodule "dependencies/imgui/imgui"]
+	path = dependencies/imgui/imgui
+	url = https://github.com/MindlessTeam/imgui
+	branch = docking

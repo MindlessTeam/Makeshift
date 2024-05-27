@@ -12,7 +12,7 @@
 #include <clientAPI.h>
 
 #include <imgui/imgui.h> 
-#include <imgui/imgui_stdlib.h>
+#include <imgui/misc/cpp/imgui_stdlib.h>
 
 #include <Makeshift/Resource/ResourceMap.h>
 
@@ -45,7 +45,7 @@ namespace MakeshiftEditor
 		{
 
 			
-			ImGui::DockSpaceOverViewport(ImGui::GetWindowViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+			ImGui::DockSpaceOverViewport(0U, ImGui::GetWindowViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 
 			if (ImGui::BeginMainMenuBar())
 			{
