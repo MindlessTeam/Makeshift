@@ -32,7 +32,7 @@ namespace Makeshift
 		struct Data
 		{
 			std::shared_ptr<Shader> shader;
-			//std::vector<std::shared_ptr<MaterialProperty>> materialProperties;
+			std::vector<std::shared_ptr<MaterialProperty>> materialProperties;
 		};
 
 	public:

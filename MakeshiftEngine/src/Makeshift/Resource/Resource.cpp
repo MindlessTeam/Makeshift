@@ -85,4 +85,9 @@ namespace Makeshift
 		DEBUG_WARN("No Legacy-Loader for '{}'!", getType());
 	}
 
+	void Resource::loadDefaultValues()
+	{
+		DEBUG_WARN("No Default Value for '{}'", getType());
+	}
+
 }

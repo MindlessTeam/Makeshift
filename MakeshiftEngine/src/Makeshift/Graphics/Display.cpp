@@ -36,6 +36,8 @@ namespace Makeshift
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // We will NEVER have a resizable window, you understand me?!
 		glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
 
+		glfwWindowHint(GLFW_AUTO_ICONIFY, GLFW_FALSE);
+
 		DEBUG_INFO("Creating Window...");
 		m_Window = glfwCreateWindow(1280, 720, "MAKESHIFT", nullptr, nullptr);
 
@@ -67,12 +69,22 @@ namespace Makeshift
 	{
 		DEBUG_TRACE("Makeshift::Display::setDisplaySettings()");
 
+		glfwSetWindowSize(m_Window, settings.width, settings.height);
+
 		if (settings.mode != getDisplaySettings().mode)
 		{
-			//TODO: Window Mode switching
-		}
 
-		glfwSetWindowSize(m_Window, settings.width, settings.height);
+			if (settings.mode == DisplaySettings::FULLSCREEN)
+			{
+				glfwSetWindowMonitor(m_Window, glfwGetPrimaryMonitor(), 0, 0, glfwGetVideoMode(glfwGetPrimaryMonitor())->width, glfwGetVideoMode(glfwGetPrimaryMonitor())->height, glfwGetVideoMode(glfwGetPrimaryMonitor())->refreshRate);
+			}
+			else
+			{
+				glfwSetWindowMonitor(m_Window, NULL, glfwGetVideoMode(glfwGetPrimaryMonitor())->width - settings.width, glfwGetVideoMode(glfwGetPrimaryMonitor())->height - settings.height, settings.width, settings.height, NULL);
+			}
+		}
+		
+
 
 	}
 
@@ -81,16 +93,19 @@ namespace Makeshift
 		DEBUG_TRACE("Makeshift::Display::getDisplaySettings()");
 
 		DisplaySettings settings;
-		glfwGetWindowSize(m_Window, &settings.width, &settings.height);
-
+		
 		if (glfwGetWindowMonitor(m_Window) == nullptr)
 		{
 			settings.mode = settings.WINDOWED;
+			glfwGetWindowSize(m_Window, &settings.width, &settings.height);
 		} 
 		else
 		{
 			settings.mode = settings.FULLSCREEN;
+			settings.width = glfwGetVideoMode(glfwGetWindowMonitor(m_Window))->width;
+			settings.height = glfwGetVideoMode(glfwGetWindowMonitor(m_Window))->height;
 		}
+
 
 		return settings;
 

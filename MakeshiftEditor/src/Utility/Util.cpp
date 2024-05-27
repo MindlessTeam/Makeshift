@@ -62,8 +62,11 @@ namespace MakeshiftEditor
 
 	}
 
-    float Util::getRequiredVerticalTextSize(int lines)
+    float Util::getRequiredVerticalTextSize(int lines, bool icon)
     {
+
+        if(icon)
+            return (((Makeshift::ImGuiRenderer::getIconFontSize()) + (4 * Makeshift::ImGuiRenderer::getUISizeModifier())) * lines) + (4 * Makeshift::ImGuiRenderer::getUISizeModifier());
 
         return (((Makeshift::ImGuiRenderer::getFontSize()) + (4 * Makeshift::ImGuiRenderer::getUISizeModifier())) * lines) + (4 * Makeshift::ImGuiRenderer::getUISizeModifier());
 

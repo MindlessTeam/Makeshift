@@ -16,7 +16,6 @@
 #include "Makeshift/Graphics/ImGuiRenderer.h"
 
 #include "Makeshift/Level/Entities/StaticProp.h"
-#include "Makeshift/ShaderTest.h"
 
 #include <GLFW/glfw3.h>
 
@@ -28,6 +27,7 @@ namespace Makeshift
 	void Engine::run()
 	{
 
+		// Wait a minute... Who are you?
 		if (s_Instance != nullptr)
 			return;
 
@@ -48,10 +48,13 @@ namespace Makeshift
 
 		// Registering Engine Entities
 		EntityRegistry::registerEntity<StaticProp>();
-		EntityRegistry::registerEntity<ShaderTest>();
 		// -------------------------------------------
 
-		//m_LoadingScreen = m_ResourceMap->addResource<Level>(FileLocations::levelLocation(false) + "loadingScreen.json");
+		m_EngineSettings = m_ResourceMap->addResource<EngineSettings>("settings.json", false);
+		//loadLevel(m_EngineSettings->getData().mainMenu, false);
+		
+		// Apply Engine Settings
+		m_Display->setDisplaySettings(m_EngineSettings->getData().displaySettings);
 
 		// Initialize the applications resources
 		init();
@@ -84,7 +87,9 @@ namespace Makeshift
 		DEBUG_INFO("Engine was active for '{}s'", Time::getElapsed());
 
 		// Shut-Down ---------------------------------
+		EngineSettings::saveEngineSettings("settings.json", m_EngineSettings->getData().mainMenu, m_Display->getDisplaySettings());
 		m_Display->closeDisplay();
+
 
 
 	}

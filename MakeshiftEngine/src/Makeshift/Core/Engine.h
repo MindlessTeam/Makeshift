@@ -9,6 +9,8 @@
 #include "Makeshift/Resource/ResourceMap.h"
 #include "Makeshift/Level/Level.h"
 
+#include "EngineSettings.h"
+
 #include "Time.h"
 
 #include <memory>
@@ -121,6 +123,9 @@ namespace Makeshift
 		std::shared_ptr<Display> m_Display;
 		std::shared_ptr<ResourceMap> m_ResourceMap;
 		std::shared_ptr<Level> m_ActiveLevel;
+
+	private:
+		std::shared_ptr<EngineSettings> m_EngineSettings;
 
 	private:
 		int m_CurrentSaveGame = 0; // 0 means inactive / quicksave

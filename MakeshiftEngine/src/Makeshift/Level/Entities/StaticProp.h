@@ -7,6 +7,9 @@
 
 #include <Makeshift/Level/Entity.h>
 
+#include "Makeshift/Resource/Resources/Mesh.h"
+#include "Makeshift/Resource/Resources/Material.h"
+
 namespace Makeshift
 {
 
@@ -36,7 +39,8 @@ namespace Makeshift
 		void onDisable() override {}
 
 	private: // Resources
-		
+		std::shared_ptr<Mesh> m_Mesh;
+		std::shared_ptr<Material> m_Material;
 
 	};
 

@@ -18,14 +18,17 @@ namespace Makeshift
 
 	std::map<std::string, std::function<std::shared_ptr<Entity>()>> EntityRegistry::s_EntityRegistry;
 
-	std::shared_ptr<Entity> EntityRegistry::createEntity(std::string name)
+	std::shared_ptr<Entity> EntityRegistry::createEntity(const std::string& name)
 	{
+		DEBUG_TRACE("Makeshift::EntityRegistry::createEntity()");
 
 		auto entity = s_EntityRegistry.find(name);
 		if (entity != s_EntityRegistry.end())
 		{
 			return std::dynamic_pointer_cast<Entity>((entity->second)());
 		}
+
+		DEBUG_WARN("Couldn't create Entity of type '{}'. Entity is not registered!", name);
 
 	}
 
@@ -55,6 +58,7 @@ namespace Makeshift
 
 	void Level::update()
 	{
+		DEBUG_TRACE("Makeshift::Level::update()");
 
 		for each (auto entity in m_EntityMap)
 		{
@@ -72,7 +76,7 @@ namespace Makeshift
 		const Json::Value& entities = root["Entities"];
 		if (entities.isNull())
 		{
-			DEBUG_WARN("Loading empty level");
+			DEBUG_WARN("Loading empty level!");
 			return;
 		}
 
@@ -163,7 +167,7 @@ namespace Makeshift
 		Json::CharReaderBuilder reader;
 		std::string errors;
 	
-		DEBUG_INFO("Parsing Level-Data from JSON...", loadLocation);
+		DEBUG_INFO("Parsing Level-Data from JSON...");
 	
 		Json::Value root;
 	
@@ -175,6 +179,8 @@ namespace Makeshift
 		}
 	
 		file.close();
+
+		//TODO: Load Save Data
 	}
 	
 	void Level::saveSaveData()
@@ -187,7 +193,7 @@ namespace Makeshift
 	
 		Json::Value root;
 	
-		root["AssociatedLevel"] = m_LevelName;
+		root["Associated Level"] = m_LevelName;
 	
 		Json::Value entities;
 		for (const auto& entity : m_EntityMap)

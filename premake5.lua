@@ -58,7 +58,8 @@ project "MakeshiftEngine"
 	links
 	{
 		"opengl32",
-		"glfw3.lib"
+		"glfw3.lib",
+		"freetype.lib"
 	}
 
 	prebuildcommands

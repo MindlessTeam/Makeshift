@@ -43,6 +43,9 @@ namespace Makeshift
 		// Inherited via Resource
 		virtual void loadJson(Json::Value value) override;
 
+	public:
+		static void saveShader(const std::string& location, const std::string& vertexCode, const std::string& fragmentCode);
+
 	private:
 		Data m_Data;
 

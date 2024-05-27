@@ -7,6 +7,9 @@
 
 #include "Makeshift/Core/Event.h"
 
+
+struct ImFont; //Forward-Decl
+
 namespace Makeshift
 {
 
@@ -21,7 +24,9 @@ namespace Makeshift
 
 	public:
 		static float getFontSize() { return s_FontSizeDefault * s_UISizeModifier; }
+		static float getIconFontSize() { return s_IconFontSizeDefault * s_UISizeModifier; }
 		static float getUISizeModifier() { return s_UISizeModifier; }
+		static ImFont* getIconFont() { return s_IconFont; }
 
 		static bool isInitialized() { return s_IsInitialized; }
 
@@ -40,8 +45,10 @@ namespace Makeshift
 	private:
 		static float s_UISizeModifier;
 		static float s_FontSizeDefault;
+		static float s_IconFontSizeDefault;
 		static bool s_ResizeRequested;
 		static bool s_IsInitialized;
+		static ImFont* s_IconFont;
 
 	};
 

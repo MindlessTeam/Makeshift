@@ -28,4 +28,31 @@ namespace Makeshift
 
 	}
 
+	void Shader::saveShader(const std::string& location, const std::string& vertexCode, const std::string& fragmentCode)
+	{
+
+		Json::Value root;
+
+		root["Type"] = "Texture";
+		root["Version"]["major"] = VERSION_MAJOR;
+		root["Version"]["minor"] = VERSION_MINOR;
+		root["Version"]["patch"] = VERSION_PATCH;
+
+		root["Vertex Code"] = vertexCode;
+		root["Fragment Code"] = fragmentCode;
+
+		std::ofstream file(location);
+		if (!file.is_open())
+		{
+			DEBUG_ERROR("Failed to open file '{}' for writing!", location);
+			file.close();
+			return;
+		}
+
+		Json::StyledWriter writer;
+		file << writer.write(root);
+		file.close();
+
+	}
+
 }

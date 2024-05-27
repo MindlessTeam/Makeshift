@@ -13,6 +13,10 @@
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
+#include "Makeshift/Utility/MaterialIcons.h"
+
+#include <IconsMaterialDesign.h>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -20,9 +24,12 @@ namespace Makeshift
 {
 
 	float ImGuiRenderer::s_FontSizeDefault = 16.0f;
+	float ImGuiRenderer::s_IconFontSizeDefault = 20.0f;
 	float ImGuiRenderer::s_UISizeModifier = 1.0f;
 	bool ImGuiRenderer::s_ResizeRequested = false;
 	bool ImGuiRenderer::s_IsInitialized = false;
+
+	ImFont* ImGuiRenderer::s_IconFont;
 
 	void ImGuiRenderer::initializeImGui()
 	{
@@ -39,7 +46,32 @@ namespace Makeshift
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
-		io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + "SegUIVar.ttf").c_str(), getFontSize());
+		
+		ImFontConfig fontConfig;
+		io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + "SegUIVar.ttf").c_str(), getFontSize(), &fontConfig, io.Fonts->GetGlyphRangesDefault());
+		
+		// To be able to use Icons in normal text as well as in enlarged
+		// form for buttons, we need to add the icon font twice, once
+		// merged with the normal UI-Font and once as a seperate font that
+		// can be enabled whenever necessary. This is quite inefficient,
+		// but it works and I don't really see a reason we would need to
+		// change this.
+
+		static const ImWchar glyphRanges[] =
+		{
+			ICON_MIN_MD, ICON_MAX_16_MD, 0
+		};
+		fontConfig.OversampleH = 3;
+		fontConfig.OversampleV = 3;
+		fontConfig.PixelSnapH = true;
+		fontConfig.MergeMode = true;
+		fontConfig.GlyphMinAdvanceX = getFontSize() * 2.0f / 3.0f;
+		//fontConfig.GlyphExtraSpacing = ImVec2(5, 5);
+		io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + FONT_ICON_FILE_NAME_MD).c_str(), getFontSize() * 2.0f / 3.0f, &fontConfig, glyphRanges);
+
+		fontConfig.GlyphMinAdvanceX = getIconFontSize();
+		fontConfig.MergeMode = false;
+		s_IconFont = io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + FONT_ICON_FILE_NAME_MD).c_str(), getIconFontSize(), &fontConfig, glyphRanges);
 
 		loadFileFromDisk();
 

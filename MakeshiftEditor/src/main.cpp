@@ -21,7 +21,7 @@
 #include <GLFW/glfw3.h>
 
 #include "EditorWindows/FileBrowser.h"
-#include "EditorWindows/TextureCreator.h"
+#include "EditorWindows/TextureEditor.h"
 #include "EditorWindows/LevelMap.h"
 
 namespace MakeshiftEditor
@@ -68,6 +68,10 @@ namespace MakeshiftEditor
 					{
 						m_RenderStatistics = !m_RenderStatistics;
 					}
+					if (ImGui::MenuItem("Show IMGUI Demo Window"))
+					{
+						m_RenderImGuiDemo = !m_RenderImGuiDemo;
+					}
 					if (ImGui::MenuItem("Open Current Location"))
 					{
 
@@ -81,9 +85,9 @@ namespace MakeshiftEditor
 					{
 						m_FileBrowser.enabled = !m_FileBrowser.enabled;
 					}
-					if (ImGui::MenuItem("Texture Creator"))
+					if (ImGui::MenuItem("Texture Editor"))
 					{
-						m_TextureCreator.enabled = !m_TextureCreator.enabled;
+						m_TextureEditor.enabled = !m_TextureEditor.enabled;
 					}
 					if (ImGui::MenuItem("Level Map"))
 					{
@@ -100,6 +104,23 @@ namespace MakeshiftEditor
 
 				if (ImGui::BeginMenu("Settings"))
 				{
+					if (ImGui::MenuItem("Fullscreen"))
+					{
+						Makeshift::DisplaySettings displaySettings = Makeshift::Engine::getInstance().getDisplay()->getDisplaySettings();
+					
+						switch (displaySettings.mode)
+						{
+						case Makeshift::DisplaySettings::WINDOWED:
+							displaySettings.mode = Makeshift::DisplaySettings::FULLSCREEN;
+							break;
+						case Makeshift::DisplaySettings::FULLSCREEN:
+							displaySettings.height = Makeshift::Engine::getInstance().getDisplay()->getDisplaySettings().height - 25;
+							displaySettings.mode = Makeshift::DisplaySettings::WINDOWED;
+							break;
+						}
+					
+						Makeshift::Engine::getInstance().getDisplay()->setDisplaySettings(displaySettings);
+					}
 					if (ImGui::MenuItem("Double UI"))
 					{
 						Makeshift::ImGuiRenderer::doubleUISize();
@@ -119,8 +140,11 @@ namespace MakeshiftEditor
 			if (m_RenderStatistics)
 				renderStatistics();
 
+			if (m_RenderImGuiDemo)
+				ImGui::ShowDemoWindow(&m_RenderImGuiDemo);
+
 			m_FileBrowser.renderIMGUI();
-			m_TextureCreator.renderIMGUI();
+			m_TextureEditor.renderIMGUI();
 			m_LevelMap.renderIMGUI();
 
 			Client::renderIMGUI();
@@ -140,10 +164,12 @@ namespace MakeshiftEditor
 
 	private:
 		FileBrowser m_FileBrowser;
-		TextureCreator m_TextureCreator;
+		TextureEditor m_TextureEditor;
 		LevelMap m_LevelMap;
 
 	private:
+		bool m_RenderImGuiDemo = false;
+
 		bool m_RenderStatistics = true;
 		void renderStatistics()
 		{

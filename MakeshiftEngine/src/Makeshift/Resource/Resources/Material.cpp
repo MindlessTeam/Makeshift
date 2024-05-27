@@ -27,15 +27,18 @@ namespace Makeshift
 		const Json::Value& materialProperties = root["Material Properties"];
 		if (materialProperties.isNull())
 		{
-			DEBUG_WARN("No material properties associated with shader {}", m_Data.shader->m_Location);
+			DEBUG_WARN("No material properties associated with shader '{}'", m_Data.shader->m_Location);
 			return;
 		}
 		
 		for (const Json::Value& materialProperty : materialProperties)
 		{
 
-			//TODO: Material Property Implementation
+			std::shared_ptr<MaterialProperty> property = MaterialPropertyRegistry::createMaterialProperty(materialProperty["Type"].asString());
+			property->deSerialize(materialProperty);
 			
+			m_Data.materialProperties.push_back(property);
+		
 		}
 
 	}

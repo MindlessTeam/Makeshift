@@ -146,7 +146,7 @@ namespace Makeshift
 		//
 		// Returns:
 		// - a shared_ptr to the created Entity
-		static std::shared_ptr<Entity> createEntity(std::string name);
+		static std::shared_ptr<Entity> createEntity(const std::string& name);
 
 	private:
 		static std::map<std::string, std::function<std::shared_ptr<Entity>()>> s_EntityRegistry;

@@ -31,7 +31,15 @@ namespace Makeshift::OpenGL
 
 		enum TextureFiltering
 		{
+			LINEAR,
+			NEAREST_NEIGHBOUR
+		};
 
+		enum TextureWrapping
+		{
+			REPEAT,
+			REPEAT_REVERSED,
+			CLAMP
 		};
 
 	public:
