@@ -3,6 +3,7 @@
 Makeshift is an adventure into the world of 3d-graphics (my 23rd adventure to be precise) with the goal to create a functional 3d game engine with an Editor. I want to bring the engine to a point where I can use it to produce a teenie tiny game.
 
 ## Architecture
+
 *(Basic)*
 
 ![EngineArchitecture](https://user-images.githubusercontent.com/82168319/215982333-34038078-1cd6-4fab-abd8-b83dda50e119.png)
@@ -20,7 +21,9 @@ Because Makeshift is a project intended for learning and I am in no way an exper
 ## Third-Party
 
 Makeshift uses the following third-party libraries. Their respective licenses can be found in `licensing\`.
+
 - premake *(build program)*
+- glad *(openGL headers)*
 - GLFW *(window handling)*
 - glm *(maths)*
 - imgui *(editor and debug UI)*

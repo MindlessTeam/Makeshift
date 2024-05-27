@@ -18,6 +18,16 @@ workspace "MakeshiftSDK"
 
 ---------------------------------------------------
 
+group "Dependencies"
+	include "dependencies/imgui/imgui"
+	include "dependencies/jsoncpp"
+	include "dependencies/spdlog"
+	include "dependencies/glad"
+group ""
+
+---------------------------------------------------
+
+group "Core"
 project "MakeshiftEngine"
 	filename "Engine"
 	location "MakeshiftEngine"
@@ -35,31 +45,36 @@ project "MakeshiftEngine"
 	{
 		"MakeshiftEngine/src/**.cpp",
 		"MakeshiftEngine/src/**.hpp",
-		"MakeshiftEngine/src/**.h",
-		"MakeshiftEngine/dependencies/**.c",
-		"MakeshiftEngine/dependencies/**.h",
-		"MakeshiftEngine/dependencies/**.cpp",
-		"MakeshiftEngine/dependencies/**.hpp",
-		"MakeshiftEngine/dependencies/**.inl"
+		"MakeshiftEngine/src/**.h"
 	}
 
 	includedirs
 	{
 		"MakeshiftEngine/src",
-		"%{wks.location}/dependencies/include",
-		"%{wks.location}/dependencies/include/imgui"
+		"%{wks.location}/dependencies/glad/include",
+		"%{wks.location}/dependencies/imgui",
+		"%{wks.location}/dependencies/glm",
+		"%{wks.location}/dependencies/glfw/include",
+		"%{wks.location}/dependencies/IconFontCppHeaders",
+		"%{wks.location}/dependencies/jsoncpp/include",
+		"%{wks.location}/dependencies/spdlog/include",
+		"%{wks.location}/dependencies/tinyobjloader/include"
 	}
 
 	libdirs
 	{
-		"%{wks.location}/dependencies/lib"
+		"%{wks.location}/dependencies/freetype/release static/vs2015-2022/win64"
 	}
 
 	links
 	{
 		"opengl32",
-		"glfw3.lib",
-		"freetype.lib"
+		"freetype.lib",
+		"GLFW",
+		"ImGui",
+		"Json",
+		"spdlog",
+		"Glad"
 	}
 
 	prebuildcommands
@@ -89,6 +104,7 @@ project "MakeshiftEngine"
 
 ---------------------------------------------------
 
+group ""
 project "MakeshiftClient"
 	filename "Client"
 	location "MakeshiftClient"
@@ -109,9 +125,7 @@ project "MakeshiftClient"
 	includedirs
 	{
 		"MakeshiftClient/src",
-		"%{wks.location}/MakeshiftEngine/src",
-		"%{wks.location}/dependencies/include",
-		"%{wks.location}/dependencies/include/imgui"
+		"%{wks.location}/MakeshiftEngine/src"
 	}
 
 	files 
@@ -149,6 +163,7 @@ project "MakeshiftClient"
 
 ---------------------------------------------------
 
+group "Core"
 project "MakeshiftApplication"
 	filename "App"
 	location "MakeshiftApplication"
@@ -165,7 +180,14 @@ project "MakeshiftApplication"
 	includedirs
 	{
 		"MakeshiftApplication/src",
-		"%{wks.location}/dependencies/include",
+		"%{wks.location}/dependencies/glad",
+		"%{wks.location}/dependencies/imgui",
+		"%{wks.location}/dependencies/glm",
+		"%{wks.location}/dependencies/glfw/include",
+		"%{wks.location}/dependencies/IconFontCppHeaders",
+		"%{wks.location}/dependencies/jsoncpp/include",
+		"%{wks.location}/dependencies/spdlog/include",
+		"%{wks.location}/dependencies/tinyobjloader/include",
 		"%{wks.location}/MakeshiftClient/src",
 		"%{wks.location}/MakeshiftEngine/src"
 	}
@@ -216,7 +238,14 @@ project "MakeshiftEditor"
 	includedirs
 	{
 		"MakeshiftEditor/src",
-		"%{wks.location}/dependencies/include",
+		"%{wks.location}/dependencies/glad",
+		"%{wks.location}/dependencies/imgui",
+		"%{wks.location}/dependencies/glm",
+		"%{wks.location}/dependencies/glfw/include",
+		"%{wks.location}/dependencies/IconFontCppHeaders",
+		"%{wks.location}/dependencies/jsoncpp/include",
+		"%{wks.location}/dependencies/spdlog/include",
+		"%{wks.location}/dependencies/tinyobjloader/include",
 		"%{wks.location}/MakeshiftClient/src",
 		"%{wks.location}/MakeshiftEngine/src"
 	}
@@ -248,3 +277,5 @@ project "MakeshiftEditor"
 		defines { "CFG_RELEASE" }
 		symbols "Off"
 		optimize "On"
+
+group ""
