@@ -10,6 +10,8 @@
 
 #include <spdlog/spdlog.h>
 
+#include "Makeshift/Core/Event.h"
+
 namespace Makeshift
 {
 
@@ -31,8 +33,12 @@ namespace Makeshift
 		// directly. Use the Macros!
 		static std::shared_ptr<spdlog::logger> getLogger() { return s_Logger; }
 
+		static Event<std::string> onLogEvent;
+
 	private:
 		static std::shared_ptr<spdlog::logger> s_Logger;
+
+		static void logCallback(const spdlog::details::log_msg& msg);
 
 
 	};
@@ -152,7 +158,7 @@ namespace Makeshift
 //NOTE: Only use where absoluetely necessary! (see Log.h for more Info)
 #define DEBUG_FATAL(...) Makeshift::Log::getLogger()->log(spdlog::level::critical, __VA_ARGS__); Makeshift::Log::getLogger()->flush(); throw(std::runtime_error("FATAL ERROR"));
 
-#elif CFG_PRE_RELEASE
+#elif CFG_PRERELEASE
 
 #define DEBUG_TRACE(...)
 #define DEBUG_INFO(...)

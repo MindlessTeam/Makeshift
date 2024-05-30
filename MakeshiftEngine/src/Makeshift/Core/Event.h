@@ -14,7 +14,6 @@ namespace Makeshift
 	// Event
 	// ---------------------------------------------
 	// A basic implementation of an Event System.
-	//NOTE: Currently unused.
 	template<typename... Args>
 	class Event
 	{
@@ -28,7 +27,7 @@ namespace Makeshift
 			}
 		}
 
-		void subscribe(const std::function<void()>& callback)
+		void subscribe(const std::function<void(Args...)>& callback)
 		{
 			m_Callbacks.push_back(callback);
 		}

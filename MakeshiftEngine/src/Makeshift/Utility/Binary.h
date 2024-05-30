@@ -20,7 +20,9 @@ namespace Makeshift
 		{
 
 			//TODO: Implement Base64 En- and Decoding (Could be useful for Texture Data storage)
+			// UNIMPLEMENTED!!!
 			static std::string encodeBase64(const std::vector<unsigned char>& data);
+			// UNIMPLEMENTED!!!
 			static std::vector<unsigned char> decodeBase64(const std::string& data);
 
 		};

@@ -2,13 +2,13 @@ echo ------ Copy Project Content started ------
 
 echo off
 
-set src=%~dp0\..\Project\content
-set dst0=%~dp0\..\out\bin\Debug-windows-x86_64\MakeshiftApplication\content
-set dst1=%~dp0\..\out\bin\Debug-windows-x86_64\MakeshiftEditor\content
-set dst2=%~dp0\..\out\bin\PreRelease-windows-x86_64\MakeshiftApplication\content
-set dst3=%~dp0\..\out\bin\PreRelease-windows-x86_64\MakeshiftEditor\content
-set dst4=%~dp0\..\out\bin\Release-windows-x86_64\MakeshiftApplication\content
-set dst5=%~dp0\..\out\bin\Release-windows-x86_64\MakeshiftEditor\content
+set src=%~dp0\..\Project
+set dst0=%~dp0\..\out\bin\Debug-windows-x86_64\MakeshiftApplication
+set dst1=%~dp0\..\out\bin\Debug-windows-x86_64\MakeshiftEditor
+set dst2=%~dp0\..\out\bin\PreRelease-windows-x86_64\MakeshiftApplication
+set dst3=%~dp0\..\out\bin\PreRelease-windows-x86_64\MakeshiftEditor
+set dst4=%~dp0\..\out\bin\Release-windows-x86_64\MakeshiftApplication
+set dst5=%~dp0\..\out\bin\Release-windows-x86_64\MakeshiftEditor
 
 del /s /q %~dp0\..\out\include\
 

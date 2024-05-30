@@ -23,6 +23,7 @@
 #include "EditorWindows/FileBrowser.h"
 #include "EditorWindows/TextureEditor.h"
 #include "EditorWindows/LevelMap.h"
+#include "EditorWindows/Console.h"
 
 namespace MakeshiftEditor
 {
@@ -146,6 +147,7 @@ namespace MakeshiftEditor
 			m_FileBrowser.renderIMGUI();
 			m_TextureEditor.renderIMGUI();
 			m_LevelMap.renderIMGUI();
+			m_Console.renderIMGUI();
 
 			Client::renderIMGUI();
 
@@ -166,6 +168,7 @@ namespace MakeshiftEditor
 		FileBrowser m_FileBrowser;
 		TextureEditor m_TextureEditor;
 		LevelMap m_LevelMap;
+		Console m_Console;
 
 	private:
 		bool m_RenderImGuiDemo = false;

@@ -10,7 +10,7 @@
 
 #include <filesystem>
 
-namespace MakeshiftEditor::Util
+namespace MakeshiftEditor
 {
 
 	std::string Explorer::getFilePath()

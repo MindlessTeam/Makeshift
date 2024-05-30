@@ -1,0 +1,19 @@
+{
+   "Levels" : {
+      "MainMenu" : ""
+   },
+   "Settings" : {
+      "Display" : {
+         "Height" : 720,
+         "Mode" : 1,
+         "VSync" : true,
+         "Width" : 1280
+      }
+   },
+   "Type" : "EngineSettings",
+   "Version" : {
+      "major" : 0,
+      "minor" : 0,
+      "patch" : 1
+   }
+}

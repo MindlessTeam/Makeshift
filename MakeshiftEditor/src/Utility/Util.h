@@ -39,6 +39,7 @@ namespace MakeshiftEditor
 		// - Amount of vertical window space required to display x amount of lines
 		static float getRequiredVerticalTextSize(int lines, bool icon = false);
 
+
 	};
 
 }

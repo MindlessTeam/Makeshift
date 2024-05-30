@@ -7,6 +7,8 @@
 
 // Should this be in Makeshift/Core?
 
+struct GLFWwindow; //Forward-Decl
+
 namespace Makeshift
 {
 
@@ -15,6 +17,12 @@ namespace Makeshift
 	// Class for handling game input.
 	class Input
 	{
+
+	public:
+		// Input::init()
+		// -----------------------------------------
+		// Registers Callbacks for input handling.
+		static void init();
 
 	public:
 		// Input::pollInput()
@@ -27,6 +35,9 @@ namespace Makeshift
 		// I first have to think of a structure for this system,
 		// I'd quite like to support Mouse, Keyboard, and
 		// Controllers with one understandable(!) system.
+
+	private:
+		static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 	};
 

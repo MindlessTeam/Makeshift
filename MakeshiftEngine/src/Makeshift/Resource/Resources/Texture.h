@@ -82,10 +82,28 @@ namespace Makeshift
 		// 
 		// Parameters:
 		// - location: the file location (.png)
+		// - out width: width of the image
+		// - out height: height of the image
+		// - out textureFormat: format of the image
 		//
 		// Returns:
 		// - a vector of unsigned char representing the bytes of the image data
 		static std::vector<unsigned char> loadImageData(const std::string& location, int& width, int& height, OpenGL::Texture::TextureFormat& textureFormat);
+
+		// Texture::loadImageData()
+		// -----------------------------------------
+		// Loads an image file. Forces the texture format
+		// regardless of the image.
+		// 
+		// Parameters:
+		// - location: the file location (.png)
+		// - out width: width of the image
+		// - out height: height of the image
+		// - out textureFormat: format of the image
+		//
+		// Returns:
+		// - a vector of unsigned char representing the bytes of the image data
+		//static std::vector<unsigned char> loadImageData(const std::string& location, int& width, int& height, OpenGL::Texture::TextureFormat textureFormat);
 
 		// Texture::createCheckerTexture()
 		// -----------------------------------------

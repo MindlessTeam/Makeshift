@@ -41,6 +41,7 @@ namespace Makeshift
 
 		// Initialization ----------------------------
 		m_Display->createDisplay();
+		Input::init();
 
 		float DPI;
 		glfwGetMonitorContentScale(glfwGetPrimaryMonitor(), &DPI, nullptr);
