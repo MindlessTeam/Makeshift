@@ -24,6 +24,7 @@ namespace MakeshiftEditor
 
 	void FileBrowser::renderIMGUI()
 	{
+		DEBUG_TRACE("MakeshiftEditor::FileBrowser::renderIMGUI()");
 
 		if (!enabled)
 			return;
@@ -56,7 +57,7 @@ namespace MakeshiftEditor
 
 		// A bit of styling
 		ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, itemRounding);
-		ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.14f / 1.5f, 0.16f / 1.5f, 0.22f / 1.5f, 1.00f));
+		ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(ImVec4(1.00f, 1.00f, 1.00f, 0.14f)));
 		
 		// Reused values to clean up the code a bit
 		ImVec2 itemSize = ImVec2(cellSize, cellSize + Util::getRequiredVerticalTextSize(2));
@@ -242,14 +243,9 @@ namespace MakeshiftEditor
 		}
 		else
 		{
-			// Style the button to look disabled
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.31f, 0.35f, 0.43f, 1.00f));
-			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.31f, 0.35f, 0.43f, 1.00f));
-			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.31f, 0.35f, 0.43f, 1.00f));
-
+			ImGui::BeginDisabled(true);
 			ImGui::Button("< ##ReturnToPrevious", ImVec2(Util::getRequiredVerticalTextSize(1), Util::getRequiredVerticalTextSize(1)));
-
-			ImGui::PopStyleColor(3);
+			ImGui::EndDisabled();
 		}
 
 		float textSize = 150 * Makeshift::ImGuiRenderer::getUISizeModifier();

@@ -17,6 +17,7 @@ namespace MakeshiftEditor
 
 	void Console::renderIMGUI()
 	{
+		DEBUG_TRACE("MakeshiftEditor::Console::renderIMGUI()");
 
 		if (s_Instance == nullptr)
 		{

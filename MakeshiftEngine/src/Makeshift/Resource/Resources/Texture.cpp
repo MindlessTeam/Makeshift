@@ -167,14 +167,60 @@ namespace Makeshift
 			break;
 		}
 
-		return std::vector<unsigned char>();
+		std::vector<unsigned char> data(imageData, imageData + (width * height * channels));
+
+		stbi_image_free(imageData);
+
+		return data;
 
 	}
 
 	std::vector<unsigned char> Texture::createCheckerTexture(int resolution, glm::vec4 colourA, glm::vec4 colourB)
 	{
 		
+		//TODO: 
 		return std::vector<unsigned char>();
+
+	}
+
+	void Texture::splitImageDataIntoChannels(std::vector<unsigned char>& completeData, OpenGL::Texture::TextureFormat format, std::vector<unsigned char>& redData, std::vector<unsigned char>& greenData, std::vector<unsigned char>& blueData, std::vector<unsigned char>& alphaData)
+	{
+
+		redData.clear();
+		greenData.clear();
+		blueData.clear();
+		alphaData.clear();
+
+		switch (format)
+		{
+		case OpenGL::Texture::TextureFormat::SINGLE_CHANNEL:
+			redData = completeData;
+			break;
+		case OpenGL::Texture::TextureFormat::RGB:
+			redData.clear();
+			greenData.clear();
+			blueData.clear();
+			for (size_t i = 0; i < completeData.size(); i += 3)
+			{
+				redData.push_back(completeData[i]);
+				greenData.push_back(completeData[i + 1]);
+				blueData.push_back(completeData[i + 2]);
+			}
+			break;
+		case OpenGL::Texture::TextureFormat::RGBA:
+			redData.clear();
+			greenData.clear();
+			blueData.clear();
+			alphaData.clear();
+			for (size_t i = 0; i < completeData.size(); i += 4)
+			{
+				redData.push_back(completeData[i]);
+				greenData.push_back(completeData[i + 1]);
+				blueData.push_back(completeData[i + 2]);
+				alphaData.push_back(completeData[i + 3]);
+			}
+			break;
+		}
 
 	}
 

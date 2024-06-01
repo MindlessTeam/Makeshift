@@ -15,7 +15,7 @@
 
 #include "Makeshift/Utility/MaterialIcons.h"
 
-#include <IconsMaterialDesign.h>
+#include <IconsMaterialSymbols.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -50,6 +50,18 @@ namespace Makeshift
 		ImFontConfig fontConfig;
 		io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + "SegUIVar.ttf").c_str(), getFontSize(), &fontConfig, io.Fonts->GetGlyphRangesDefault());
 		
+		static const ImWchar glyphRanges[] =
+		{
+			ICON_MIN_MS, ICON_MAX_16_MS, 0
+		};
+		fontConfig.OversampleH = 3;
+		fontConfig.OversampleV = 3;
+		fontConfig.PixelSnapH = true;
+		fontConfig.MergeMode = true;
+		fontConfig.GlyphMinAdvanceX = getIconFontSize();
+		fontConfig.GlyphOffset = ImVec2(0, 4 * getUISizeModifier());
+		fontConfig.GlyphExtraSpacing = ImVec2(0, 5);
+		io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + FONT_ICON_FILE_NAME_MSR).c_str(), getIconFontSize(), &fontConfig, glyphRanges);
 		// To be able to use Icons in normal text as well as in enlarged
 		// form for buttons, we need to add the icon font twice, once
 		// merged with the normal UI-Font and once as a seperate font that
@@ -57,21 +69,11 @@ namespace Makeshift
 		// but it works and I don't really see a reason we would need to
 		// change this.
 
-		static const ImWchar glyphRanges[] =
-		{
-			ICON_MIN_MD, ICON_MAX_16_MD, 0
-		};
-		fontConfig.OversampleH = 3;
-		fontConfig.OversampleV = 3;
-		fontConfig.PixelSnapH = true;
-		fontConfig.MergeMode = true;
-		fontConfig.GlyphMinAdvanceX = getFontSize() * 2.0f / 3.0f;
-		//fontConfig.GlyphExtraSpacing = ImVec2(5, 5);
-		io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + FONT_ICON_FILE_NAME_MD).c_str(), getFontSize() * 2.0f / 3.0f, &fontConfig, glyphRanges);
 
 		fontConfig.GlyphMinAdvanceX = getIconFontSize();
+		fontConfig.GlyphOffset = ImVec2(0, 0);
 		fontConfig.MergeMode = false;
-		s_IconFont = io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + FONT_ICON_FILE_NAME_MD).c_str(), getIconFontSize(), &fontConfig, glyphRanges);
+		s_IconFont = io.Fonts->AddFontFromFileTTF((FileLocations::fontLocation() + FONT_ICON_FILE_NAME_MSR).c_str(), getIconFontSize(), &fontConfig, glyphRanges);
 
 		loadFileFromDisk();
 
@@ -79,75 +81,95 @@ namespace Makeshift
 
 		ImGui::StyleColorsDark();
 
-		ImGui::GetStyle().WindowPadding = ImVec2(4 * s_UISizeModifier, 5 * s_UISizeModifier);
-		ImGui::GetStyle().FramePadding = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
-		ImGui::GetStyle().CellPadding = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
-		ImGui::GetStyle().ItemSpacing = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
-		ImGui::GetStyle().ItemInnerSpacing = ImVec2(4 * s_UISizeModifier, 4 * s_UISizeModifier);
-		ImGui::GetStyle().TouchExtraPadding = ImVec2(2, 2);
+		ImGui::GetStyle().WindowPadding = ImVec2(0, 0);
+		ImGui::GetStyle().FramePadding = ImVec2(5 * getUISizeModifier(), 5*getUISizeModifier());
+		ImGui::GetStyle().CellPadding = ImVec2(0, 0);
+		ImGui::GetStyle().ItemSpacing = ImVec2(0, 0);
+		ImGui::GetStyle().ItemInnerSpacing = ImVec2(5 * getUISizeModifier(), 5 * getUISizeModifier());
+		ImGui::GetStyle().TouchExtraPadding = ImVec2(0, 0);
 		ImGui::GetStyle().IndentSpacing = 30;
 		ImGui::GetStyle().ScrollbarSize = 15;
 		ImGui::GetStyle().GrabMinSize = 11;
 
 		ImGui::GetStyle().WindowBorderSize = 1;
 		ImGui::GetStyle().ChildBorderSize = 0;
-		ImGui::GetStyle().PopupBorderSize = 0;
+		ImGui::GetStyle().PopupBorderSize = 1;
 		ImGui::GetStyle().FrameBorderSize = 0;
-		ImGui::GetStyle().TabBorderSize = 0;
+		ImGui::GetStyle().TabBorderSize = 1;
 
 		ImGui::GetStyle().WindowRounding = 5;
-		ImGui::GetStyle().ChildRounding = 0;
-		ImGui::GetStyle().FrameRounding = 2;
-		ImGui::GetStyle().PopupRounding = 0;
+		ImGui::GetStyle().ChildRounding = 5;
+		ImGui::GetStyle().FrameRounding = 1;
+		ImGui::GetStyle().PopupRounding = 2;
 		ImGui::GetStyle().ScrollbarRounding = 1;
 		ImGui::GetStyle().GrabRounding = 2;
 		ImGui::GetStyle().LogSliderDeadzone = 2;
 		ImGui::GetStyle().TabRounding = 2;
 
-		ImGui::GetStyle().WindowTitleAlign = ImVec2(0, 0.5f);
-		ImGui::GetStyle().ButtonTextAlign = ImVec2(0, 0.5f);
+		ImGui::GetStyle().WindowTitleAlign = ImVec2(0.5f, 0.5f);
+		ImGui::GetStyle().ButtonTextAlign = ImVec2(0.5f, 0.5f);
 		ImGui::GetStyle().SelectableTextAlign = ImVec2(0, 0);
 
 		ImGui::GetStyle().DisplaySafeAreaPadding = ImVec2(3, 1);
 
-		ImVec4* colours = ImGui::GetStyle().Colors;
-		colours[ImGuiCol_TextDisabled] = ImVec4(0.47f, 0.47f, 0.47f, 1.00f);
-		colours[ImGuiCol_WindowBg] = ImVec4(0.14f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_PopupBg] = ImVec4(0.17f, 0.19f, 0.24f, 1.00f);
-		colours[ImGuiCol_Border] = ImVec4(1.00f, 1.00f, 1.00f, 0.20f);
-		colours[ImGuiCol_FrameBg] = ImVec4(0.31f, 0.35f, 0.44f, 1.00f);
-		colours[ImGuiCol_FrameBgHovered] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_FrameBgActive] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_TitleBg] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_TitleBgActive] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_TitleBgCollapsed] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_MenuBarBg] = ImVec4(0.31f, 0.35f, 0.44f, 1.00f);
-		colours[ImGuiCol_ScrollbarBg] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_ScrollbarGrab] = ImVec4(0.31f, 0.35f, 0.43f, 1.00f);
-		colours[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_CheckMark] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_SliderGrab] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_SliderGrabActive] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_Button] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_ButtonHovered] = ImVec4(0.83f, 0.26f, 0.34f, 1.00f);
-		colours[ImGuiCol_ButtonActive] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_Header] = ImVec4(0.31f, 0.35f, 0.43f, 1.00f);
-		colours[ImGuiCol_HeaderHovered] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_HeaderActive] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_Separator] = ImVec4(0.61f, 0.61f, 0.61f, 1.00f);
-		colours[ImGuiCol_SeparatorHovered] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_SeparatorActive] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_ResizeGrip] = ImVec4(0.31f, 0.35f, 0.44f, 1.00f);
-		colours[ImGuiCol_ResizeGripHovered] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_ResizeGripActive] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
-		colours[ImGuiCol_Tab] = ImVec4(0.13f / 2, 0.16f / 2, 0.22f / 2, 1.00f);
-		colours[ImGuiCol_TabHovered] = ImVec4(0.13f * 2, 0.16f * 2, 0.22f * 2, 1.00f);
-		colours[ImGuiCol_TabActive] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_TabUnfocusedActive] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_DockingPreview] = ImVec4(0.13f, 0.16f, 0.22f, 1.00f);
-		colours[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.35f);
-		colours[ImGuiCol_NavHighlight] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
+		ImVec4* colors = ImGui::GetStyle().Colors;
+		colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 0.98f, 1.00f);
+		colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+		colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+		colors[ImGuiCol_ChildBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+		colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+		colors[ImGuiCol_Border] = ImVec4(0.43f, 0.43f, 0.50f, 0.50f);
+		colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+		colors[ImGuiCol_FrameBg] = ImVec4(1.00f, 1.00f, 1.00f, 0.00f);
+		colors[ImGuiCol_FrameBgHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.14f);
+		colors[ImGuiCol_FrameBgActive] = ImVec4(1.00f, 0.30f, 0.39f, 0.49f);
+		colors[ImGuiCol_TitleBg] = ImVec4(0.04f, 0.04f, 0.04f, 1.00f);
+		colors[ImGuiCol_TitleBgActive] = ImVec4(0.04f, 0.04f, 0.04f, 1.00f);
+		colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.00f, 0.00f, 0.00f, 0.51f);
+		colors[ImGuiCol_MenuBarBg] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+		colors[ImGuiCol_ScrollbarBg] = ImVec4(0.02f, 0.02f, 0.02f, 0.00f);
+		colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.41f, 0.41f, 0.41f, 1.00f);
+		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.51f, 0.51f, 0.51f, 1.00f);
+		colors[ImGuiCol_CheckMark] = ImVec4(1.00f, 0.30f, 0.39f, 1.00f);
+		colors[ImGuiCol_SliderGrab] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+		colors[ImGuiCol_SliderGrabActive] = ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+		colors[ImGuiCol_Button] = ImVec4(1.00f, 1.00f, 1.00f, 0.00f);
+		colors[ImGuiCol_ButtonHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.14f);
+		colors[ImGuiCol_ButtonActive] = ImVec4(1.00f, 0.30f, 0.39f, 0.49f);
+		colors[ImGuiCol_Header] = ImVec4(1.00f, 1.00f, 1.00f, 0.00f);
+		colors[ImGuiCol_HeaderHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.14f);
+		colors[ImGuiCol_HeaderActive] = ImVec4(1.00f, 0.30f, 0.39f, 0.49f);
+		colors[ImGuiCol_Separator] = ImVec4(1.00f, 1.00f, 1.00f, 0.49f);
+		colors[ImGuiCol_SeparatorHovered] = ImVec4(0.96f, 0.30f, 0.39f, 0.49f);
+		colors[ImGuiCol_SeparatorActive] = ImVec4(0.96f, 0.30f, 0.39f, 1.00f);
+		colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.39f);
+		colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.59f);
+		colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 0.30f, 0.39f, 1.00f);
+		colors[ImGuiCol_Tab] = ImVec4(1.00f, 0.30f, 0.39f, 0.49f);
+		colors[ImGuiCol_TabHovered] = ImVec4(1.00f, 0.30f, 0.39f, 1.00f);
+		colors[ImGuiCol_TabActive] = ImVec4(1.00f, 0.30f, 0.39f, 1.00f);
+		colors[ImGuiCol_TabUnfocused] = ImVec4(1.00f, 0.30f, 0.39f, 0.49f);
+		colors[ImGuiCol_TabUnfocusedActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.31f);
+		colors[ImGuiCol_DockingPreview] = ImVec4(1.00f, 1.00f, 1.00f, 0.49f);
+		colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+		colors[ImGuiCol_PlotLines] = ImVec4(0.61f, 0.61f, 0.61f, 1.00f);
+		colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 1.00f);
+		colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+		colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
+		colors[ImGuiCol_TableHeaderBg] = ImVec4(0.19f, 0.19f, 0.20f, 1.00f);
+		colors[ImGuiCol_TableBorderStrong] = ImVec4(0.31f, 0.31f, 0.35f, 1.00f);
+		colors[ImGuiCol_TableBorderLight] = ImVec4(0.23f, 0.23f, 0.25f, 1.00f);
+		colors[ImGuiCol_TableRowBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+		colors[ImGuiCol_TableRowBgAlt] = ImVec4(1.00f, 1.00f, 1.00f, 0.06f);
+		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.26f, 0.59f, 0.98f, 0.35f);
+		colors[ImGuiCol_DragDropTarget] = ImVec4(1.00f, 0.38f, 0.35f, 0.49f);
+		colors[ImGuiCol_NavHighlight] = ImVec4(0.26f, 0.59f, 0.98f, 1.00f);
+		colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 1.00f, 1.00f, 0.70f);
+		colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.20f);
+		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.80f, 0.80f, 0.80f, 0.35f);
+
+
 
 
 		GLFWwindow* window = Makeshift::Engine::getInstance().getDisplay()->getNativeWindow();

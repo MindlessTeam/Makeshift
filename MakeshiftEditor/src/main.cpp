@@ -24,6 +24,7 @@
 #include "EditorWindows/TextureEditor.h"
 #include "EditorWindows/LevelMap.h"
 #include "EditorWindows/Console.h"
+#include "EditorWindows/UITestBench.h"
 
 namespace MakeshiftEditor
 {
@@ -135,7 +136,7 @@ namespace MakeshiftEditor
 			
 				ImGui::EndMainMenuBar();
 			}
-			
+
 			//ImGui::End();
 
 			if (m_RenderStatistics)
@@ -148,6 +149,7 @@ namespace MakeshiftEditor
 			m_TextureEditor.renderIMGUI();
 			m_LevelMap.renderIMGUI();
 			m_Console.renderIMGUI();
+			m_UITest.renderIMGUI();
 
 			Client::renderIMGUI();
 
@@ -169,6 +171,7 @@ namespace MakeshiftEditor
 		TextureEditor m_TextureEditor;
 		LevelMap m_LevelMap;
 		Console m_Console;
+		UITestBench m_UITest;
 
 	private:
 		bool m_RenderImGuiDemo = false;

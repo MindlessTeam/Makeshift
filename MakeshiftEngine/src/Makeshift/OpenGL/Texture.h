@@ -43,7 +43,12 @@ namespace Makeshift::OpenGL
 		};
 
 	public:
-		Texture(const void* data, int width, int height, TextureFormat textureFormat);
+		Texture(const void* data, 
+			int width, 
+			int height, 
+			TextureFormat textureFormat = TextureFormat::RGB,
+			TextureFiltering textureFiltering = TextureFiltering::LINEAR,
+			TextureWrapping textureWrapping = TextureWrapping::REPEAT);
 		~Texture();
 
 	public:
@@ -56,6 +61,37 @@ namespace Makeshift::OpenGL
 		// -----------------------------------------
 		// Unbinds the texture.
 		void unbind() const;
+
+	public:
+		// Texture::setTextureFiltering()
+		// -----------------------------------------
+		// Changes the texture filtering of the texture.
+		// 
+		//Parameters:
+		// - textureFiltering: the target texture filtering mode
+		void setTextureFiltering(TextureFiltering textureFiltering = TextureFiltering::LINEAR);
+
+		// Texture::setTextureWrapping()
+		// Changes the texture wrapping of the texture.
+		// 
+		//Parameters:
+		// - textureWrapping: the target texture wrapping mode
+		void setTextureWrapping(TextureWrapping textureWrapping = TextureWrapping::REPEAT);
+
+		// Texture::setTextureFormat()
+		// Changes the texture format of the texture.
+		// 
+		//Parameters:
+		// - data: the image data
+		// - textureFormat: the target texture format
+		//
+		//NOTE: This recreates the OpenGL texture object. Any changes to filtering and wrapping will have to be reapplied!
+		void setTextureFormat(const void* data, 
+			int width, 
+			int height,
+			TextureFormat textureFormat = TextureFormat::RGB, 
+			TextureFiltering textureFiltering = TextureFiltering::LINEAR,
+			TextureWrapping textureWrapping = TextureWrapping::REPEAT);
 
 	public:
 		// Texture::getRenderID()

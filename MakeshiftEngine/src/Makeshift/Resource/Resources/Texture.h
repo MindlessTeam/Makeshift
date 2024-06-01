@@ -90,21 +90,6 @@ namespace Makeshift
 		// - a vector of unsigned char representing the bytes of the image data
 		static std::vector<unsigned char> loadImageData(const std::string& location, int& width, int& height, OpenGL::Texture::TextureFormat& textureFormat);
 
-		// Texture::loadImageData()
-		// -----------------------------------------
-		// Loads an image file. Forces the texture format
-		// regardless of the image.
-		// 
-		// Parameters:
-		// - location: the file location (.png)
-		// - out width: width of the image
-		// - out height: height of the image
-		// - out textureFormat: format of the image
-		//
-		// Returns:
-		// - a vector of unsigned char representing the bytes of the image data
-		//static std::vector<unsigned char> loadImageData(const std::string& location, int& width, int& height, OpenGL::Texture::TextureFormat textureFormat);
-
 		// Texture::createCheckerTexture()
 		// -----------------------------------------
 		// Creates a square pixel-by-pixel checkerboard
@@ -118,6 +103,20 @@ namespace Makeshift
 		// Returns:
 		// - a vector of unsigned char representing the bytes of the image data (in RGBA format)
 		static std::vector<unsigned char> createCheckerTexture(int resolution, glm::vec4 colourA = glm::vec4(255, 255, 255, 255), glm::vec4 colourB = glm::vec4(0, 0, 0, 0));
+
+		// Texture::splitImageDataIntoChannels()
+		// -----------------------------------------
+		// Splits a multi-channel image into its
+		// make-up.
+		//
+		// Parameters:
+		// - completeData: the data of the multi-channel image
+		// - format: the format to decompile
+		// - out redData: the first channels data
+		// - out greenData: the second channels data (if applicable)
+		// - out blueData: the third channels data (if applicable)
+		// - out alphaData: the fourth channels data (if applicable)
+		static void splitImageDataIntoChannels(std::vector<unsigned char>& completeData, OpenGL::Texture::TextureFormat format, std::vector<unsigned char>& redData, std::vector<unsigned char>& greenData, std::vector<unsigned char>& blueData, std::vector<unsigned char>& alphaData);
 
 	private:
 		// Texture::loadTextureData()

@@ -17,6 +17,7 @@ namespace MakeshiftEditor
 
 	void LevelMap::renderIMGUI()
 	{
+		DEBUG_TRACE("MakeshiftEditor::LevelMap::renderIMGUI()");
 
 		if (!enabled)
 			return;
