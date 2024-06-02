@@ -1,3 +1,8 @@
+// ----------------------------------------------
+// Copyright (c) 2022-2024 Aaron Kerker
+// MIT-Licensed: https://opensource.org/licenses/MIT
+// ----------------------------------------------
+
 #pragma once
 
 #include <imgui/imgui.h>
@@ -18,12 +23,24 @@ namespace MakeshiftEditor
 			return ImVec4(1.00f, 1.00f, 1.00f, 0.14f);
 		}
 
+		static ImVec4 LightOverlay() {
+			return ImVec4(0.14f, 0.14f, 0.14f, 1.00f);
+		}
+
+		static ImVec4 LighterOverlay() {
+			return ImVec4(0.28f, 0.28f, 0.28f, 1.00f);
+		}
+
 		static ImVec4 DarkAccent() {
 			return ImVec4(0.00f, 0.00f, 0.00f, 0.35f);
 		}
 
 		static ImVec4 DarkOverlay() {
 			return ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
+		}
+
+		static ImVec4 Transparent() {
+			return ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 		}
 
 		static float InternalWindowPaddingAxis() {

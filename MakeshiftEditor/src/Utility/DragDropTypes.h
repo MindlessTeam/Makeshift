@@ -5,20 +5,6 @@
 
 #pragma once
 
-#include <string>
-
-namespace MakeshiftEditor
-{
-
-	struct LevelMap
-	{
-
-		bool enabled = false;
-
-		void renderIMGUI();
-
-	private: // Values
-
-	};
-
-}
+#define MAKESHIFT_PAYLOAD_EXTERNAL "MS_EXTERNAL"
+#define MAKESHIFT_PAYLOAD_RESOURCE "MS_RESOURCE"
+#define MAKESHIFT_PAYLOAD_FILEPATH "MS_PATH"

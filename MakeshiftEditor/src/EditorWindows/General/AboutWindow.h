@@ -5,24 +5,24 @@
 
 #pragma once
 
-#include <string>
-
 #include "EditorWindows/EditorWindow.h"
 
 namespace MakeshiftEditor
 {
 
-	struct $itemname$ : public EditorWindow
+	// About Window
+	// ----------------------------------------------
+	// A simple about window to show some basic
+	// info about Makeshift.
+	struct AboutWindow : public EditorWindow
 	{
 
 		std::string getTitle() override
 		{
-			return "$itemname$";
+			return std::string("About");
 		}
 
 		void renderIMGUI() override;
-
-	private: // Values
 
 	};
 

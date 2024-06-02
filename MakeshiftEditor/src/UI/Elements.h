@@ -15,10 +15,15 @@ namespace MakeshiftEditor
 	{
 
 		static void Border(float thickness, ImGuiDir side, ImVec4 colour = ImVec4(1, 1, 1, 0.1f));
+		static void ItemBorder(float thickness, ImGuiDir side, ImVec4 colour = ImVec4(1, 1, 1, 0.1f));
 
 		static void ToolTip(const char* text);
 
 		static void CenteredText(const char* fmt, ...);
+
+		static bool BeginDragDropTargetWindow();
+		static bool BeginDragDropTargetWindow(const char* payloadType);
+
 
 	};
 

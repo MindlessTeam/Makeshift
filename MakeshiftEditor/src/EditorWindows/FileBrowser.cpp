@@ -6,6 +6,7 @@
 #include "FileBrowser.h"
 
 #include "Utility/Util.h"
+#include "Utility/DragDropTypes.h"
 
 #include <Makeshift/Makeshift.hpp>
 
@@ -198,12 +199,12 @@ namespace MakeshiftEditor
 				if (entry.path().extension() == ".json")
 				{
 					//PERHAPS: Don't allow dragging of "Corrupt" files.
-					ImGui::SetDragDropPayload("MAKESHIFT_RESOURCE", entry.path().string().c_str(), entry.path().string().size() + 1);
+					ImGui::SetDragDropPayload(MAKESHIFT_PAYLOAD_RESOURCE, entry.path().string().c_str(), entry.path().string().size() + 1);
 					ImGui::Text("Resource: %s", entry.path().string().c_str());
 				}
 				else
 				{
-					ImGui::SetDragDropPayload("FILE_PATH", entry.path().string().c_str(), entry.path().string().size() + 1);
+					ImGui::SetDragDropPayload(MAKESHIFT_PAYLOAD_FILEPATH, entry.path().string().c_str(), entry.path().string().size() + 1);
 					ImGui::Text("Path: %s", entry.path().string().c_str());
 				}
 				ImGui::EndDragDropSource();

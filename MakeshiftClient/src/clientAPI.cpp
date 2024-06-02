@@ -5,8 +5,6 @@
 
 #include "clientAPI.h"
 
-//#include "ShaderTest.h"
-
 #include <Makeshift/Level/Level.h>
 
 #include <Makeshift/Debug/Log.h>
@@ -23,14 +21,7 @@ CLIENT_API void Client::registerEntities()
 
 }
 
-CLIENT_API void Client::renderIMGUI()
-{
-    
-
-
-}
-
-CLIENT_API void Client::clientMenuItems()
+CLIENT_API void Client::registerEditorWindows()
 {
 
 

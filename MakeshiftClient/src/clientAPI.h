@@ -17,8 +17,6 @@ struct Client
 	static CLIENT_API void initLog();
 
 	static CLIENT_API void registerEntities();
-
-	static CLIENT_API void renderIMGUI();
-	static CLIENT_API void clientMenuItems();
+	static CLIENT_API void registerEditorWindows();
 
 };

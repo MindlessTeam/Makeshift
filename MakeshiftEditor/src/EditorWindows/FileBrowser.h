@@ -10,7 +10,7 @@
 #include <unordered_map>
 
 #include <Makeshift/Resource/Resources/Texture.h>
-#include "ContentMeta.h"
+#include "Resources/ContentMeta.h"
 
 #include <imgui/imgui.h>
 

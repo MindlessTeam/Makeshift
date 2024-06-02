@@ -21,6 +21,7 @@
 
 #include "Utility/Util.h"
 #include "Utility/Explorer.h"
+#include "Utility/DragDropTypes.h"
 
 #include "UI/Elements.h"
 #include "UI/Style.h"
@@ -40,11 +41,11 @@ namespace MakeshiftEditor
 	{
 		DEBUG_TRACE("MakeshiftEditor::TextureEditor::renderIMGUI()");
 
-		if (!enabled)
+		if (!m_Enabled)
 			return;
 
 		ImGui::SetNextWindowSize(ImVec2(750, 500), ImGuiCond_FirstUseEver);
-		ImGui::Begin("Texture Editor", &enabled);
+		ImGui::Begin("Texture Editor", &m_Enabled);
 
 		renderMenuBar();
 		renderViewSettings();
@@ -55,8 +56,24 @@ namespace MakeshiftEditor
 		renderTexturePreview();
 		renderFileInfoOverlay();
 
-		ImGui::End();
+		//if (Elements::BeginDragDropTargetWindow())
+		//{
+		//
+		//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(MAKESHIFT_PAYLOAD_RESOURCE)) 
+		//	{
+		//	}
+		//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(MAKESHIFT_PAYLOAD_EXTERNAL))
+		//	{
+		//	}
+		//	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(MAKESHIFT_PAYLOAD_FILEPATH))
+		//	{
+		//	}
+		//
+		//	ImGui::EndDragDropTarget();
+		//}
 
+
+		ImGui::End();
 
 	}
 
@@ -343,6 +360,33 @@ namespace MakeshiftEditor
 
 	void TextureEditor::loadResource()
 	{
+
+	}
+
+	void TextureEditor::clearEditor()
+	{
+
+		m_CurrentlySelectedTextureFormat = "--Select--";
+		m_CurrentlySelectedTextureFilteringMode = "--Select--";
+		m_CurrentlySelectedTextureWrappingMode = "--Select--";
+		m_CurrentlySelectedCropMode = "--Select--";
+		m_CurrentlySelectedWidth = "--Select--";
+		m_CurrentlySelectedHeight = "--Select--";
+
+		m_Texture.reset();
+		m_TextureData.clear();
+
+		m_ChannelR.reset();
+		m_RedData.clear();
+
+		m_ChannelG.reset();
+		m_GreenData.clear();
+
+		m_ChannelB.reset();
+		m_BlueData.clear();
+
+		m_ChannelA.reset();
+		m_AlphaData.clear();
 
 	}
 

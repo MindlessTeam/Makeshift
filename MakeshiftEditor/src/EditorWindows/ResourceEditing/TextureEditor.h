@@ -5,19 +5,27 @@
 
 #pragma once
 
+#include "EditorWindows/EditorWindow.h"
+
+#include <Makeshift/OpenGL/Texture.h>
+
 #include <string>
 #include <vector>
 #include <memory>
 
-#include <Makeshift/OpenGL/Texture.h>
-
 namespace MakeshiftEditor
 {
 
-	struct TextureEditor
+	// Texture Editor
+	// ----------------------------------------------
+	// An Editor Window for creating Makeshift-Textures.
+	struct TextureEditor : public EditorWindow
 	{
 
-		bool enabled = true;
+		std::string getTitle() override
+		{
+			return std::string("TextureEditor");
+		}
 
 		void renderIMGUI();
 
@@ -37,16 +45,27 @@ namespace MakeshiftEditor
 		void loadPNG();
 		void loadResource();
 
+		void exportResource();
+
+		void updateFormat();
+		void updateFiltering();
+		void updateWrapping();
+
+		void clearEditor();
+
 	private:
 		std::string m_SourceLocation;
 		std::string m_TargetLocation;
 
-		const char* m_CurrentlySelectedTextureFormat = "";
-		const char* m_CurrentlySelectedTextureFilteringMode = "";
-		const char* m_CurrentlySelectedTextureWrappingMode = "";
+		const char* m_CurrentlySelectedTextureFormat = "--Select--";
+		const char* m_CurrentlySelectedTextureFilteringMode = "--Select--";
+		const char* m_CurrentlySelectedTextureWrappingMode = "--Select--";
+		const char* m_CurrentlySelectedCropMode = "--Select--";
+		const char* m_CurrentlySelectedWidth = "--Select--";
+		const char* m_CurrentlySelectedHeight = "--Select--";
 
 	private:
-		bool m_ShowTextureSettings;
+		bool m_ShowTextureSettings = false;
 
 		// 0 = Full, 1 = R, 2 = G, 3 = B, 4 = A
 		int m_ShowTextureChannel = 0;
