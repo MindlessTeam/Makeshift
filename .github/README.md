@@ -1,5 +1,11 @@
 # MAKESHIFT
 
+![Github action status](https://github.com/MindlessTeam/Makeshift/actions/workflows/build_windows.yml/badge.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/MindlessTeam/Makeshift)
+![GitHub top language](https://img.shields.io/github/languages/top/MindlessTeam/Makeshift)
+![GitHub License](https://img.shields.io/github/license/MindlessTeam/Makeshift)
+
+
 Makeshift is an adventure into the world of 3d-graphics (my 23rd adventure to be precise) with the goal to create a functional 3d game engine with an Editor. I want to bring the engine to a point where I can use it to produce a teenie tiny game.
 
 ## Architecture
